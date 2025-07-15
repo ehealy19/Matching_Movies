@@ -1,0 +1,30 @@
+## Exploratory Data Analysis (EDA)
+```{python}
+import pandas as pd
+import numpy as np
+
+movies_df = pd.read_csv("./data/movies_with_details.csv")
+```
+
+```{python}
+variables = movies_df.columns
+print("Features of the movie:", variables.values)
+```
+
+```{python}
+movies_df['Year'] = pd.to_numeric(movies_df['Year'], errors='coerce')
+
+movies_df = movies_df[(movies_df['Year'] >= 1984) & (movies_df['Year'] <= 2024)]
+
+years = movies_df['Year']
+min_year = np.min(years)
+max_year = np.max(years)
+print("Earlist film year:", min_year)
+print("Most recent film year:", max_year)
+```
+
+```{python}
+movies = len(movies_df)
+print("Number of movies:", movies)
+```
+
