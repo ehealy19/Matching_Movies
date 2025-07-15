@@ -1,4 +1,4 @@
-# Causal Analysis of Gender Bias in Film
+# Leading Ladies and Lost Revenue: A Causal Analysis of Female Representation and Box-Office Returns
 
 #### Author: Lizzie Healy
 #### Course: Georgetown DSAN 5650 - Causal Inference for Computational Social Science
