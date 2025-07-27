@@ -8,3 +8,4 @@ dependencies:
   - csv
   - pip:
     - pandas
+    - numpy
