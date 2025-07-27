@@ -9,3 +9,5 @@ dependencies:
   - pip:
     - pandas
     - numpy
+    - transformers
+    - torch
