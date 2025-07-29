@@ -13,3 +13,4 @@ dependencies:
     - torch
     - openpyxl
     - statsmodels
+    - scikit-learn
