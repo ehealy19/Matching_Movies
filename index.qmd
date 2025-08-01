@@ -27,9 +27,6 @@ date: last-modified
 bibliography: references.bib
 citation:
   container-title: Film Data Science
-format:
-  html:
-    embed-resources: true
 number-sections: true
 jupyter: python3
 kernel: dsan5650
