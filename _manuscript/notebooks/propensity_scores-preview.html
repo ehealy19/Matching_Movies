@@ -412,23 +412,18 @@
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>movies_df[cols_to_scale] <span class="op">=</span> scaler.fit_transform(movies_df[cols_to_scale])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [108]:</pre></div><div id="8baed294" class="cell" data-execution_count="108">
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="8baed294" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Define your feature matrix X (exclude the target variable)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Female_Lead"</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Female_Lead"</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.select_dtypes(include<span class="op">=</span>[<span class="bu">float</span>, <span class="bu">int</span>])</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: If you get errors with non-numeric data, select only numeric columns</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.select_dtypes(include<span class="op">=</span>[<span class="bu">float</span>, <span class="bu">int</span>])</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create the VIF dataframe</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"feature"</span>] <span class="op">=</span> X.columns</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Print the results</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data[vif_data[<span class="st">'VIF'</span>] <span class="op">&gt;</span> <span class="dv">10</span>])  <span class="co"># Check for high VIF values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>vif_data <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"feature"</span>] <span class="op">=</span> X.columns</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>vif_data[<span class="st">"VIF"</span>] <span class="op">=</span> [variance_inflation_factor(X.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X.shape[<span class="dv">1</span>])]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vif_data[vif_data[<span class="st">'VIF'</span>] <span class="op">&gt;</span> <span class="dv">10</span>])  <span class="co"># Check for high VIF values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             feature           VIF
 7            Revenue  1.159141e+01
@@ -885,23 +880,20 @@ starpower                  0.1540      0.058      2.671      0.008       0.041  
 <h2 class="anchored" data-anchor-id="looking-at-box-office-as-the-outcome-variable">Looking at Box Office as the Outcome Variable</h2>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [114]:</pre></div><div id="975b9a56" class="cell" data-execution_count="114">
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="975b9a56" class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.rename(columns<span class="op">=</span>{<span class="st">'Box Office'</span>: <span class="st">'Box_Office'</span>})</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.reset_index().rename(columns<span class="op">=</span>{<span class="st">'index'</span>: <span class="st">'movie_idx'</span>})</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter treated villages (T == 1)</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>female_lead_df <span class="op">=</span> movies_df[movies_df[<span class="st">'Female_Lead'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Left join treated_df with village_df where treated_df.match == village_df.village_id</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>matched_df <span class="op">=</span> female_lead_df.merge(movies_df, left_on<span class="op">=</span><span class="st">'match'</span>, right_on<span class="op">=</span><span class="st">'movie_idx'</span>, how<span class="op">=</span><span class="st">'left'</span>, suffixes<span class="op">=</span>(<span class="st">'.female'</span>, <span class="st">'.male'</span>))</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(matched_df.head())</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate means for treated and control inf_mortality</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>mean_fem <span class="op">=</span> matched_df[<span class="st">'Box_Office.female'</span>].mean()</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>mean_male <span class="op">=</span> matched_df[<span class="st">'Box_Office.male'</span>].mean()</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Box Office for Female Lead: </span><span class="sc">{</span>mean_fem<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Box Office for Male Lead: </span><span class="sc">{</span>mean_male<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>female_lead_df <span class="op">=</span> movies_df[movies_df[<span class="st">'Female_Lead'</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>matched_df <span class="op">=</span> female_lead_df.merge(movies_df, left_on<span class="op">=</span><span class="st">'match'</span>, right_on<span class="op">=</span><span class="st">'movie_idx'</span>, how<span class="op">=</span><span class="st">'left'</span>, suffixes<span class="op">=</span>(<span class="st">'.female'</span>, <span class="st">'.male'</span>))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(matched_df.head())</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>mean_fem <span class="op">=</span> matched_df[<span class="st">'Box_Office.female'</span>].mean()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>mean_male <span class="op">=</span> matched_df[<span class="st">'Box_Office.male'</span>].mean()</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Box Office for Female Lead: </span><span class="sc">{</span>mean_fem<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean Box Office for Male Lead: </span><span class="sc">{</span>mean_male<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   movie_idx.female                  Title.female  Year.female  \
 0                11  Maleficent: Mistress of Evil     1.012890   

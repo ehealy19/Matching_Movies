@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-    <title>Cleaning the Data</title>
+    <title>Data Preprocessing</title>
     <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
@@ -168,7 +168,7 @@
     <div id="quarto-embed-header" class="headroom fixed-top bg-primary">
       
       <a onclick="window.quartoBackToArticle(); return false;" class="btn btn-primary quarto-back-link" href=""><i class="bi bi-caret-left"></i> Back to Article</a>
-      <h6><i class="bi bi-journal-code"></i> Cleaning the Data</h6>
+      <h6><i class="bi bi-journal-code"></i> Data Preprocessing</h6>
 
             <a href="../notebooks/data_clean.ipynb" class="btn btn-primary quarto-download-embed" download="data_clean.ipynb">Download Notebook</a>
           </div>
@@ -176,7 +176,7 @@
      <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Cleaning the Data</h1>
+      <h1 class="title">Data Preprocessing</h1>
           </div>
 
     
@@ -209,32 +209,32 @@
      <div id="c4526569" class="cell markdown">
 
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [374]:</pre></div><div id="1e0508f8" class="cell" data-execution_count="374">
+<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="1e0508f8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> pd.read_csv(<span class="st">"../data/output_data/combined_movies.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [375]:</pre></div><div id="b2c04d28" class="cell" data-execution_count="375">
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="b2c04d28" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># removing the first row (empty)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.iloc[<span class="dv">1</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [376]:</pre></div><div id="634b0469" class="cell" data-execution_count="376">
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="634b0469" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping Poster URL and overview column</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Poster URL"</span>, <span class="st">"Overview"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [377]:</pre></div><div id="520b0932" class="cell" data-execution_count="377">
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="520b0932" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping missing values</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.dropna()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping zeros (budget and revenue)</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df[(movies_df[<span class="st">"Budget"</span>] <span class="op">!=</span> <span class="dv">0</span>) <span class="op">&amp;</span> (movies_df[<span class="st">"Revenue"</span>] <span class="op">!=</span> <span class="dv">0</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [378]:</pre></div><div id="a8f0b703" class="cell" data-execution_count="378">
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="a8f0b703" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># converting runtime to numeric</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Runtime"</span>] <span class="op">=</span> movies_df[<span class="st">"Runtime"</span>].<span class="bu">str</span>.replace(<span class="st">" min"</span>, <span class="st">""</span>).astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [379]:</pre></div><div id="d1eb2ea0" class="cell" data-execution_count="379">
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="d1eb2ea0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting the released date into year, month, and day</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Released"</span>] <span class="op">=</span> pd.to_datetime(movies_df[<span class="st">"Released"</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Year"</span>] <span class="op">=</span> movies_df[<span class="st">"Released"</span>].dt.year</span>
@@ -244,7 +244,7 @@
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original Released column</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Released"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [380]:</pre></div><div id="aaa94c69" class="cell" data-execution_count="380">
+<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="aaa94c69" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># making the genre column one-hot encoded</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>genre_dummies <span class="op">=</span> movies_df[<span class="st">"Genre"</span>].<span class="bu">str</span>.get_dummies(sep<span class="op">=</span><span class="st">', '</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> pd.concat([movies_df, genre_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
@@ -252,7 +252,7 @@
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original genre column</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Genre"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [381]:</pre></div><div id="c0fbe507" class="cell" data-execution_count="381">
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="c0fbe507" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># making the MPAA rating one-hot encoded</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mpaa_dummies <span class="op">=</span> movies_df[<span class="st">"Rated"</span>].<span class="bu">str</span>.get_dummies(sep<span class="op">=</span><span class="st">', '</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> pd.concat([movies_df, mpaa_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
@@ -260,7 +260,7 @@
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original MPAA rating column</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Rated"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [382]:</pre></div><div id="7e713706" class="cell" data-execution_count="382">
+<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="7e713706" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creating variable that indicates the movie was made by a big production company</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>companies <span class="op">=</span> [<span class="st">"Universal Pictures"</span>, <span class="st">"Paramount Pictures"</span>, <span class="st">"Warner Bros. Pictures"</span>, <span class="st">"Walt Disney Pictures"</span>, <span class="st">"Walt Disney Feature Animation"</span>, <span class="st">"Sony Pictures"</span>, <span class="st">"Universal Pictures"</span>, <span class="st">"20th Century Fox"</span>, <span class="st">"Columbia Pictures"</span>, <span class="st">"Lionsgate"</span>, <span class="st">"Metro-Goldwyn-Mayer"</span>, <span class="st">"Marvel Studios"</span>, <span class="st">"Pixar Animation Studios"</span>, <span class="st">"DreamWorks Animation"</span>, <span class="st">"DreamWorks Pictures"</span>, <span class="st">"New Line Cinema"</span>, <span class="st">"Focus Features"</span>, <span class="st">"Orion Pictures"</span>, <span class="st">"United Artists"</span>, <span class="st">"A24"</span>, <span class="st">"Searchlight Pictures"</span>]</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Top_Production_Company"</span>] <span class="op">=</span> movies_df[<span class="st">"Production Companies"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">int</span>(<span class="bu">any</span>(company <span class="kw">in</span> x <span class="cf">for</span> company <span class="kw">in</span> companies)))</span>
@@ -268,7 +268,7 @@
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original Production Companies column</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Production Companies"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [383]:</pre></div><div id="b71d92dd" class="cell" data-execution_count="383">
+<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div id="b71d92dd" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creaing variable that indicates the movie was directed by top 25 director</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>top_directors <span class="op">=</span> [<span class="st">"Steven Spielberg"</span>, <span class="st">"James Cameron"</span>, <span class="st">"Russo brohters"</span>, <span class="st">"Peter Jackson"</span>, <span class="st">"Michael Bay"</span>, <span class="st">"David Yates"</span>, <span class="st">"Christopher Nolan"</span>, <span class="st">"Ridley Scott"</span>, <span class="st">"Tim Burton"</span>, <span class="st">"J.J. Abrams"</span>, <span class="st">"Ron Howard"</span>, <span class="st">"Robert Zemeckis"</span>, <span class="st">"Jon Favreau"</span>, <span class="st">"Sam Raimi"</span>, <span class="st">"James Wan"</span>, <span class="st">"Chris Columbus"</span>, <span class="st">"Roland Emmerich"</span>, <span class="st">"Jon Watts"</span>, <span class="st">"Gore Verbinski"</span>, <span class="st">"Bryan Singer"</span>, <span class="st">"Pierre Coffin"</span>, <span class="st">"Francis Lawrence"</span>, <span class="st">"Clint Eastwood"</span>, <span class="st">"George Lucas"</span>, <span class="st">"Brad Bird"</span>, <span class="st">"M. Night Shyamalan"</span>, <span class="st">"Todd Phillips"</span>, <span class="st">"Chris Renaud"</span>, <span class="st">"Zack Snyder"</span>, <span class="st">"Kyle Balda"</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Top_Director"</span>] <span class="op">=</span> movies_df[<span class="st">"Director"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">int</span>(<span class="bu">any</span>(director <span class="kw">in</span> x <span class="cf">for</span> director <span class="kw">in</span> top_directors)))</span>
@@ -276,7 +276,7 @@
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original Director column</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Director"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [384]:</pre></div><div id="eb698d06" class="cell" data-execution_count="384">
+<div class="cell-container"><div class="cell-decorator"><pre>In [11]:</pre></div><div id="eb698d06" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creaing variable that indicates the movie was written by top 20 writer</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting the column and keeping only the first writer</span></span>
@@ -289,7 +289,7 @@
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original Director column</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Writer"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [385]:</pre></div><div id="2653e0f7" class="cell" data-execution_count="385">
+<div class="cell-container"><div class="cell-decorator"><pre>In [12]:</pre></div><div id="2653e0f7" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># converting text variables to strings</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Title"</span>] <span class="op">=</span> movies_df[<span class="st">"Title"</span>].astype(<span class="st">"string"</span>)</span>
@@ -297,15 +297,15 @@
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Description"</span>] <span class="op">=</span> movies_df[<span class="st">"Description"</span>].astype(<span class="st">"string"</span>)</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Tagline"</span>] <span class="op">=</span> movies_df[<span class="st">"Tagline"</span>].astype(<span class="st">"string"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [386]:</pre></div><div id="e2fe4850" class="cell" data-execution_count="386">
+<div class="cell-container"><div class="cell-decorator"><pre>In [13]:</pre></div><div id="e2fe4850" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convering IMDB votes to numeric</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"IMDB Votes"</span>] <span class="op">=</span> movies_df[<span class="st">"IMDB Votes"</span>].<span class="bu">str</span>.replace(<span class="st">","</span>, <span class="st">""</span>).astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [387]:</pre></div><div id="4ea508c8" class="cell" data-execution_count="387">
+<div class="cell-container"><div class="cell-decorator"><pre>In [14]:</pre></div><div id="4ea508c8" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># converting box office to numeric</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Box Office"</span>] <span class="op">=</span> movies_df[<span class="st">"Box Office"</span>].<span class="bu">str</span>.replace(<span class="st">"$"</span>, <span class="st">""</span>).<span class="bu">str</span>.replace(<span class="st">","</span>, <span class="st">""</span>).astype(<span class="bu">float</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [388]:</pre></div><div id="be2558ff" class="cell" data-execution_count="388">
+<div class="cell-container"><div class="cell-decorator"><pre>In [15]:</pre></div><div id="be2558ff" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting the column and keeping only the first language</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Country"</span>] <span class="op">=</span> movies_df[<span class="st">"Country"</span>].<span class="bu">str</span>.split(<span class="st">','</span>).<span class="bu">str</span>[<span class="dv">0</span>]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -317,7 +317,7 @@
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original country column</span></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Country"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [389]:</pre></div><div id="d5b7fc33" class="cell" data-execution_count="389">
+<div class="cell-container"><div class="cell-decorator"><pre>In [16]:</pre></div><div id="d5b7fc33" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting the column and keeping only the first language</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Language"</span>] <span class="op">=</span> movies_df[<span class="st">"Language"</span>].<span class="bu">str</span>.split(<span class="st">','</span>).<span class="bu">str</span>[<span class="dv">0</span>]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -329,7 +329,7 @@
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original country column</span></span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Language"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [390]:</pre></div><div id="8912830a" class="cell" data-execution_count="390">
+<div class="cell-container"><div class="cell-decorator"><pre>In [17]:</pre></div><div id="8912830a" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># converting the awards column to numeric</span></span>
@@ -363,7 +363,7 @@
 <span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original Awards column</span></span>
 <span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Awards"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [391]:</pre></div><div id="10452cb0" class="cell" data-execution_count="391">
+<div class="cell-container"><div class="cell-decorator"><pre>In [18]:</pre></div><div id="10452cb0" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check data types</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df.dtypes[:<span class="dv">10</span>])</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df.dtypes[<span class="dv">10</span>:<span class="dv">20</span>])</span>
@@ -398,14 +398,14 @@ Drama          int64
 dtype: object</code></pre>
 </div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [392]:</pre></div><div id="da5b34d0" class="cell" data-execution_count="392">
+<div class="cell-container"><div class="cell-decorator"><pre>In [19]:</pre></div><div id="da5b34d0" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> <span class="bu">len</span>(movies_df)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of movies:"</span>, movies)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of movies: 2816</code></pre>
 </div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [393]:</pre></div><div id="0a020623" class="cell" data-execution_count="393">
+<div class="cell-container"><div class="cell-decorator"><pre>In [20]:</pre></div><div id="0a020623" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check number of columns</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> <span class="bu">len</span>(movies_df.columns)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of columns:"</span>, columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -413,7 +413,7 @@ dtype: object</code></pre>
 <pre><code>Number of columns: 61</code></pre>
 </div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [394]:</pre></div><div id="2c95bdf0" class="cell" data-execution_count="394">
+<div class="cell-container"><div class="cell-decorator"><pre>In [21]:</pre></div><div id="2c95bdf0" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>movies_df.to_csv(<span class="st">"../data/output_data/clean_movies.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
      </main>

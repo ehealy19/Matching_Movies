@@ -214,15 +214,9 @@
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">      
 
-       <div id="07371093" class="cell markdown">
-
-</div>
-<div id="4ad14931" class="cell markdown">
-<section id="performing-sentiment-analysis-on-description-tagline-and-overview" class="level2">
+       <section id="performing-sentiment-analysis-on-description-tagline-and-overview" class="level2">
 <h2 class="anchored" data-anchor-id="performing-sentiment-analysis-on-description-tagline-and-overview">Performing Sentiment Analysis on Description, Tagline, and Overview</h2>
-</section>
-</div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="32e1727a" class="cell" data-execution_count="9">
+<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="32e1727a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(</span>
@@ -234,7 +228,7 @@
 <pre><code>Device set to use cpu</code></pre>
 </div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div id="dcfdd68f" class="cell" data-execution_count="10">
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="dcfdd68f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -243,40 +237,38 @@
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Description Sentiment Analysis</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Descr_Sentiment"</span>] <span class="op">=</span> movies_df[<span class="st">"Description"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: classifier(x)[<span class="dv">0</span>][<span class="st">"label"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [11]:</pre></div><div id="95dbfeb0" class="cell" data-execution_count="11">
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="95dbfeb0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overview Sentiment Analysis</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Tagline_Sentiment"</span>] <span class="op">=</span> movies_df[<span class="st">"Tagline"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: classifier(x)[<span class="dv">0</span>][<span class="st">"label"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [13]:</pre></div><div id="690dcd80" class="cell" data-execution_count="13">
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="690dcd80" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># converting the neg/pos to label 0/1</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Descr_Sentiment"</span>] <span class="op">=</span> movies_df[<span class="st">"Descr_Sentiment"</span>].replace({<span class="st">"NEGATIVE"</span>: <span class="dv">0</span>, <span class="st">"POSITIVE"</span>: <span class="dv">1</span>})</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">"Tagline_Sentiment"</span>] <span class="op">=</span> movies_df[<span class="st">"Tagline_Sentiment"</span>].replace({<span class="st">"NEGATIVE"</span>: <span class="dv">0</span>, <span class="st">"POSITIVE"</span>: <span class="dv">1</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/f7/px3ynpyn7l3g5j59yyvbggrw0000gn/T/ipykernel_33281/2660690932.py:2: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+<pre><code>/var/folders/f7/px3ynpyn7l3g5j59yyvbggrw0000gn/T/ipykernel_41943/2660690932.py:2: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
   movies_df["Descr_Sentiment"] = movies_df["Descr_Sentiment"].replace({"NEGATIVE": 0, "POSITIVE": 1})
-/var/folders/f7/px3ynpyn7l3g5j59yyvbggrw0000gn/T/ipykernel_33281/2660690932.py:3: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+/var/folders/f7/px3ynpyn7l3g5j59yyvbggrw0000gn/T/ipykernel_41943/2660690932.py:3: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
   movies_df["Tagline_Sentiment"] = movies_df["Tagline_Sentiment"].replace({"NEGATIVE": 0, "POSITIVE": 1})</code></pre>
 </div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [14]:</pre></div><div id="89dc0bcb" class="cell" data-execution_count="14">
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="89dc0bcb" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the original columns</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"Tagline"</span>, <span class="st">"Description"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [15]:</pre></div><div id="f8a63b6d" class="cell" data-execution_count="15">
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="f8a63b6d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>movies_df.to_csv(<span class="st">"../data/output_data/clean_movies_sent.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="3843dd59" class="cell markdown">
+</section>
 <section id="creating-the-starpower-variable" class="level2">
 <h2 class="anchored" data-anchor-id="creating-the-starpower-variable">Creating the Starpower Variable</h2>
-</section>
-</div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="d8c18a23" class="cell">
+<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="d8c18a23" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> pd.read_csv(<span class="st">"../data/output_data/clean_movies_sent_fem.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="8f095867" class="cell">
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="8f095867" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading in the list of A-list and B-list actors/actresses </span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>a_list_actors_df <span class="op">=</span> pd.read_csv(<span class="st">"../data/input_data/a_list_actors.csv"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>a_list_actresses_df <span class="op">=</span> pd.read_csv(<span class="st">"../data/input_data/a_list_actresses.csv"</span>)</span>
@@ -303,100 +295,205 @@
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Number of A-listers: </span><span class="sc">{</span>num_a_list<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Number of b-listers: </span><span class="sc">{</span>num_b_list<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Name
+0        Al Pacino
+1  Tommy Lee Jones
+2    Harrison Ford
+3   Robert De Niro
+4    Kevin Costner
+               Name
+0      Ansel Elgort
+1       Wes Bentley
+2  Chiwetel Ejiofor
+3        Karl Urban
+4   Britt Robertson
+Number of A-listers: 200
+Number of b-listers: 376</code></pre>
+</div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="09f1749b" class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the variable to calculate the starpower metric</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting to get all four actors/actresses into separate columns</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> movies_df[<span class="st">'Actors'</span>].notna().<span class="bu">any</span>():</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    actors_split <span class="op">=</span> movies_df[<span class="st">'Actors'</span>].<span class="bu">str</span>.split(<span class="st">','</span>, expand<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    movies_df[<span class="st">'actor1'</span>] <span class="op">=</span> actors_split[<span class="dv">0</span>].<span class="bu">str</span>.strip()</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    movies_df[<span class="st">'actor2'</span>] <span class="op">=</span> actors_split[<span class="dv">1</span>].<span class="bu">str</span>.strip()</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    movies_df[<span class="st">'actor3'</span>] <span class="op">=</span> actors_split[<span class="dv">2</span>].<span class="bu">str</span>.strip()</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The 'Actors' column is empty or missing."</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># creating the metric column</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">'starpower'</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the first actor is in the a-list</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor1'</span>].isin(a_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">2</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor2'</span>].isin(a_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">2</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor3'</span>].isin(a_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">2</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor1'</span>].isin(b_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor2'</span>].isin(b_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor3'</span>].isin(b_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># making it an average value</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">'starpower'</span>] <span class="op">=</span> movies_df[<span class="st">'starpower'</span>] <span class="op">/</span> <span class="dv">3</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co"># checking the new variable</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df[[<span class="st">'actor1'</span>, <span class="st">'actor2'</span>, <span class="st">'actor3'</span>, <span class="st">'starpower'</span>]].head(<span class="dv">10</span>))</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the actor columns</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"actor1"</span>, <span class="st">"actor2"</span>, <span class="st">"actor3"</span>, <span class="st">"Actors"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="09f1749b" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the variable to calculate the starpower metric</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting to get all four actors/actresses into separate columns</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> movies_df[<span class="st">'Actors'</span>].notna().<span class="bu">any</span>():</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    actors_split <span class="op">=</span> movies_df[<span class="st">'Actors'</span>].<span class="bu">str</span>.split(<span class="st">','</span>, expand<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    movies_df[<span class="st">'actor1'</span>] <span class="op">=</span> actors_split[<span class="dv">0</span>].<span class="bu">str</span>.strip()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    movies_df[<span class="st">'actor2'</span>] <span class="op">=</span> actors_split[<span class="dv">1</span>].<span class="bu">str</span>.strip()</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    movies_df[<span class="st">'actor3'</span>] <span class="op">=</span> actors_split[<span class="dv">2</span>].<span class="bu">str</span>.strip()</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The 'Actors' column is empty or missing."</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># creating the metric column</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">'starpower'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the first actor is in the a-list</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor1'</span>].isin(a_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">2</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor2'</span>].isin(a_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">2</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor3'</span>].isin(a_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">2</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor1'</span>].isin(b_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor2'</span>].isin(b_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>movies_df.loc[movies_df[<span class="st">'actor3'</span>].isin(b_list[<span class="st">'Name'</span>].values), <span class="st">'starpower'</span>] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co"># making it an average value</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">'starpower'</span>] <span class="op">=</span> movies_df[<span class="st">'starpower'</span>] <span class="op">/</span> <span class="dv">3</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"># checking the new variable</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df[[<span class="st">'actor1'</span>, <span class="st">'actor2'</span>, <span class="st">'actor3'</span>, <span class="st">'starpower'</span>]].head(<span class="dv">10</span>))</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the actor columns</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"actor1"</span>, <span class="st">"actor2"</span>, <span class="st">"actor3"</span>, <span class="st">"Actors"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           actor1             actor2           actor3  starpower
+0   Mark Wahlberg      Tyrese Gibson       André 3000   0.666667
+1      Jamie Bell        Andy Serkis     Daniel Craig   1.333333
+2   Ryan Reynolds       Blake Lively  Peter Sarsgaard   0.333333
+3     Marc Singer      Tanya Roberts         Rip Torn   0.000000
+4  Tom Hiddleston  Samuel L. Jackson      Brie Larson   1.000000
+5   Jeremy Renner           Ed Helms     Jake Johnson   0.000000
+6   Frankie Muniz       Amanda Bynes    Paul Giamatti   1.000000
+7      Ben Barnes     Skandar Keynes   Georgie Henley   0.000000
+8   Jason Bateman        Charlie Day   Jason Sudeikis   1.000000
+9      Jack Black  Ana de la Reguera   Héctor Jiménez   0.333333</code></pre>
+</div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="adc7fff3" class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>movies_df.to_csv(<span class="st">"../data/output_data/clean_movies_sent_fem_star.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div id="adc7fff3" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>movies_df.to_csv(<span class="st">"../data/output_data/clean_movies_sent_fem_star.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="f878a880" class="cell markdown">
+</section>
 <section id="creating-the-female-actress-lead-variable" class="level2">
 <h2 class="anchored" data-anchor-id="creating-the-female-actress-lead-variable">Creating the Female Actress Lead Variable</h2>
-</section>
-</div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="a2e6e662" class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> pd.read_csv(<span class="st">"../data/output_data/clean_movies_sent.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [11]:</pre></div><div id="a2e6e662" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> pd.read_csv(<span class="st">"../data/output_data/clean_movies_sent.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div id="47e84c48" class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># checking how accurate the first listed actor/actress is in terms of being the star or main character</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>first_actors <span class="op">=</span> movies_df[<span class="st">'Actors'</span>].<span class="bu">str</span>.split(<span class="st">','</span>).<span class="bu">str</span>[<span class="dv">0</span>].<span class="bu">str</span>.strip()</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(first_actors.head(<span class="dv">20</span>))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df[<span class="st">'Title'</span>].head(<span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [11]:</pre></div><div id="f5cfec6d" class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># getting the female actresses names from excel file</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># opening the file</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>female_df <span class="op">=</span> pd.read_excel(<span class="st">"../data/input_data/female_actresses.xlsx"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>female_df <span class="op">=</span> female_df.rename(columns<span class="op">=</span>{<span class="st">'A'</span>: <span class="st">'Name'</span>})</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting to get the names only</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>female_df[<span class="st">'Name'</span>] <span class="op">=</span> female_df[<span class="st">'Name'</span>].<span class="bu">str</span>.split(<span class="st">' born'</span>).<span class="bu">str</span>[<span class="dv">0</span>].<span class="bu">str</span>.split(<span class="vs">r'\d'</span>).<span class="bu">str</span>[<span class="dv">0</span>].<span class="bu">str</span>.strip()</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># deleting the rows that are just the letter headers</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>female_df <span class="op">=</span> female_df[<span class="op">~</span>female_df[<span class="st">'Name'</span>].isin(<span class="bu">list</span>(<span class="st">'ABCDEFGHIJKLMNOPQRSTUVWXYZ'</span>))]</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>num_actresses <span class="op">=</span> <span class="bu">len</span>(female_df)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'There are </span><span class="sc">{</span>num_actresses<span class="sc">}</span><span class="ss"> actresses in the list'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [12]:</pre></div><div id="7e94a27b" class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the variable to indicate if first actor is female</span></span>
+<div class="cell-container"><div class="cell-decorator"><pre>In [12]:</pre></div><div id="47e84c48" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># checking how accurate the first listed actor/actress is in terms of being the star or main character</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>first_actors <span class="op">=</span> movies_df[<span class="st">'Actors'</span>].<span class="bu">str</span>.split(<span class="st">','</span>).<span class="bu">str</span>[<span class="dv">0</span>].<span class="bu">str</span>.strip()</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">'First_Actor'</span>] <span class="op">=</span> first_actors</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(first_actors.head(<span class="dv">20</span>))</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the first actor is in the female name list</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">'Female_Lead'</span>] <span class="op">=</span> movies_df[<span class="st">'First_Actor'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">int</span>(<span class="bu">any</span>(name <span class="kw">in</span> x <span class="cf">for</span> name <span class="kw">in</span> female_df[<span class="st">'Name'</span>])))</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># checking the new variable</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df[[<span class="st">'Title'</span>, <span class="st">'First_Actor'</span>, <span class="st">'Female_Lead'</span>]].head(<span class="dv">10</span>))</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df[[<span class="st">'Title'</span>, <span class="st">'First_Actor'</span>, <span class="st">'Female_Lead'</span>]].tail(<span class="dv">10</span>))</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the first_Actor column</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"First_Actor"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df[<span class="st">'Title'</span>].head(<span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0          Mark Wahlberg
+1             Jamie Bell
+2          Ryan Reynolds
+3            Marc Singer
+4         Tom Hiddleston
+5          Jeremy Renner
+6          Frankie Muniz
+7             Ben Barnes
+8          Jason Bateman
+9             Jack Black
+10            Chris Pine
+11        Angelina Jolie
+12          Sam Rockwell
+13            Nick Nolte
+14        Timothy Dalton
+15             Al Pacino
+16        Clint Eastwood
+17    Natasha Henstridge
+18           Hilary Duff
+19       Jake Gyllenhaal
+Name: Actors, dtype: object
+0                                Four Brothers
+1                     The Adventures of Tintin
+2                                Green Lantern
+3                              The Beastmaster
+4                           Kong: Skull Island
+5                                          Tag
+6                                 Big Fat Liar
+7     The Chronicles of Narnia: Prince Caspian
+8                              Horrible Bosses
+9                                  Nacho Libre
+10                     Star Trek Into Darkness
+11                Maleficent: Mistress of Evil
+12                                The Bad Guys
+13                                     48 Hrs.
+14                        The Living Daylights
+15                               Carlito's Way
+16                            Heartbreak Ridge
+17                                     Species
+18                          A Cinderella Story
+19                                  Demolition
+Name: Title, dtype: object</code></pre>
+</div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [13]:</pre></div><div id="d0d0f60d" class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count of the split</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>female_lead_count <span class="op">=</span> movies_df[<span class="st">'Female_Lead'</span>].value_counts()</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(female_lead_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [13]:</pre></div><div id="f5cfec6d" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># getting the female actresses names from excel file</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># opening the file</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>female_df <span class="op">=</span> pd.read_excel(<span class="st">"../data/input_data/female_actresses.xlsx"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>female_df <span class="op">=</span> female_df.rename(columns<span class="op">=</span>{<span class="st">'A'</span>: <span class="st">'Name'</span>})</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># splitting to get the names only</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>female_df[<span class="st">'Name'</span>] <span class="op">=</span> female_df[<span class="st">'Name'</span>].<span class="bu">str</span>.split(<span class="st">' born'</span>).<span class="bu">str</span>[<span class="dv">0</span>].<span class="bu">str</span>.split(<span class="vs">r'\d'</span>).<span class="bu">str</span>[<span class="dv">0</span>].<span class="bu">str</span>.strip()</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># deleting the rows that are just the letter headers</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>female_df <span class="op">=</span> female_df[<span class="op">~</span>female_df[<span class="st">'Name'</span>].isin(<span class="bu">list</span>(<span class="st">'ABCDEFGHIJKLMNOPQRSTUVWXYZ'</span>))]</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>num_actresses <span class="op">=</span> <span class="bu">len</span>(female_df)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'There are </span><span class="sc">{</span>num_actresses<span class="sc">}</span><span class="ss"> actresses in the list'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>There are 2452 actresses in the list</code></pre>
+</div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [14]:</pre></div><div id="60497a4f" class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>movies_df.to_csv(<span class="st">"../data/output_data/clean_movies_sent_fem.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [14]:</pre></div><div id="7e94a27b" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the variable to indicate if first actor is female</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>first_actors <span class="op">=</span> movies_df[<span class="st">'Actors'</span>].<span class="bu">str</span>.split(<span class="st">','</span>).<span class="bu">str</span>[<span class="dv">0</span>].<span class="bu">str</span>.strip()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">'First_Actor'</span>] <span class="op">=</span> first_actors</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the first actor is in the female name list</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">'Female_Lead'</span>] <span class="op">=</span> movies_df[<span class="st">'First_Actor'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">int</span>(<span class="bu">any</span>(name <span class="kw">in</span> x <span class="cf">for</span> name <span class="kw">in</span> female_df[<span class="st">'Name'</span>])))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># checking the new variable</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df[[<span class="st">'Title'</span>, <span class="st">'First_Actor'</span>, <span class="st">'Female_Lead'</span>]].head(<span class="dv">10</span>))</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movies_df[[<span class="st">'Title'</span>, <span class="st">'First_Actor'</span>, <span class="st">'Female_Lead'</span>]].tail(<span class="dv">10</span>))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># dropping the first_Actor column</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.drop(columns<span class="op">=</span>[<span class="st">"First_Actor"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                      Title     First_Actor  Female_Lead
+0                             Four Brothers   Mark Wahlberg            0
+1                  The Adventures of Tintin      Jamie Bell            0
+2                             Green Lantern   Ryan Reynolds            0
+3                           The Beastmaster     Marc Singer            0
+4                        Kong: Skull Island  Tom Hiddleston            0
+5                                       Tag   Jeremy Renner            0
+6                              Big Fat Liar   Frankie Muniz            0
+7  The Chronicles of Narnia: Prince Caspian      Ben Barnes            0
+8                           Horrible Bosses   Jason Bateman            0
+9                               Nacho Libre      Jack Black            0
+              Title         First_Actor  Female_Lead
+2806     The Family      Robert De Niro            0
+2807      The Shack     Sam Worthington            0
+2808  The Dead Zone  Christopher Walken            0
+2809        The Ref         Denis Leary            0
+2810        Flyboys        James Franco            0
+2811            ATL   Tip 'T.I.' Harris            0
+2812    Like a Boss     Tiffany Haddish            1
+2813     Enemy Mine        Dennis Quaid            0
+2814     Proud Mary    Taraji P. Henson            1
+2815        Valmont         Colin Firth            0</code></pre>
+</div>
 </div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [15]:</pre></div><div id="d0d0f60d" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count of the split</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>female_lead_count <span class="op">=</span> movies_df[<span class="st">'Female_Lead'</span>].value_counts()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(female_lead_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Female_Lead
+0    2328
+1     488
+Name: count, dtype: int64</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [16]:</pre></div><div id="60497a4f" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>movies_df.to_csv(<span class="st">"../data/output_data/clean_movies_sent_fem.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div>
+</section>
      </main>
 <!-- /main column -->  <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

@@ -60,6 +60,8 @@ Moving forward, the work to get to causality includes introducing causality inst
 
 Thus, this paper will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will attempt to establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue by employing propensity score matching.
 
+Need to argue that there is sufficient common support between the treatment and control groups in a dataset in order to use propensity scores.
+
 Data collection and preparation is discussed in @sec-data.
 
 Methodology and propensity scoring is discussed in @sec-meth
@@ -72,10 +74,57 @@ Conluding remarks, limitations, and future work are discussed in @sec-conclusion
 
 Data was collected from IMDb utilizing two separate APIs: OMDB and TMDB. 
 
+https://www.omdbapi.com/ \
+https://www.themoviedb.org/ 
+
+The datasets were merged on the movie title
+
+Cleaning:
+
+- dropped unimportant columns \
+- dropped missing values and zeros \
+- converted to correct data types \
+- one-hot encoded categorical variables \
+- Big Production Company Variable \
+- Top 25 Director \
+- Top 20 Writer \
+- English/Other Language \
+- Domestic/International
+
+
+2,816 movies
+
+61 columns
+
+Variables:
+
+- year \
+- runtime \
+- budget \
+- Month of release \
+- Day of Release** \
+- Genre (Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, Film Noir, History, Horror, Music, Mystery, Romance, Sci-Fi, Sport, Thriller, War, Western w/ Musical excluded) \
+- MPAA Rating (G, GP, M, M/PG, NC-17, Not-Rated, PG, PG-13, R, TV-MA, Unrated w/ Accepted excluded) \
+- Top Production Company \
+- Top Director \
+- Top Writer \
+- Domestic (w/ International excluded) \
+- English Language (w/ Other excluded) \
+- Sentiment of Description \
+- Sentiment of Tagline \
+- Starpower Metric
+
+outcomes:
+
+- box office \
+- imdb rating
+
+Add in some descriptive statistics of the dataset.
+
 | Name                | Year |
 |---------------------|------|
-| Female Leads    | 484 |
-| Male Leads      | 1001 |
+| Female Leads    | 488 |
+| Male Leads      | 2328 |
 
 : Male versus Female Director {#tbl-history}
 
@@ -85,19 +134,71 @@ Data was collected from IMDb utilizing two separate APIs: OMDB and TMDB.
 
 ### Sentiment Analysis of tagline and description
 
+BERT model for sentiment analysis \
+created labels of 0/1 for tagline and movie description
+
 ### Creation of the starpower variable
+
+Collected lists of A-list and B-list actors/actresses \
+Added 2 points if one of the cast members was A-list \
+Added 1 point if one of the cast members was B-list \
+Averaged by dividing score by 3 (number of cast members)
+
+
+|        actor1         |        actor2        |      actor3      | starpower  |
+|---------------------- |---------------------|------------------|------------|
+| Mark Wahlberg         | Tyrese Gibson       | André 3000       | 0.666667   |
+| Jamie Bell            | Andy Serkis         | Daniel Craig     | 1.333333   |
+| Ryan Reynolds         | Blake Lively        | Peter Sarsgaard  | 0.333333   |
+| Marc Singer           | Tanya Roberts       | Rip Torn         | 0.000000   |
+| Tom Hiddleston        | Samuel L. Jackson   | Brie Larson      | 1.000000   |
+| Jeremy Renner         | Ed Helms            | Jake Johnson     | 0.000000   |
+| Frankie Muniz         | Amanda Bynes        | Paul Giamatti    | 1.000000   |
+| Ben Barnes            | Skandar Keynes      | Georgie Henley   | 0.000000   |
+| Jason Bateman         | Charlie Day         | Jason Sudeikis   | 1.000000   |
+| Jack Black            | Ana de la Reguera   | Héctor Jiménez   | 0.333333   |
 
 ### Creation of the variable that indicates female in leading role
 
+Collected list of all female actresses \
+Took the first cast member named \
+Merged and created female_lead variable \
+1 = female lead 
+
+
+| Title           | First Actor           | Female Lead |
+|-----------------|----------------------|-------------|
+| The Family      | Robert De Niro       | 0           |
+| The Shack       | Sam Worthington      | 0           |
+| The Dead Zone   | Christopher Walken   | 0           |
+| The Ref         | Denis Leary          | 0           |
+| Flyboys         | James Franco         | 0           |
+| ATL             | Tip 'T.I.' Harris    | 0           |
+| Like a Boss     | Tiffany Haddish      | 1           |
+| Enemy Mine      | Dennis Quaid         | 0           |
+| Proud Mary      | Taraji P. Henson     | 1           |
+| Valmont         | Colin Firth          | 0           |
+
+
 ### Propensity score matching
 
+StandardScaler
+Propensity scores calculated
+
 ### Robustness Checks
+
+Implemented the IMDb score as the outcome variable as a robustness check \
+Does a female in the lead role impact the critical success of the film?
 
 ## Results {#sec-results}
 
 ### Box Office Results
 
+Female-lead had higher box-office average
+
 ### IMDb Rating Results
+
+Female-lead had lower IMDb scores
 
 | Gender of Lead Role     | Box Office | IMDb Rating |
 |---------------------|------|------|
@@ -111,6 +212,7 @@ Data was collected from IMDb utilizing two separate APIs: OMDB and TMDB.
 2. Network Analysis
 3. Robustness Checks with Bechdel test
 4. Inacurracy from matching female leads & first actor not always the lead
+5. Unbalanced Dataset (is this an issue?)
 
 ## References {.unnumbered}
 

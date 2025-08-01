@@ -279,7 +279,7 @@
 
        <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="1d1216ca" class="cell" data-execution_count="1">
+<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="2d21a593" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -287,7 +287,7 @@
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Visual of the </span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="b74fd9a3" class="cell markdown">
+<div id="bd2c2d3c" class="cell markdown">
 <section id="causality" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="causality"><span class="header-section-number">1.1</span> Causality</h3>
 <p>My previous paper: <a href="./assets/thesis.pdf">Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry</a> attempted to analyze the link between director quality and box-office success of a film. The paper created two novel measures of director quality; a summation of all box-office revenue earned by and the director’s films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue and a robustness check was implemented changing the dependent variable to the IMDb rating earned.</p>
@@ -297,6 +297,7 @@
 <p>Furthermore, I wanted to investigate the conclusion of gender bias further and shifted this analysis to examine actors instead of directors.</p>
 <p>Moving forward, the work to get to causality includes introducing causality instead of just controlling for all covariates.</p>
 <p>Thus, this paper will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will attempt to establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue by employing propensity score matching.</p>
+<p>Need to argue that there is sufficient common support between the treatment and control groups in a dataset in order to use propensity scores.</p>
 <p>Data collection and preparation is discussed in <a href="#sec-data" class="quarto-xref">Section&nbsp;2</a>.</p>
 <p>Methodology and propensity scoring is discussed in <a href="#sec-meth" class="quarto-xref">Section&nbsp;3</a></p>
 <p>Results and anlysis are disucssed in <a href="#sec-results" class="quarto-xref">Section&nbsp;4</a></p>
@@ -305,6 +306,70 @@
 <section id="sec-data" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="sec-data"><span class="header-section-number">2</span> Data</h2>
 <p>Data was collected from IMDb utilizing two separate APIs: OMDB and TMDB.</p>
+<p>https://www.omdbapi.com/<br>
+https://www.themoviedb.org/</p>
+<p>The datasets were merged on the movie title</p>
+<p>Cleaning:</p>
+<ul>
+<li>dropped unimportant columns<br>
+</li>
+<li>dropped missing values and zeros<br>
+</li>
+<li>converted to correct data types<br>
+</li>
+<li>one-hot encoded categorical variables<br>
+</li>
+<li>Big Production Company Variable<br>
+</li>
+<li>Top 25 Director<br>
+</li>
+<li>Top 20 Writer<br>
+</li>
+<li>English/Other Language<br>
+</li>
+<li>Domestic/International</li>
+</ul>
+<p>2,816 movies</p>
+<p>61 columns</p>
+<p>Variables:</p>
+<ul>
+<li>year<br>
+</li>
+<li>runtime<br>
+</li>
+<li>budget<br>
+</li>
+<li>Month of release<br>
+</li>
+<li>Day of Release**<br>
+</li>
+<li>Genre (Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, Film Noir, History, Horror, Music, Mystery, Romance, Sci-Fi, Sport, Thriller, War, Western w/ Musical excluded)<br>
+</li>
+<li>MPAA Rating (G, GP, M, M/PG, NC-17, Not-Rated, PG, PG-13, R, TV-MA, Unrated w/ Accepted excluded)<br>
+</li>
+<li>Top Production Company<br>
+</li>
+<li>Top Director<br>
+</li>
+<li>Top Writer<br>
+</li>
+<li>Domestic (w/ International excluded)<br>
+</li>
+<li>English Language (w/ Other excluded)<br>
+</li>
+<li>Sentiment of Description<br>
+</li>
+<li>Sentiment of Tagline<br>
+</li>
+<li>Starpower Metric</li>
+</ul>
+<p>outcomes:</p>
+<ul>
+<li>box office<br>
+</li>
+<li>imdb rating</li>
+</ul>
+<p>Add in some descriptive statistics of the dataset.</p>
 <div id="tbl-history" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-history-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -321,11 +386,11 @@ Table&nbsp;1: Male versus Female Director
 <tbody>
 <tr class="odd">
 <td>Female Leads</td>
-<td>484</td>
+<td>488</td>
 </tr>
 <tr class="even">
 <td>Male Leads</td>
-<td>1001</td>
+<td>2328</td>
 </tr>
 </tbody>
 </table>
@@ -338,27 +403,181 @@ Table&nbsp;1: Male versus Female Director
 <h2 data-number="3" class="anchored" data-anchor-id="sec-meth"><span class="header-section-number">3</span> Methodology</h2>
 <section id="sentiment-analysis-of-tagline-and-description" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="sentiment-analysis-of-tagline-and-description"><span class="header-section-number">3.1</span> Sentiment Analysis of tagline and description</h3>
+<p>BERT model for sentiment analysis<br>
+created labels of 0/1 for tagline and movie description</p>
 </section>
 <section id="creation-of-the-starpower-variable" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="creation-of-the-starpower-variable"><span class="header-section-number">3.2</span> Creation of the starpower variable</h3>
+<p>Collected lists of A-list and B-list actors/actresses<br>
+Added 2 points if one of the cast members was A-list<br>
+Added 1 point if one of the cast members was B-list<br>
+Averaged by dividing score by 3 (number of cast members)</p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 28%">
+<col style="width: 24%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>actor1</th>
+<th>actor2</th>
+<th>actor3</th>
+<th>starpower</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mark Wahlberg</td>
+<td>Tyrese Gibson</td>
+<td>André 3000</td>
+<td>0.666667</td>
+</tr>
+<tr class="even">
+<td>Jamie Bell</td>
+<td>Andy Serkis</td>
+<td>Daniel Craig</td>
+<td>1.333333</td>
+</tr>
+<tr class="odd">
+<td>Ryan Reynolds</td>
+<td>Blake Lively</td>
+<td>Peter Sarsgaard</td>
+<td>0.333333</td>
+</tr>
+<tr class="even">
+<td>Marc Singer</td>
+<td>Tanya Roberts</td>
+<td>Rip Torn</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td>Tom Hiddleston</td>
+<td>Samuel L. Jackson</td>
+<td>Brie Larson</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td>Jeremy Renner</td>
+<td>Ed Helms</td>
+<td>Jake Johnson</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td>Frankie Muniz</td>
+<td>Amanda Bynes</td>
+<td>Paul Giamatti</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td>Ben Barnes</td>
+<td>Skandar Keynes</td>
+<td>Georgie Henley</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td>Jason Bateman</td>
+<td>Charlie Day</td>
+<td>Jason Sudeikis</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td>Jack Black</td>
+<td>Ana de la Reguera</td>
+<td>Héctor Jiménez</td>
+<td>0.333333</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="creation-of-the-variable-that-indicates-female-in-leading-role" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="creation-of-the-variable-that-indicates-female-in-leading-role"><span class="header-section-number">3.3</span> Creation of the variable that indicates female in leading role</h3>
+<p>Collected list of all female actresses<br>
+Took the first cast member named<br>
+Merged and created female_lead variable<br>
+1 = female lead</p>
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th>Title</th>
+<th>First Actor</th>
+<th>Female Lead</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Family</td>
+<td>Robert De Niro</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>The Shack</td>
+<td>Sam Worthington</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>The Dead Zone</td>
+<td>Christopher Walken</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>The Ref</td>
+<td>Denis Leary</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Flyboys</td>
+<td>James Franco</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>ATL</td>
+<td>Tip ‘T.I.’ Harris</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Like a Boss</td>
+<td>Tiffany Haddish</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Enemy Mine</td>
+<td>Dennis Quaid</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Proud Mary</td>
+<td>Taraji P. Henson</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Valmont</td>
+<td>Colin Firth</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="propensity-score-matching" class="level3" data-number="3.4">
 <h3 data-number="3.4" class="anchored" data-anchor-id="propensity-score-matching"><span class="header-section-number">3.4</span> Propensity score matching</h3>
+<p>StandardScaler Propensity scores calculated</p>
 </section>
 <section id="robustness-checks" class="level3" data-number="3.5">
 <h3 data-number="3.5" class="anchored" data-anchor-id="robustness-checks"><span class="header-section-number">3.5</span> Robustness Checks</h3>
+<p>Implemented the IMDb score as the outcome variable as a robustness check<br>
+Does a female in the lead role impact the critical success of the film?</p>
 </section>
 </section>
 <section id="sec-results" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="sec-results"><span class="header-section-number">4</span> Results</h2>
 <section id="box-office-results" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="box-office-results"><span class="header-section-number">4.1</span> Box Office Results</h3>
+<p>Female-lead had higher box-office average</p>
 </section>
 <section id="imdb-rating-results" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="imdb-rating-results"><span class="header-section-number">4.2</span> IMDb Rating Results</h3>
+<p>Female-lead had lower IMDb scores</p>
 <table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -391,6 +610,7 @@ Table&nbsp;1: Male versus Female Director
 <li>Network Analysis</li>
 <li>Robustness Checks with Bechdel test</li>
 <li>Inacurracy from matching female leads &amp; first actor not always the lead</li>
+<li>Unbalanced Dataset (is this an issue?)</li>
 </ol>
 </section>
 </section>
