@@ -89,39 +89,6 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-% definitions for citeproc citations
-\NewDocumentCommand\citeproctext{}{}
-\NewDocumentCommand\citeproc{mm}{%
-  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
-\makeatletter
- % allow citations to break across lines
- \let\@cite@ofmt\@firstofone
- % avoid brackets around text for \cite:
- \def\@biblabel#1{}
- \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
-\makeatother
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
- {\begin{list}{}{%
-  \setlength{\itemindent}{0pt}
-  \setlength{\leftmargin}{0pt}
-  \setlength{\parsep}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-   \setlength{\leftmargin}{\cslhangindent}
-   \setlength{\itemindent}{-1\cslhangindent}
-  \fi
-  % set entry spacing
-  \setlength{\itemsep}{#2\baselineskip}}}
- {\end{list}}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \usepackage{url} %this package should fix any errors with URLs in refs.
 \usepackage{lineno}
@@ -178,9 +145,9 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={La Palma Earthquakes},
-  pdfauthor={Steve Purves; Rowan Cockett},
-  pdfkeywords={La Palma, Earthquakes},
+  pdftitle={Leading Ladies and Lost Revenue: A Causal Analysis of Female Representation and Box-Office Returns},
+  pdfauthor={Lizzie Healy},
+  pdfkeywords={Films, Gender Equality, Economics},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -189,24 +156,44 @@
   pdfcreator={LaTeX via pandoc}}
 
 
-\journalname{Earth and Space Science}
+\journalname{Film Data Science}
 
 \draftfalse
 
 \begin{document}
-\title{La Palma Earthquakes}
+\title{Leading Ladies and Lost Revenue: A Causal Analysis of Female
+Representation and Box-Office Returns}
 
-\authors{Steve Purves\affil{1}, Rowan Cockett\affil{1}}
-\affiliation{1}{Curvenote, }
-\correspondingauthor{Steve Purves}{steve@curvenote.com}
+\authors{Lizzie Healy\affil{1}}
+\affiliation{1}{Georgetown University, }
+\correspondingauthor{Lizzie Healy}{emh201@georgetown.com}
 
 
 \begin{abstract}
-In September 2021, a significant jump in seismic activity on the island
-of La Palma (Canary Islands, Spain) signaled the start of a volcanic
-crisis that still continues at the time of writing. Earthquake data is
-continually collected and published by the Instituto Geográphico
-Nacional (IGN). \ldots{}
+This work will investigate the impact of gender bias in the film
+industry pertaining to economic outcomes. Specifically, it will
+establish a causal link between a film casting a female actress in the
+leading role and the resulting box-office revenue. This will be
+accomplished utilizing propensity weighting, which will match movies
+based on the perceived similarity of their characteristics. These
+predictor variables will include the year, season of release, genre,
+runtime, director and writers, star power level of the cast, MPAA
+rating, IMDb Metascore, IMDb Votes, number of awards won, country of
+release, language, film description, the production budget, the aspect
+ratio, the color, the countries of origin, filming locations, production
+companies, and tagline. To deal with the variables that are non-numeric
+the following steps will be taken. Firstly, a network analysis will be
+performed on the cast to produce a measure of centrality of the
+actors/actresses. Secondly, a sentiment analysis will be performed on
+the film description and tagline. The primary outcome variable will be
+the box-office number measured in US dollars, measured as the gross
+value worldwide. The IMDb score will be employed as an additional
+outcome measure to be used as a robustness check. A secondary robustness
+check may be employed in which the primary variable of interest will be
+whether the film passes the Bechdel test, indicating true female
+representation in the film. The initial hypothesis is that films that
+opt to feature a female in the leading role will experience a decrease
+value in the box office revenue.
 \end{abstract}
 
 \section*{Plain Language Summary}
@@ -219,56 +206,158 @@ eruption is found \ldots{}
 \section{Introduction}\label{introduction}
 
 \textsubscript{Source:
-\href{https://ehealy19.github.io/Matching_Movies_Manuscript/index.qmd.html}{Article
+\href{https://ehealy19.github.io/Matching_Movies/index-preview.html}{Article
 Notebook}}
 
-\begin{figure}[H]
+\subsection{Causality}\label{causality}
 
-\centering{
+My previous paper: \href{./assets/thesis.pdf}{Behind the Box Office:
+Directorial Influence on Film Revenue in the United States Entertainment
+Industry} attempted to analyze the link between director quality and
+box-office success of a film. The paper created two novel measures of
+director quality; a summation of all box-office revenue earned by and
+the director's films and the accumulated number of critical awards from
+the fifteen years leading up to the film in question. The main dependent
+variable was domestic box-office revenue and a robustness check was
+implemented changing the dependent variable to the IMDb rating earned.
 
-\includegraphics{index_files/figure-pdf/fig-timeline-output-1.png}
+\includegraphics{./assets/thesis_table1.png}
+\includegraphics{./assets/thesis_table2.png}
 
-}
+The paper found an increase in director financial quality yielded
+between a 0.0289\% and 0.0307\% increas in domestic gross and no impact
+on IMDb rating. Conversely, director quality in terms of critical
+acclaim yielded no significant impact on domestic gross, but betweeen
+0.01803 and 0.0270 point increase in IMDb rating. The paper also
+discovered a statistically significant decrease in domestic gross for
+demale directors as compared to male directors.
 
-\caption{\label{fig-timeline}Timeline of recent earthquakes on La Palma}
+Overall, the results were thought-provoking, however, the methodology
+used was lacking in the causality department. This paper, if anything,
+worked towards establishing a weak association due to it statical
+analysis going only so far as a simple ordinary-least-squares regression
+and controlling for confounding variables. While, the variables were
+considered and included in the regression equation, they were all
+treated equally as controls, thus a more complex analysis is warranted.
 
-\end{figure}%
+Furthermore, I wanted to investigate the conclusion of gender bias
+further and shifted this analysis to examine actors instead of
+directors.
 
-\textsubscript{Source:
-\href{https://ehealy19.github.io/Matching_Movies_Manuscript/index.qmd.html}{Article
-Notebook}}
+Moving forward, the work to get to causality includes introducing
+causality instead of just controlling for all covariates.
 
-\textsubscript{Source:
-\href{https://ehealy19.github.io/Matching_Movies_Manuscript/index.qmd.html}{Article
-Notebook}}
+Thus, this paper will investigate the impact of gender bias in the film
+industry pertaining to economic outcomes. Specifically, it will attempt
+to establish a causal link between a film casting a female actress in
+the leading role and the resulting box-office revenue by employing
+propensity score matching.
 
-Based on data up to and including 1971, eruptions on La Palma happen
-every 79.8 years on average.
+Need to argue that there is sufficient common support between the
+treatment and control groups in a dataset in order to use propensity
+scores.
 
-Studies of the magma systems feeding the volcano, such as Marrero et al.
-(2019), have proposed that there are two main magma reservoirs feeding
-the Cumbre Vieja volcano; one in the mantle (30-40km depth) which
-charges and in turn feeds a shallower crustal reservoir (10-20km depth).
+Data collection and preparation is discussed in Section~\ref{sec-data}.
 
-Eight eruptions have been recorded since the late 1400s
-(Figure~\ref{fig-timeline}).
+Methodology and propensity scoring is discussed in
+Section~\ref{sec-meth}
 
-Data and methods are discussed in Section~\ref{sec-data-methods}.
+Results and anlysis are disucssed in Section~\ref{sec-results}
 
-Let \(x\) denote the number of eruptions in a year. Then, \(x\) can be
-modeled by a Poisson distribution
+Conluding remarks, limitations, and future work are discussed in
+Section~\ref{sec-conclusion}
 
-\begin{equation}\phantomsection\label{eq-poisson}{
-p(x) = \frac{e^{-\lambda} \lambda^{x}}{x !}
-}\end{equation}
+\section{Data}\label{sec-data}
 
-where \(\lambda\) is the rate of eruptions per year. Using
-Equation~\ref{eq-poisson}, the probability of an eruption in the next
-\(t\) years can be calculated.
+Data was collected from IMDb utilizing two separate APIs: OMDB and TMDB.
+
+https://www.omdbapi.com/\\
+https://www.themoviedb.org/
+
+The datasets were merged on the movie title
+
+Cleaning:
+
+\begin{itemize}
+\tightlist
+\item
+  dropped unimportant columns\\
+\item
+  dropped missing values and zeros\\
+\item
+  converted to correct data types\\
+\item
+  one-hot encoded categorical variables\\
+\item
+  Big Production Company Variable\\
+\item
+  Top 25 Director\\
+\item
+  Top 20 Writer\\
+\item
+  English/Other Language\\
+\item
+  Domestic/International
+\end{itemize}
+
+2,816 movies
+
+61 columns
+
+Variables:
+
+\begin{itemize}
+\tightlist
+\item
+  year\\
+\item
+  runtime\\
+\item
+  budget\\
+\item
+  Month of release\\
+\item
+  Day of Release**\\
+\item
+  Genre (Action, Adventure, Animation, Biography, Comedy, Crime,
+  Documentary, Drama, Family, Fantasy, Film Noir, History, Horror,
+  Music, Mystery, Romance, Sci-Fi, Sport, Thriller, War, Western w/
+  Musical excluded)\\
+\item
+  MPAA Rating (G, GP, M, M/PG, NC-17, Not-Rated, PG, PG-13, R, TV-MA,
+  Unrated w/ Accepted excluded)\\
+\item
+  Top Production Company\\
+\item
+  Top Director\\
+\item
+  Top Writer\\
+\item
+  Domestic (w/ International excluded)\\
+\item
+  English Language (w/ Other excluded)\\
+\item
+  Sentiment of Description\\
+\item
+  Sentiment of Tagline\\
+\item
+  Starpower Metric
+\end{itemize}
+
+outcomes:
+
+\begin{itemize}
+\tightlist
+\item
+  box office\\
+\item
+  imdb rating
+\end{itemize}
+
+Add in some descriptive statistics of the dataset.
 
 \begin{longtable}[]{@{}ll@{}}
-\caption{Recent historic eruptions on La
-Palma}\label{tbl-history}\tabularnewline
+\caption{Male versus Female Director}\label{tbl-history}\tabularnewline
 \toprule\noalign{}
 Name & Year \\
 \midrule\noalign{}
@@ -279,57 +368,136 @@ Name & Year \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Current & 2021 \\
-Teneguía & 1971 \\
-Nambroque & 1949 \\
-El Charco & 1712 \\
-Volcán San Antonio & 1677 \\
-Volcán San Martin & 1646 \\
-Tajuya near El Paso & 1585 \\
-Montaña Quemada & 1492 \\
+Female Leads & 488 \\
+Male Leads & 2328 \\
 \end{longtable}
 
-Table~\ref{tbl-history} summarises the eruptions recorded since the
-colonization of the islands by Europeans in the late 1400s.
+Table~\ref{tbl-history}
 
-\begin{figure}
+\section{Methodology}\label{sec-meth}
 
-\centering{
+\subsection{Sentiment Analysis of tagline and
+description}\label{sentiment-analysis-of-tagline-and-description}
 
-\includegraphics{images/la-palma-map.png}
+BERT model for sentiment analysis\\
+created labels of 0/1 for tagline and movie description
 
-}
+\subsection{Creation of the starpower
+variable}\label{creation-of-the-starpower-variable}
 
-\caption{\label{fig-map}Map of La Palma}
+Collected lists of A-list and B-list actors/actresses\\
+Added 2 points if one of the cast members was A-list\\
+Added 1 point if one of the cast members was B-list\\
+Averaged by dividing score by 3 (number of cast members)
 
-\end{figure}%
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3014}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2877}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2466}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1644}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+actor1
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+actor2
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+actor3
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+starpower
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Mark Wahlberg & Tyrese Gibson & André 3000 & 0.666667 \\
+Jamie Bell & Andy Serkis & Daniel Craig & 1.333333 \\
+Ryan Reynolds & Blake Lively & Peter Sarsgaard & 0.333333 \\
+Marc Singer & Tanya Roberts & Rip Torn & 0.000000 \\
+Tom Hiddleston & Samuel L. Jackson & Brie Larson & 1.000000 \\
+Jeremy Renner & Ed Helms & Jake Johnson & 0.000000 \\
+Frankie Muniz & Amanda Bynes & Paul Giamatti & 1.000000 \\
+Ben Barnes & Skandar Keynes & Georgie Henley & 0.000000 \\
+Jason Bateman & Charlie Day & Jason Sudeikis & 1.000000 \\
+Jack Black & Ana de la Reguera & Héctor Jiménez & 0.333333 \\
+\end{longtable}
 
-La Palma is one of the west most islands in the Volcanic Archipelago of
-the Canary Islands (Figure~\ref{fig-map}).
+\subsection{Creation of the variable that indicates female in leading
+role}\label{creation-of-the-variable-that-indicates-female-in-leading-role}
 
-\begin{figure}[H]
+Collected list of all female actresses\\
+Took the first cast member named\\
+Merged and created female\_lead variable\\
+1 = female lead
 
-\centering{
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Title & First Actor & Female Lead \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+The Family & Robert De Niro & 0 \\
+The Shack & Sam Worthington & 0 \\
+The Dead Zone & Christopher Walken & 0 \\
+The Ref & Denis Leary & 0 \\
+Flyboys & James Franco & 0 \\
+ATL & Tip `T.I.' Harris & 0 \\
+Like a Boss & Tiffany Haddish & 1 \\
+Enemy Mine & Dennis Quaid & 0 \\
+Proud Mary & Taraji P. Henson & 1 \\
+Valmont & Colin Firth & 0 \\
+\end{longtable}
 
-\includegraphics{index_files/figure-latex/notebooks-data-screening-fig-spatial-plot-output-1.png}
+\subsection{Propensity score matching}\label{propensity-score-matching}
 
-}
+StandardScaler Propensity scores calculated
 
-\caption{\label{fig-spatial-plot}Locations of earthquakes on La Palma
-since 2017.}
+\subsection{Robustness Checks}\label{robustness-checks}
 
-\end{figure}%
+Implemented the IMDb score as the outcome variable as a robustness
+check\\
+Does a female in the lead role impact the critical success of the film?
 
-\textsubscript{Source:
-\href{https://ehealy19.github.io/Matching_Movies_Manuscript/index.qmd.html}{Article
-Notebook}}
+\section{Results}\label{sec-results}
 
-Figure~\ref{fig-spatial-plot} shows the location of recent Earthquakes
-on La Palma.
+\subsection{Box Office Results}\label{box-office-results}
 
-\section{Data \& Methods}\label{sec-data-methods}
+Female-lead had higher box-office average
 
-\section{Conclusion}\label{conclusion}
+\subsection{IMDb Rating Results}\label{imdb-rating-results}
+
+Female-lead had lower IMDb scores
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Gender of Lead Role & Box Office & IMDb Rating \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Female & 62,708,871.36 & 6.329 \\
+Male & 61,076,707.45 & 6.601 \\
+\end{longtable}
+
+\section{Conclusion}\label{sec-conclusion}
+
+\subsection{Limitations:}\label{limitations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  More data
+\item
+  Network Analysis
+\item
+  Robustness Checks with Bechdel test
+\item
+  Inacurracy from matching female leads \& first actor not always the
+  lead
+\item
+  Unbalanced Dataset (is this an issue?)
+\end{enumerate}
 
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
@@ -337,19 +505,8 @@ on La Palma.
 \vspace{1em}
 
 \textsubscript{Source:
-\href{https://ehealy19.github.io/Matching_Movies_Manuscript/index.qmd.html}{Article
+\href{https://ehealy19.github.io/Matching_Movies/index-preview.html}{Article
 Notebook}}
-
-\phantomsection\label{refs}
-\begin{CSLReferences}{1}{0}
-\bibitem[\citeproctext]{ref-marrero2019}
-Marrero, J., García, A., Berrocoso, M., Llinares, Á., Rodríguez-Losada,
-A., \& Ortiz, R. (2019). Strategies for the development of volcanic
-hazard maps in monogenetic volcanic fields: The example of {La} {Palma}
-({Canary} {Islands}). \emph{Journal of Applied Volcanology}, \emph{8}.
-\url{https://doi.org/10.1186/s13617-019-0085-5}
-
-\end{CSLReferences}
 
 
 
