@@ -1,0 +1,108 @@
+---
+title: "Leading Ladies and Lost Revenue: A Causal Analysis of Female Representation and Box-Office Returns"
+author:
+  - name: Lizzie Healy
+    corresponding: true
+    email: emh201@georgetown.com
+    roles:
+      - Project Designer
+      - Data Collector
+      - Methodologist
+      - Analyst
+      - Visualization
+    affiliations:
+      - Georgetown University
+keywords:
+  - Films
+  - Gender Equality
+  - Economics
+abstract: |
+  This work will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue. This will be accomplished utilizing propensity weighting, which will match movies based on the perceived similarity of their characteristics. These predictor variables will include the year, season of release, genre, runtime, director and writers, star power level of the cast, MPAA rating, IMDb Metascore, IMDb Votes, number of awards won, country of release, language, film description, the production budget, the aspect ratio, the color, the countries of origin, filming locations, production companies, and tagline. To deal with the variables that are non-numeric the following steps will be taken. Firstly, a network analysis will be performed on the cast to produce a measure of centrality of the actors/actresses. Secondly, a sentiment analysis will be performed on the film description and tagline. The primary outcome variable will be the box-office number measured in US dollars, measured as the gross value worldwide. The IMDb score will be employed as an additional outcome measure to be used as a robustness check. A secondary robustness check may be employed in which the primary variable of interest will be whether the film passes the Bechdel test, indicating true female representation in the film. The initial hypothesis is that films that opt to feature a female in the leading role will experience a decrease value in the box office revenue.
+plain-language-summary: |
+  Earthquake data for the island of La Palma from the September 2021 eruption is found ...
+key-points:
+  - A web scraping script was developed to pull data from the Instituto Geogràphico Nacional into a machine-readable form for analysis
+  - Earthquake events on La Palma are consistent with the presence of both mantle and crustal reservoirs.
+date: last-modified
+bibliography: references.bib
+citation:
+  container-title: Film Data Science
+number-sections: true
+jupyter: python3
+kernel: dsan5650
+---
+
+## Introduction
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+eruptions = [1492, 1585, 1646, 1677, 1712, 1949, 1971, 2021]
+```
+
+```{python}
+#| label: fig-timeline
+#| fig-cap: Timeline of recent earthquakes on La Palma
+#| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.
+
+plt.figure(figsize=(6, 1))
+plt.eventplot(eruptions, lineoffsets=0, linelengths=0.1, color='black')
+plt.gca().axes.get_yaxis().set_visible(False)
+plt.ylabel('')
+plt.show()
+```
+
+```{python}
+#| output: false
+
+avg_years_between_eruptions = np.mean(np.diff(eruptions[:-1]))
+avg_years_between_eruptions
+```
+
+Based on data up to and including 1971, eruptions on La Palma happen every `{python} f"{avg_years_between_eruptions:.1f}"` years on average.
+
+Studies of the magma systems feeding the volcano, such as @marrero2019, have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).
+
+Eight eruptions have been recorded since the late 1400s (@fig-timeline).
+
+Data and methods are discussed in @sec-data-methods.
+
+Let $x$ denote the number of eruptions in a year. Then, $x$ can be modeled by a Poisson distribution
+
+$$
+p(x) = \frac{e^{-\lambda} \lambda^{x}}{x !}
+$$ {#eq-poisson}
+
+where $\lambda$ is the rate of eruptions per year. Using @eq-poisson, the probability of an eruption in the next $t$ years can be calculated.
+
+| Name                | Year |
+|---------------------|------|
+| Current             | 2021 |
+| Teneguía            | 1971 |
+| Nambroque           | 1949 |
+| El Charco           | 1712 |
+| Volcán San Antonio  | 1677 |
+| Volcán San Martin   | 1646 |
+| Tajuya near El Paso | 1585 |
+| Montaña Quemada     | 1492 |
+
+: Recent historic eruptions on La Palma {#tbl-history}
+
+@tbl-history summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.
+
+![Map of La Palma](images/la-palma-map.png){#fig-map}
+
+La Palma is one of the west most islands in the Volcanic Archipelago of the Canary Islands (@fig-map).
+
+{{< embed notebooks/data-screening.qmd#fig-spatial-plot >}}
+
+@fig-spatial-plot shows the location of recent Earthquakes on La Palma.
+
+## Data & Methods {#sec-data-methods}
+
+## Conclusion
+
+## References {.unnumbered}
+
+::: {#refs}
+:::
