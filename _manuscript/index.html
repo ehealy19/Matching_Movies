@@ -141,11 +141,28 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#causality" id="toc-causality" class="nav-link" data-scroll-target="#causality"><span class="header-section-number">1.1</span> Causality</a></li>
+  </ul></li>
   <li><a href="#sec-data" id="toc-sec-data" class="nav-link" data-scroll-target="#sec-data"><span class="header-section-number">2</span> Data</a></li>
-  <li><a href="#sec-meth" id="toc-sec-meth" class="nav-link" data-scroll-target="#sec-meth"><span class="header-section-number">3</span> Methodology</a></li>
-  <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">4</span> Results</a></li>
-  <li><a href="#sec-conclusion" id="toc-sec-conclusion" class="nav-link" data-scroll-target="#sec-conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
+  <li><a href="#sec-meth" id="toc-sec-meth" class="nav-link" data-scroll-target="#sec-meth"><span class="header-section-number">3</span> Methodology</a>
+  <ul class="collapse">
+  <li><a href="#sentiment-analysis-of-tagline-and-description" id="toc-sentiment-analysis-of-tagline-and-description" class="nav-link" data-scroll-target="#sentiment-analysis-of-tagline-and-description"><span class="header-section-number">3.1</span> Sentiment Analysis of tagline and description</a></li>
+  <li><a href="#creation-of-the-starpower-variable" id="toc-creation-of-the-starpower-variable" class="nav-link" data-scroll-target="#creation-of-the-starpower-variable"><span class="header-section-number">3.2</span> Creation of the starpower variable</a></li>
+  <li><a href="#creation-of-the-variable-that-indicates-female-in-leading-role" id="toc-creation-of-the-variable-that-indicates-female-in-leading-role" class="nav-link" data-scroll-target="#creation-of-the-variable-that-indicates-female-in-leading-role"><span class="header-section-number">3.3</span> Creation of the variable that indicates female in leading role</a></li>
+  <li><a href="#propensity-score-matching" id="toc-propensity-score-matching" class="nav-link" data-scroll-target="#propensity-score-matching"><span class="header-section-number">3.4</span> Propensity score matching</a></li>
+  <li><a href="#robustness-checks" id="toc-robustness-checks" class="nav-link" data-scroll-target="#robustness-checks"><span class="header-section-number">3.5</span> Robustness Checks</a></li>
+  </ul></li>
+  <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">4</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#box-office-results" id="toc-box-office-results" class="nav-link" data-scroll-target="#box-office-results"><span class="header-section-number">4.1</span> Box Office Results</a></li>
+  <li><a href="#imdb-rating-results" id="toc-imdb-rating-results" class="nav-link" data-scroll-target="#imdb-rating-results"><span class="header-section-number">4.2</span> IMDb Rating Results</a></li>
+  </ul></li>
+  <li><a href="#sec-conclusion" id="toc-sec-conclusion" class="nav-link" data-scroll-target="#sec-conclusion"><span class="header-section-number">5</span> Conclusion</a>
+  <ul class="collapse">
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="header-section-number">5.1</span> Limitations:</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebooks/data_clean-preview.html"><i class="bi bi-journal-code"></i>Cleaning the Data</a></li><li><a href="notebooks/data_collect-preview.html"><i class="bi bi-journal-code"></i>Collecting Data</a></li><li><a href="notebooks/data-screening-preview.html"><i class="bi bi-journal-code"></i>Data Screening</a></li><li><a href="notebooks/manufactured_vars-preview.html"><i class="bi bi-journal-code"></i>Manuactured Variables</a></li><li><a href="notebooks/propensity_scores-preview.html"><i class="bi bi-journal-code"></i>Propensity Score Matching</a></li></ul></div></nav>
@@ -161,13 +178,24 @@ div.csl-indent {
 
 <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<p>Explain the work of my thesis and 5300 and 5400 (mainly thesis)</p>
-<p>Embed all the projects here</p>
-<p>The work to get to causality includes introducing causality instead of just controlling for all covariates.</p>
+<section id="causality" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="causality"><span class="header-section-number">1.1</span> Causality</h3>
+<p>My previous paper: <a href="./assets/thesis.pdf">Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry</a> attempted to analyze the link between director quality and box-office success of a film. The paper created two novel measures of director quality; a summation of all box-office revenue earned by and the director’s films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue and a robustness check was implemented changing the dependent variable to the IMDb rating earned.</p>
+<p><img src="./assets/thesis_table1.png" class="img-fluid"> <img src="./assets/thesis_table2.png" class="img-fluid"></p>
+<p>The paper found an increase in director financial quality yielded between a 0.0289% and 0.0307% increas in domestic gross and no impact on IMDb rating. Conversely, director quality in terms of critical acclaim yielded no significant impact on domestic gross, but betweeen 0.01803 and 0.0270 point increase in IMDb rating. The paper also discovered a statistically significant decrease in domestic gross for demale directors as compared to male directors.</p>
+<p>Overall, the results were thought-provoking, however, the methodology used was lacking in the causality department. This paper, if anything, worked towards establishing a weak association due to it statical analysis going only so far as a simple ordinary-least-squares regression and controlling for confounding variables. While, the variables were considered and included in the regression equation, they were all treated equally as controls, thus a more complex analysis is warranted.</p>
+<p>Furthermore, I wanted to investigate the conclusion of gender bias further and shifted this analysis to examine actors instead of directors.</p>
+<p>Moving forward, the work to get to causality includes introducing causality instead of just controlling for all covariates.</p>
+<p>Thus, this paper will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will attempt to establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue by employing propensity score matching.</p>
 <p>Data collection and preparation is discussed in <a href="#sec-data" class="quarto-xref">Section&nbsp;2</a>.</p>
 <p>Methodology and propensity scoring is discussed in <a href="#sec-meth" class="quarto-xref">Section&nbsp;3</a></p>
 <p>Results and anlysis are disucssed in <a href="#sec-results" class="quarto-xref">Section&nbsp;4</a></p>
 <p>Conluding remarks, limitations, and future work are discussed in <a href="#sec-conclusion" class="quarto-xref">Section&nbsp;5</a></p>
+</section>
+</section>
+<section id="sec-data" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-data"><span class="header-section-number">2</span> Data</h2>
+<p>Data was collected from IMDb utilizing two separate APIs: OMDB and TMDB.</p>
 <div id="tbl-history" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-history-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -183,11 +211,11 @@ Table&nbsp;1: Male versus Female Director
 </thead>
 <tbody>
 <tr class="odd">
-<td>Female Directors</td>
+<td>Female Leads</td>
 <td>484</td>
 </tr>
 <tr class="even">
-<td>Male Directors</td>
+<td>Male Leads</td>
 <td>1001</td>
 </tr>
 </tbody>
@@ -197,17 +225,65 @@ Table&nbsp;1: Male versus Female Director
 </div>
 <p><a href="#tbl-history" class="quarto-xref">Table&nbsp;1</a></p>
 </section>
-<section id="sec-data" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="sec-data"><span class="header-section-number">2</span> Data</h2>
-</section>
 <section id="sec-meth" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="sec-meth"><span class="header-section-number">3</span> Methodology</h2>
+<section id="sentiment-analysis-of-tagline-and-description" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="sentiment-analysis-of-tagline-and-description"><span class="header-section-number">3.1</span> Sentiment Analysis of tagline and description</h3>
+</section>
+<section id="creation-of-the-starpower-variable" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="creation-of-the-starpower-variable"><span class="header-section-number">3.2</span> Creation of the starpower variable</h3>
+</section>
+<section id="creation-of-the-variable-that-indicates-female-in-leading-role" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="creation-of-the-variable-that-indicates-female-in-leading-role"><span class="header-section-number">3.3</span> Creation of the variable that indicates female in leading role</h3>
+</section>
+<section id="propensity-score-matching" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="propensity-score-matching"><span class="header-section-number">3.4</span> Propensity score matching</h3>
+</section>
+<section id="robustness-checks" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="robustness-checks"><span class="header-section-number">3.5</span> Robustness Checks</h3>
+</section>
 </section>
 <section id="sec-results" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="sec-results"><span class="header-section-number">4</span> Results</h2>
+<section id="box-office-results" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="box-office-results"><span class="header-section-number">4.1</span> Box Office Results</h3>
+</section>
+<section id="imdb-rating-results" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="imdb-rating-results"><span class="header-section-number">4.2</span> IMDb Rating Results</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Gender of Lead Role</th>
+<th>Box Office</th>
+<th>IMDb Rating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Female</td>
+<td>62,708,871.36</td>
+<td>6.329</td>
+</tr>
+<tr class="even">
+<td>Male</td>
+<td>61,076,707.45</td>
+<td>6.601</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="sec-conclusion" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="sec-conclusion"><span class="header-section-number">5</span> Conclusion</h2>
+<section id="limitations" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="limitations"><span class="header-section-number">5.1</span> Limitations:</h3>
+<ol type="1">
+<li>More data</li>
+<li>Network Analysis</li>
+<li>Robustness Checks with Bechdel test</li>
+<li>Inacurracy from matching female leads &amp; first actor not always the lead</li>
+</ol>
+</section>
 </section>
 <section id="references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>

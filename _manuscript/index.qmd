@@ -43,11 +43,22 @@ import numpy as np
 #| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.
 ```
 
-Explain the work of my thesis and 5300 and 5400 (mainly thesis)
+### Causality
 
-Embed all the projects here
+My previous paper: [Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry](./assets/thesis.pdf) attempted to analyze the link between director quality and box-office success of a film. The paper created two novel measures of director quality; a summation of all box-office revenue earned by and the director's films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue and a robustness check was implemented changing the dependent variable to the IMDb rating earned. 
 
-The work to get to causality includes introducing causality instead of just controlling for all covariates.
+![](./assets/thesis_table1.png)
+![](./assets/thesis_table2.png)
+
+The paper found an increase in director financial quality yielded between a 0.0289% and 0.0307% increas in domestic gross and no impact on IMDb rating. Conversely, director quality in terms of critical acclaim yielded no significant impact on domestic gross, but betweeen 0.01803 and 0.0270 point increase in IMDb rating. The paper also discovered a statistically significant decrease in domestic gross for demale directors as compared to male directors.
+
+Overall, the results were thought-provoking, however, the methodology used was lacking in the causality department. This paper, if anything, worked towards establishing a weak association due to it statical analysis going only so far as a simple ordinary-least-squares regression and controlling for confounding variables. While, the variables were considered and included in the regression equation, they were all treated equally as controls, thus a more complex analysis is warranted. 
+
+Furthermore, I wanted to investigate the conclusion of gender bias further and shifted this analysis to examine actors instead of directors.
+
+Moving forward, the work to get to causality includes introducing causality instead of just controlling for all covariates.
+
+Thus, this paper will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will attempt to establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue by employing propensity score matching.
 
 Data collection and preparation is discussed in @sec-data.
 
@@ -57,22 +68,49 @@ Results and anlysis are disucssed in @sec-results
 
 Conluding remarks, limitations, and future work are discussed in @sec-conclusion
 
+## Data {#sec-data}
+
+Data was collected from IMDb utilizing two separate APIs: OMDB and TMDB. 
+
 | Name                | Year |
 |---------------------|------|
-| Female Directors    | 484 |
-| Male Directors      | 1001 |
+| Female Leads    | 484 |
+| Male Leads      | 1001 |
 
 : Male versus Female Director {#tbl-history}
 
 @tbl-history
 
-## Data {#sec-data}
-
 ## Methodology {#sec-meth}
+
+### Sentiment Analysis of tagline and description
+
+### Creation of the starpower variable
+
+### Creation of the variable that indicates female in leading role
+
+### Propensity score matching
+
+### Robustness Checks
 
 ## Results {#sec-results}
 
+### Box Office Results
+
+### IMDb Rating Results
+
+| Gender of Lead Role     | Box Office | IMDb Rating |
+|---------------------|------|------|
+| Female             | 62,708,871.36 | 6.329 |
+| Male               | 61,076,707.45 | 6.601 |
+
 ## Conclusion {#sec-conclusion}
+
+### Limitations:
+1. More data
+2. Network Analysis
+3. Robustness Checks with Bechdel test
+4. Inacurracy from matching female leads & first actor not always the lead
 
 ## References {.unnumbered}
 
