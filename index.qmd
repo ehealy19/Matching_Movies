@@ -72,63 +72,30 @@ Conluding remarks, limitations, and future work are discussed in @sec-conclusion
 
 ## Data {#sec-data}
 
-Data was collected from IMDb utilizing two separate APIs: OMDB and TMDB. 
+The data for this research was collected from separate sources: [Open Movie Database (OMDb)](https://www.omdbapi.com/) and [The Movie Database (TMDb)](https://www.themoviedb.org/). Both are sources for movie and television metadata, differing only in their sourcing and specific variables provided. OMDb partly sources from Amazon's Internet Movie Database (IMDb) and then relies on crowdsourcing for missing data, while TMDb is independently created and relies solely on crowd-sourcing from its community of film-buffs to provide data entry for films. Both of these sources offer an API that allowed for the collection of movie metadata, which was then merged using an inner join on the film Title and resulted in the following variables: Title, Year, Runtime, Budget, Released, Genre (Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, Film Noir, History, Horror, Music, Musical, Mystery, Romance, Sci-Fi, Sport, Thriller, War, Western), MPAA Rating (G, GP, M, M/PG, NC-17, Not-Rated, PG, PG-13, R, TV-MA, Unrated, Accepted), Production Companies, Director, Writer, Country, Language, Description, Tagline, Overview, Actors, Box Office, Revenue, IMDb Rating, Metascore, IMDb Votes, TMDb rating, Vote Count, Awards, and Poster URL.
 
-https://www.omdbapi.com/ \
-https://www.themoviedb.org/ 
+With this combined dataset, some further preparation was required to move forward with the analysis. Firstly, some variables were dropped as they were deemed unimportant while others were very similar across the datasets for example only the description variable was kept and the overview variable was dropped. All missing and zero values in numerical variables were removed and each of the variables was converted to the correct data type. The release date was split into three variables for the month, day, and year. For the categorical variables two different techniques were utilized. For the genere and MPAA rating a one-hot encoding was applied. However for the language and country variables, only the first observation of each was kept and then they were categorized simply as either english or other language and domestic (for US) and international for all other countries. 
 
-The datasets were merged on the movie title
-
-Cleaning:
-
-- dropped unimportant columns \
-- dropped missing values and zeros \
-- converted to correct data types \
-- one-hot encoded categorical variables \
-- Big Production Company Variable \
-- Top 25 Director \
-- Top 20 Writer \
-- English/Other Language \
-- Domestic/International
-
-
-2,816 movies
-
-61 columns
-
-Variables:
-
-- year \
-- runtime \
-- budget \
-- Month of release \
-- Day of Release** \
-- Genre (Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, Film Noir, History, Horror, Music, Mystery, Romance, Sci-Fi, Sport, Thriller, War, Western w/ Musical excluded) \
-- MPAA Rating (G, GP, M, M/PG, NC-17, Not-Rated, PG, PG-13, R, TV-MA, Unrated w/ Accepted excluded) \
-- Top Production Company \
-- Top Director \
-- Top Writer \
-- Domestic (w/ International excluded) \
-- English Language (w/ Other excluded) \
-- Sentiment of Description \
-- Sentiment of Tagline \
-- Starpower Metric
-
-outcomes:
-
-- box office \
-- imdb rating
+The final dataset included a total of 2,816 films with 61 columns of variables. 
 
 Add in some descriptive statistics of the dataset.
 
-| Name                | Year |
-|---------------------|------|
-| Female Leads    | 488 |
-| Male Leads      | 2328 |
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-: Male versus Female Director {#tbl-history}
+movies_df = pd.read_csv("./data/output_data/clean_movies.csv")
+imdb = movies_df['IMDB Rating']
 
-@tbl-history
+plt.figure(figsize=(8, 5))
+sns.histplot(imdb, bins=20, edgecolor='black')
+plt.xlabel('IMDB Rating')
+plt.ylabel('Number of Movies')
+plt.title('Distribution of IMDB Ratings')
+plt.show()
+```
 
 ## Methodology {#sec-meth}
 
@@ -179,11 +146,25 @@ Merged and created female_lead variable \
 | Proud Mary      | Taraji P. Henson     | 1           |
 | Valmont         | Colin Firth          | 0           |
 
+As displayed in @tbl-1 the films were split between 488 films with female leading actresses and 2328 films with male leading actors.  
+
+| Name                | Year |
+|---------------------|------|
+| Female Leads    | 488 |
+| Male Leads      | 2328 |
+
+: Male versus Female Director {#tbl-1}
+
 
 ### Propensity score matching
 
 StandardScaler
 Propensity scores calculated
+
+international excluded
+other language excluded
+musical genre excluded
+accepted mpaa rating excluded
 
 ### Robustness Checks
 
