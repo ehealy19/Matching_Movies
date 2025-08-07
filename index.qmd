@@ -123,25 +123,25 @@ In order to extract meaningful value from the film description and tagline, sent
 | Meet the Robinsons | If you think your family's different, wait 'til you meet the family of the future. | 1 |
 | The Royal Tenenbaums | Family isn't a word ... It's a sentence. | 0 |
 
+: Example of the Tagline Sentiment Values. {#tbl-1}
+
 | Sentiment | Count |
 |---------------------- |---------------------|
 | Positive | 1476 |
 | Negative | 1340 |
 
+: Count of positive and negative sentiment. {#tbl-1}
 
 #### Creation of the starpower variable
 
-Collected lists of A-list and B-list actors/actresses \
-Added 2 points if one of the cast members was A-list \
-Added 1 point if one of the cast members was B-list \
-Averaged by dividing score by 3 (number of cast members)
+One of the most important building blocks of a film is the cast of actors and actresses and well-known names can be a huge draw to the theatres to movie-goers. This feature seemingly has an impact on the outcome of the film and its financial success. Thus, finding a way to classify the 'starpowerness' of the cast was paramount to this analysis. The dataset, unfortunately, only provides the three main cast members, which discounts films that rely on an ensemble cast or have a large enough budget to cast many big-names. That being said, this research attempted to define a metric that quantified this 'starpower' aspects of the three cast members, in the hopes that the success and name-recognition can be at least partly captured.
 
-https://www.imdb.com/list/ls056262001/
+The metric was created by the collecting lists of A-list and B-list actors and actresses. In film-terms these categorization reflect how 'bankable' the stars are or how many financial draw they bring to a film theoretically. These lists are all collected from IMDb and included a wide-range of household names. With these lists, the cast variable was split into actor1, actor2, actor3 based simply on the order in which they were listed. Then, each of the cast variables were referenced against all three of the lists. The film title received:
 
-https://www.imdb.com/list/ls056262192/
+1. **2 points** if a cast member was part of the A-list
+2. **1 point** if cast member was part of the B-list
 
-https://www.imdb.com/list/ls024783564/
-
+These points were added in the `starpower` variable and then divided by three to get a finalized score of the points across the three cast members. @tbl-5 shows an example of the scoring.
 
 |        actor1         |        actor2        |      actor3      | starpower  |
 |---------------------- |---------------------|------------------|------------|
@@ -155,6 +155,13 @@ https://www.imdb.com/list/ls024783564/
 | Ben Barnes            | Skandar Keynes      | Georgie Henley   | 0.000000   |
 | Jason Bateman         | Charlie Day         | Jason Sudeikis   | 1.000000   |
 | Jack Black            | Ana de la Reguera   | Héctor Jiménez   | 0.333333   |
+
+: Starpower metric scores for actors in 10 movies. {#tbl-5}
+
+[IMDb A-list Actors](https://www.imdb.com/list/ls056262001/)
+[IMDb A-list Actresses](https://www.imdb.com/list/ls056262192/)
+[IMDb B-list](https://www.imdb.com/list/ls024783564/)
+
 
 #### Creation of the variable that indicates female in leading role
 
