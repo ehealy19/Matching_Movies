@@ -80,36 +80,54 @@ The final dataset included a total of 2,816 films with 61 columns of variables.
 
 Add in some descriptive statistics of the dataset.
 
-```{python}
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+![](./notebooks/notebook_output/imdb_rating.png)
 
-movies_df = pd.read_csv("./data/output_data/clean_movies.csv")
-imdb = movies_df['IMDB Rating']
+: IMDb Rating Distribution {#tbl-1}
 
-plt.figure(figsize=(8, 5))
-sns.histplot(imdb, bins=20, edgecolor='black')
-plt.xlabel('IMDB Rating')
-plt.ylabel('Number of Movies')
-plt.title('Distribution of IMDB Ratings')
-plt.show()
-```
+| Variable | Minimum | Maximum | Mean | Standard Deviation |
+|-----------------|----------------------|-------------|
+| Box Office | 3,622 | 858,373,000 | 73,753,531 | 88,133,798 |
+| Budget | 7,000 | 460,000,000 | 49,601,710 | 54,138,962 |
+| Runtime | 63 | 238 | 113 | 20.6 |
+| IMDb Rating | 1.9 | 9.3 | 6.6 | 0.9 |
+| IMDb Votes | 1,672 | 3,059,994 | 222,006 | 284,492 |
+
+![](./notebooks/notebook_output/imdb_rating.png)
+
+![](./notebooks/notebook_output/imdb_overtime.png)
+![](./notebooks/notebook_output/boxoffice_overtime.png)
+
+![](./notebooks/notebook_output/genre_counts.png)
+![](./notebooks/notebook_output/rated_counts.png)
+
+![](./notebooks/notebook_output/mpaa_pie.png)
+
 
 ## Methodology {#sec-meth}
 
-### Sentiment Analysis of tagline and description
+### Manufactured Variables
+
+#### Top Directors
+#### Top Writers
+#### Top Production Company
+
+#### Sentiment Analysis of tagline and description
 
 BERT model for sentiment analysis \
 created labels of 0/1 for tagline and movie description
 
-### Creation of the starpower variable
+#### Creation of the starpower variable
 
 Collected lists of A-list and B-list actors/actresses \
 Added 2 points if one of the cast members was A-list \
 Added 1 point if one of the cast members was B-list \
 Averaged by dividing score by 3 (number of cast members)
+
+https://www.imdb.com/list/ls056262001/
+
+https://www.imdb.com/list/ls056262192/
+
+https://www.imdb.com/list/ls024783564/
 
 
 |        actor1         |        actor2        |      actor3      | starpower  |
@@ -125,12 +143,13 @@ Averaged by dividing score by 3 (number of cast members)
 | Jason Bateman         | Charlie Day         | Jason Sudeikis   | 1.000000   |
 | Jack Black            | Ana de la Reguera   | Héctor Jiménez   | 0.333333   |
 
-### Creation of the variable that indicates female in leading role
+#### Creation of the variable that indicates female in leading role
 
-Collected list of all female actresses \
-Took the first cast member named \
-Merged and created female_lead variable \
-1 = female lead 
+This analysis relied on the ability to distinguish between female and male leading actresses and actors, however, this is not something directly encoded into the metadata of a film, thus this variable had to be manufactured. In order to achieve this, a list of all current female actresses was collected from [Wikipedia](https://en.wikipedia.org/wiki/List_of_American_film_actresses). This list included 2,816 names of female actresses, alphabetized. To note, there was attempts to utilize a list of all female names and an off-the-shelf model to guess whether the cast member listed identified a male of female, however, both of these methods produced increased inaccuracy, thus the list of female actresses method was proceeded with.
+
+The next step was to determine only the presumed lead cast member by extracting the first person listed in the 'Actors' variable of the dataset. This name was then compared against the list from of female actresses and received a value of 1 if the cast member was included on the list. 
+
+Therefore, the end result was a variable titled 'female_lead' if the first cast member listed in the IMDb metadata was a member of the current working female actress list and a 0 if the cast member was not a member of the list and, thus, presumably a male actor. @tbl-1 displays an example of the accuracy results of this variable.
 
 
 | Title           | First Actor           | Female Lead |
@@ -146,15 +165,16 @@ Merged and created female_lead variable \
 | Proud Mary      | Taraji P. Henson     | 1           |
 | Valmont         | Colin Firth          | 0           |
 
-As displayed in @tbl-1 the films were split between 488 films with female leading actresses and 2328 films with male leading actors.  
+: Example of the 'female_lead' variable {#tbl-1}
+
+As displayed in @tbl-2 the films were split between 488 films with female leading actresses and 2328 films with male leading actors.  
 
 | Name                | Year |
 |---------------------|------|
 | Female Leads    | 488 |
 | Male Leads      | 2328 |
 
-: Male versus Female Director {#tbl-1}
-
+: Male versus Female Director {#tbl-2}
 
 ### Propensity score matching
 
