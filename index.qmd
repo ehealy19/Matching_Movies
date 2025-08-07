@@ -19,10 +19,7 @@ keywords:
 abstract: |
   This work will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue. This will be accomplished utilizing propensity weighting, which will match movies based on the perceived similarity of their characteristics. These predictor variables will include the year, season of release, genre, runtime, director and writers, star power level of the cast, MPAA rating, IMDb Metascore, IMDb Votes, number of awards won, country of release, language, film description, the production budget, the aspect ratio, the color, the countries of origin, filming locations, production companies, and tagline. To deal with the variables that are non-numeric the following steps will be taken. Firstly, a manufactured metric will be created to capture the preceived 'starpower' of the actors/actresses. Secondly, a sentiment analysis will be performed on the film description and tagline. The primary outcome variable will be the box-office number measured in US dollars, measured as the gross value worldwide. The IMDb score will be employed as an additional outcome measure to be used as a robustness check. A secondary robustness check may be employed in which the primary variable of interest will be whether the film passes the Bechdel test, indicating true female representation in the film. The initial hypothesis is that films that opt to feature a female in the leading role will experience a decrease value in the box office revenue.
 plain-language-summary: |
-  Earthquake data for the island of La Palma from the September 2021 eruption is found ...
-key-points:
-  - A web scraping script was developed to pull data from the Instituto Geogràphico Nacional into a machine-readable form for analysis
-  - Earthquake events on La Palma are consistent with the presence of both mantle and crustal reservoirs.
+  Propensity scoring regression analysis to determine whether female versus male leads have a causal impact on the box office revenue and IMDb rating of a film.
 date: last-modified
 bibliography: references.bib
 citation:
@@ -78,8 +75,6 @@ With this combined dataset, some further preparation was required to move forwar
 
 The final dataset included a total of 2,816 films with 61 columns of variables. 
 
-Add in some descriptive statistics of the dataset.
-
 ![](./notebooks/notebook_output/imdb_rating.png)
 
 : IMDb Rating Distribution {#tbl-1}
@@ -111,8 +106,8 @@ Add in some descriptive statistics of the dataset.
 
 In order to incorporate the level of expertise of the team creating the film, this analysis worked to categorize top level of directors, writers, and production companies. All of these were attempting to better match movies based on the level of effort put into the creation in terms of money, knowledge, experience, and previous success. To achieve this, three lists were collected that detailed the top directors, writers, and production companies:
 
-[IMDb list of top directors](https://www.imdb.com/list/ls052380992/)
-[IMDb list of top Script writers](https://www.imdb.com/list/ls064457317/)
+[IMDb list of top directors](https://www.imdb.com/list/ls052380992/)\
+[IMDb list of top Script writers](https://www.imdb.com/list/ls064457317/)\
 [The Numbers Top Production Companies](https://www.the-numbers.com/movies/production-companies/#production_companies_overview=od1)
 
 The directors and writers were judged on a combination of their perceived skill and their lifetime achievement in terms of awards and accolades. The production companies were compiled simply based on the total domestic box office revenue amassed across all films they have produced.
@@ -146,8 +141,8 @@ One of the most important building blocks of a film is the cast of actors and ac
 
 The metric was created by the collecting lists of A-list and B-list actors and actresses. In film-terms these categorization reflect how 'bankable' the stars are or how many financial draw they bring to a film theoretically. These lists are all collected from IMDb and included a wide-range of household names. With these lists, the cast variable was split into actor1, actor2, actor3 based simply on the order in which they were listed. Then, each of the cast variables were referenced against all three of the lists. The film title received:
 
-1. **2 points** if a cast member was part of the A-list
-2. **1 point** if cast member was part of the B-list
+- **2 points** if a cast member was part of the A-list\
+- **1 point** if cast member was part of the B-list
 
 These points were added in the `starpower` variable and then divided by three to get a finalized score of the points across the three cast members. @tbl-5 shows an example of the scoring.
 
@@ -206,13 +201,21 @@ As displayed in @tbl-2 the films were split between 488 films with female leadin
 
 ### Propensity score matching
 
-StandardScaler
-Propensity scores calculated
+The primary statistical analysis performed was propensity score matching (PSM). This statistical method allows for comparison of films that are similar across all observed covariates, differing only in whether the lead is a male or female actor or actress. In this context, the presence of a female lead is handled as a treatment, and the effect of that treatement on the outcome variable is estimated. 
 
+Unlike simply including covariates as controls in a regression equation, this technique aims to reduce selection bias by matching treated and control units based on their likelihood of receiving the treatment, given the covariates. This creates a more comparable dataset, which quasi-miimcks the conditions of a randomized experiment.
+
+1. Sklearn StandardScaler
+2. checked the variance inflation factor to check multicollinearity of variables (those above the threshold of 10 were excluded)
 international excluded
 other language excluded
 musical genre excluded
 accepted mpaa rating excluded
+1. estimate the propensity scores using a logistic regression with the other characteristics as covariates and female_lead as the treatment
+   1. this produces propensity scores (ps) for each Title which is the prob of movie having a female lead
+2. then match the movies across the groups (males versus female) based on closest propensity score
+3. create the matched dataset (each row is matched pair)
+4. compare the average box office of matched female vs male lead movies
 
 ### Robustness Checks
 
