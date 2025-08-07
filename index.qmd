@@ -113,8 +113,21 @@ Add in some descriptive statistics of the dataset.
 
 #### Sentiment Analysis of tagline and description
 
-BERT model for sentiment analysis \
-created labels of 0/1 for tagline and movie description
+In order to extract meaningful value from the film description and tagline, sentiment analysis was performed on the text. This sentiment analyis was performed by an off-the-shelf pre-trained model publically available [Hugging Face](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english). This model was trained on English text specifically for binary text classifaction and boosted a high accuracy score. The end result is a two variables with a binary value of 1 for positive sentiment or 0 for negative sentiment of both the film description and film tagline. 
+
+|        Title         |        Tagline        | Tagline Sentiment |
+|---------------------- |---------------------|------------------|------------|
+| Surf's Up | A Major Ocean Picture. | 1 |
+| The BFG | The world is more giant than you can imagine. | 1 |
+| Twin Peaks: Fire Walk with Me | In a town like Twin Peaks, no one is innocent. | 0 |
+| Meet the Robinsons | If you think your family's different, wait 'til you meet the family of the future. | 1 |
+| The Royal Tenenbaums | Family isn't a word ... It's a sentence. | 0 |
+
+| Sentiment | Count |
+|---------------------- |---------------------|
+| Positive | 1476 |
+| Negative | 1340 |
+
 
 #### Creation of the starpower variable
 
@@ -214,6 +227,8 @@ Female-lead had lower IMDb scores
 3. Robustness Checks with Bechdel test
 4. Inacurracy from matching female leads & first actor not always the lead
 5. Unbalanced Dataset (is this an issue?)
+Further Work:
+1. classify the tagline and description
 
 ## References {.unnumbered}
 
