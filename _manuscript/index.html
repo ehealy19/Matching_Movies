@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lizzie Healy">
-<meta name="dcterms.date" content="2025-08-06">
+<meta name="dcterms.date" content="2025-08-07">
 <meta name="keywords" content="Films, Gender Equality, Economics">
 
 <title>Leading Ladies and Lost Revenue: A Causal Analysis of Female Representation and Box-Office Returns</title>
@@ -278,7 +278,10 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
   }
 
   async function findAndActivateCategories() {
-    const currentPagePath = offsetAbsoluteUrl(window.location.href);
+    // Categories search with listing only use path without query
+    const currentPagePath = offsetAbsoluteUrl(
+      window.location.origin + window.location.pathname
+    );
     const response = await fetch(offsetRelativeUrl("listings.json"));
     if (response.status == 200) {
       return response.json().then(function (listingPaths) {
@@ -3099,10 +3102,10 @@ font-family: inherit;
 ">
 <meta name="citation_keywords" content="Films,Gender Equality,Economics">
 <meta name="citation_author" content="Lizzie Healy">
-<meta name="citation_publication_date" content="2025-08-06">
-<meta name="citation_cover_date" content="2025-08-06">
+<meta name="citation_publication_date" content="2025-08-07">
+<meta name="citation_cover_date" content="2025-08-07">
 <meta name="citation_year" content="2025">
-<meta name="citation_online_date" content="2025-08-06">
+<meta name="citation_online_date" content="2025-08-07">
 <meta name="citation_language" content="en">
 <meta name="citation_journal_title" content="Film Data Science">
 <meta name="citation_reference" content="citation_title=Strategies for the development of volcanic hazard maps in monogenetic volcanic fields: The example of La Palma (Canary Islands);,citation_author=José Marrero;,citation_author=Alicia García;,citation_author=Manuel Berrocoso;,citation_author=Ángeles Llinares;,citation_author=Antonio Rodríguez-Losada;,citation_author=R. Ortiz;,citation_publication_date=2019-07;,citation_cover_date=2019-07;,citation_year=2019;,citation_doi=10.1186/s13617-019-0085-5;,citation_volume=8;,citation_journal_title=Journal of Applied Volcanology;">
@@ -3139,7 +3142,7 @@ font-family: inherit;
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">August 6, 2025</p>
+              <p class="date">August 7, 2025</p>
             </div>
           </div>
           
@@ -3179,11 +3182,9 @@ font-family: inherit;
   <li><a href="#sec-data" id="toc-sec-data" class="nav-link" data-scroll-target="#sec-data"><span class="header-section-number">2</span> Data</a></li>
   <li><a href="#sec-meth" id="toc-sec-meth" class="nav-link" data-scroll-target="#sec-meth"><span class="header-section-number">3</span> Methodology</a>
   <ul class="collapse">
-  <li><a href="#sentiment-analysis-of-tagline-and-description" id="toc-sentiment-analysis-of-tagline-and-description" class="nav-link" data-scroll-target="#sentiment-analysis-of-tagline-and-description"><span class="header-section-number">3.1</span> Sentiment Analysis of tagline and description</a></li>
-  <li><a href="#creation-of-the-starpower-variable" id="toc-creation-of-the-starpower-variable" class="nav-link" data-scroll-target="#creation-of-the-starpower-variable"><span class="header-section-number">3.2</span> Creation of the starpower variable</a></li>
-  <li><a href="#creation-of-the-variable-that-indicates-female-in-leading-role" id="toc-creation-of-the-variable-that-indicates-female-in-leading-role" class="nav-link" data-scroll-target="#creation-of-the-variable-that-indicates-female-in-leading-role"><span class="header-section-number">3.3</span> Creation of the variable that indicates female in leading role</a></li>
-  <li><a href="#propensity-score-matching" id="toc-propensity-score-matching" class="nav-link" data-scroll-target="#propensity-score-matching"><span class="header-section-number">3.4</span> Propensity score matching</a></li>
-  <li><a href="#robustness-checks" id="toc-robustness-checks" class="nav-link" data-scroll-target="#robustness-checks"><span class="header-section-number">3.5</span> Robustness Checks</a></li>
+  <li><a href="#manufactured-variables" id="toc-manufactured-variables" class="nav-link" data-scroll-target="#manufactured-variables"><span class="header-section-number">3.1</span> Manufactured Variables</a></li>
+  <li><a href="#propensity-score-matching" id="toc-propensity-score-matching" class="nav-link" data-scroll-target="#propensity-score-matching"><span class="header-section-number">3.2</span> Propensity score matching</a></li>
+  <li><a href="#robustness-checks" id="toc-robustness-checks" class="nav-link" data-scroll-target="#robustness-checks"><span class="header-section-number">3.3</span> Robustness Checks</a></li>
   </ul></li>
   <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">4</span> Results</a>
   <ul class="collapse">
@@ -3284,17 +3285,120 @@ Table 1: IMDb Rating Distribution
 </section>
 <section id="sec-meth" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="sec-meth"><span class="header-section-number">3</span> Methodology</h2>
-<section id="sentiment-analysis-of-tagline-and-description" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="sentiment-analysis-of-tagline-and-description"><span class="header-section-number">3.1</span> Sentiment Analysis of tagline and description</h3>
-<p>BERT model for sentiment analysis<br>
-created labels of 0/1 for tagline and movie description</p>
+<section id="manufactured-variables" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="manufactured-variables"><span class="header-section-number">3.1</span> Manufactured Variables</h3>
+<section id="top-directors" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="top-directors"><span class="header-section-number">3.1.1</span> Top Directors</h4>
 </section>
-<section id="creation-of-the-starpower-variable" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="creation-of-the-starpower-variable"><span class="header-section-number">3.2</span> Creation of the starpower variable</h3>
-<p>Collected lists of A-list and B-list actors/actresses<br>
-Added 2 points if one of the cast members was A-list<br>
-Added 1 point if one of the cast members was B-list<br>
-Averaged by dividing score by 3 (number of cast members)</p>
+<section id="top-writers" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="top-writers"><span class="header-section-number">3.1.2</span> Top Writers</h4>
+</section>
+<section id="top-production-company" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3" class="anchored" data-anchor-id="top-production-company"><span class="header-section-number">3.1.3</span> Top Production Company</h4>
+</section>
+<section id="sentiment-analysis-of-tagline-and-description" class="level4" data-number="3.1.4">
+<h4 data-number="3.1.4" class="anchored" data-anchor-id="sentiment-analysis-of-tagline-and-description"><span class="header-section-number">3.1.4</span> Sentiment Analysis of tagline and description</h4>
+<p>In order to extract meaningful value from the film description and tagline, sentiment analysis was performed on the text. This sentiment analyis was performed by an off-the-shelf pre-trained model publically available <a href="https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english">Hugging Face</a>. This model was trained on English text specifically for binary text classifaction and boosted a high accuracy score. The end result is a two variables with a binary value of 1 for positive sentiment or 0 for negative sentiment of both the film description and film tagline.</p>
+<div id="tbl-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 2: Example of the Tagline Sentiment Values.
+</figcaption>
+<div aria-describedby="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 28%">
+<col style="width: 24%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Title</th>
+<th>Tagline</th>
+<th>Tagline Sentiment</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Surf’s Up</td>
+<td>A Major Ocean Picture.</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>The BFG</td>
+<td>The world is more giant than you can imagine.</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Twin Peaks: Fire Walk with Me</td>
+<td>In a town like Twin Peaks, no one is innocent.</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Meet the Robinsons</td>
+<td>If you think your family’s different, wait ’til you meet the family of the future.</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>The Royal Tenenbaums</td>
+<td>Family isn’t a word … It’s a sentence.</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 3: Count of positive and negative sentiment.
+</figcaption>
+<div aria-describedby="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Sentiment</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Positive</td>
+<td>1476</td>
+</tr>
+<tr class="even">
+<td>Negative</td>
+<td>1340</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="creation-of-the-starpower-variable" class="level4" data-number="3.1.5">
+<h4 data-number="3.1.5" class="anchored" data-anchor-id="creation-of-the-starpower-variable"><span class="header-section-number">3.1.5</span> Creation of the starpower variable</h4>
+<p>One of the most important building blocks of a film is the cast of actors and actresses and well-known names can be a huge draw to the theatres to movie-goers. This feature seemingly has an impact on the outcome of the film and its financial success. Thus, finding a way to classify the ‘starpowerness’ of the cast was paramount to this analysis. The dataset, unfortunately, only provides the three main cast members, which discounts films that rely on an ensemble cast or have a large enough budget to cast many big-names. That being said, this research attempted to define a metric that quantified this ‘starpower’ aspects of the three cast members, in the hopes that the success and name-recognition can be at least partly captured.</p>
+<p>The metric was created by the collecting lists of A-list and B-list actors and actresses. In film-terms these categorization reflect how ‘bankable’ the stars are or how many financial draw they bring to a film theoretically. These lists are all collected from IMDb and included a wide-range of household names. With these lists, the cast variable was split into actor1, actor2, actor3 based simply on the order in which they were listed. Then, each of the cast variables were referenced against all three of the lists. The film title received:</p>
+<ol type="1">
+<li><strong>2 points</strong> if a cast member was part of the A-list</li>
+<li><strong>1 point</strong> if cast member was part of the B-list</li>
+</ol>
+<p>These points were added in the <code>starpower</code> variable and then divided by three to get a finalized score of the points across the three cast members. <a href="#tbl-5" class="quarto-xref">Table 4</a> shows an example of the scoring.</p>
+<div id="tbl-5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 4: Starpower metric scores for actors in 10 movies.
+</figcaption>
+<div aria-describedby="tbl-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 30%">
@@ -3373,13 +3477,22 @@ Averaged by dividing score by 3 (number of cast members)</p>
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
+</div>
+<p><a href="https://www.imdb.com/list/ls056262001/">IMDb A-list Actors</a> <a href="https://www.imdb.com/list/ls056262192/">IMDb A-list Actresses</a> <a href="https://www.imdb.com/list/ls024783564/">IMDb B-list</a></p>
 </section>
-<section id="creation-of-the-variable-that-indicates-female-in-leading-role" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="creation-of-the-variable-that-indicates-female-in-leading-role"><span class="header-section-number">3.3</span> Creation of the variable that indicates female in leading role</h3>
-<p>Collected list of all female actresses<br>
-Took the first cast member named<br>
-Merged and created female_lead variable<br>
-1 = female lead</p>
+<section id="creation-of-the-variable-that-indicates-female-in-leading-role" class="level4" data-number="3.1.6">
+<h4 data-number="3.1.6" class="anchored" data-anchor-id="creation-of-the-variable-that-indicates-female-in-leading-role"><span class="header-section-number">3.1.6</span> Creation of the variable that indicates female in leading role</h4>
+<p>This analysis relied on the ability to distinguish between female and male leading actresses and actors, however, this is not something directly encoded into the metadata of a film, thus this variable had to be manufactured. In order to achieve this, a list of all current female actresses was collected from <a href="https://en.wikipedia.org/wiki/List_of_American_film_actresses">Wikipedia</a>. This list included 2,816 names of female actresses, alphabetized. To note, there was attempts to utilize a list of all female names and an off-the-shelf model to guess whether the cast member listed identified a male of female, however, both of these methods produced increased inaccuracy, thus the list of female actresses method was proceeded with.</p>
+<p>The next step was to determine only the presumed lead cast member by extracting the first person listed in the ‘Actors’ variable of the dataset. This name was then compared against the list from of female actresses and received a value of 1 if the cast member was included on the list.</p>
+<p>Therefore, the end result was a variable titled ‘female_lead’ if the first cast member listed in the IMDb metadata was a member of the current working female actress list and a 0 if the cast member was not a member of the list and, thus, presumably a male actor. <a href="#tbl-1" class="quarto-xref">Table 5</a> displays an example of the accuracy results of this variable.</p>
+<div id="tbl-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 5: Example of the ‘female_lead’ variable
+</figcaption>
+<div aria-describedby="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -3441,11 +3554,14 @@ Merged and created female_lead variable<br>
 </tr>
 </tbody>
 </table>
-<p>As displayed in <a href="#tbl-2" class="quarto-xref">Table 2</a> the films were split between 488 films with female leading actresses and 2328 films with male leading actors.</p>
+</div>
+</figure>
+</div>
+<p>As displayed in <a href="#tbl-2" class="quarto-xref">Table 6</a> the films were split between 488 films with female leading actresses and 2328 films with male leading actors.</p>
 <div id="tbl-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table 2: Male versus Female Director
+Table 6: Male versus Female Director
 </figcaption>
 <div aria-describedby="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -3470,13 +3586,14 @@ Table 2: Male versus Female Director
 </figure>
 </div>
 </section>
-<section id="propensity-score-matching" class="level3" data-number="3.4">
-<h3 data-number="3.4" class="anchored" data-anchor-id="propensity-score-matching"><span class="header-section-number">3.4</span> Propensity score matching</h3>
+</section>
+<section id="propensity-score-matching" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="propensity-score-matching"><span class="header-section-number">3.2</span> Propensity score matching</h3>
 <p>StandardScaler Propensity scores calculated</p>
 <p>international excluded other language excluded musical genre excluded accepted mpaa rating excluded</p>
 </section>
-<section id="robustness-checks" class="level3" data-number="3.5">
-<h3 data-number="3.5" class="anchored" data-anchor-id="robustness-checks"><span class="header-section-number">3.5</span> Robustness Checks</h3>
+<section id="robustness-checks" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="robustness-checks"><span class="header-section-number">3.3</span> Robustness Checks</h3>
 <p>Implemented the IMDb score as the outcome variable as a robustness check<br>
 Does a female in the lead role impact the critical success of the film?</p>
 </section>
@@ -3522,7 +3639,8 @@ Does a female in the lead role impact the critical success of the film?</p>
 <li>Network Analysis</li>
 <li>Robustness Checks with Bechdel test</li>
 <li>Inacurracy from matching female leads &amp; first actor not always the lead</li>
-<li>Unbalanced Dataset (is this an issue?)</li>
+<li>Unbalanced Dataset (is this an issue?) Further Work:</li>
+<li>classify the tagline and description</li>
 </ol>
 </section>
 </section>
@@ -3537,7 +3655,7 @@ Does a female in the lead role impact the critical success of the film?</p>
   author = {Healy, Lizzie},
   title = {Leading {Ladies} and {Lost} {Revenue:} {A} {Causal}
     {Analysis} of {Female} {Representation} and {Box-Office} {Returns}},
-  date = {2025-08-06},
+  date = {2025-08-07},
   langid = {en},
   abstract = {This work will investigate the impact of gender bias in
     the film industry pertaining to economic outcomes. Specifically, it
@@ -3568,7 +3686,7 @@ Does a female in the lead role impact the critical success of the film?</p>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-healy2025" class="csl-entry quarto-appendix-citeas" role="listitem">
 Healy, Lizzie. 2025. <span>“Leading Ladies and Lost Revenue: A Causal
 Analysis of Female Representation and Box-Office Returns.”</span> Film
-Data Science. August 6, 2025.
+Data Science. August 7, 2025.
 </div></div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -3992,7 +4110,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false});
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","loop":false,"closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

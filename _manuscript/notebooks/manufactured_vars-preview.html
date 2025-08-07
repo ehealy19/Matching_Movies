@@ -3227,7 +3227,7 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="performing-sentiment-analysis-on-description-tagline-and-overview">Performing Sentiment Analysis on Description, Tagline, and Overview</h2>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="32e1727a" class="cell" data-execution_count="1">
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="32e1727a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>classifier <span class="op">=</span> pipeline(</span>
@@ -3239,7 +3239,7 @@ vertical-align: -.125em;
 <pre><code>Device set to use cpu</code></pre>
 </div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="dcfdd68f" class="cell" data-execution_count="2">
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="dcfdd68f" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3248,18 +3248,18 @@ vertical-align: -.125em;
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Description Sentiment Analysis</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">&quot;Descr_Sentiment&quot;</span>] <span class="op">=</span> movies_df[<span class="st">&quot;Description&quot;</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: classifier(x)[<span class="dv">0</span>][<span class="st">&quot;label&quot;</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="95dbfeb0" class="cell" data-execution_count="3">
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="95dbfeb0" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overview Sentiment Analysis</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">&quot;Tagline_Sentiment&quot;</span>] <span class="op">=</span> movies_df[<span class="st">&quot;Tagline&quot;</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: classifier(x)[<span class="dv">0</span>][<span class="st">&quot;label&quot;</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="690dcd80" class="cell" data-execution_count="4">
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="690dcd80" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># converting the neg/pos to label 0/1</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">&quot;Descr_Sentiment&quot;</span>] <span class="op">=</span> movies_df[<span class="st">&quot;Descr_Sentiment&quot;</span>].replace({<span class="st">&quot;NEGATIVE&quot;</span>: <span class="dv">0</span>, <span class="st">&quot;POSITIVE&quot;</span>: <span class="dv">1</span>})</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="st">&quot;Tagline_Sentiment&quot;</span>] <span class="op">=</span> movies_df[<span class="st">&quot;Tagline_Sentiment&quot;</span>].replace({<span class="st">&quot;NEGATIVE&quot;</span>: <span class="dv">0</span>, <span class="st">&quot;POSITIVE&quot;</span>: <span class="dv">1</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/f7/px3ynpyn7l3g5j59yyvbggrw0000gn/T/ipykernel_41943/2660690932.py:2: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option(&#39;future.no_silent_downcasting&#39;, True)`
+<pre><code>/var/folders/f7/px3ynpyn7l3g5j59yyvbggrw0000gn/T/ipykernel_3901/2660690932.py:2: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option(&#39;future.no_silent_downcasting&#39;, True)`
   movies_df[&quot;Descr_Sentiment&quot;] = movies_df[&quot;Descr_Sentiment&quot;].replace({&quot;NEGATIVE&quot;: 0, &quot;POSITIVE&quot;: 1})
-/var/folders/f7/px3ynpyn7l3g5j59yyvbggrw0000gn/T/ipykernel_41943/2660690932.py:3: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option(&#39;future.no_silent_downcasting&#39;, True)`
+/var/folders/f7/px3ynpyn7l3g5j59yyvbggrw0000gn/T/ipykernel_3901/2660690932.py:3: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option(&#39;future.no_silent_downcasting&#39;, True)`
   movies_df[&quot;Tagline_Sentiment&quot;] = movies_df[&quot;Tagline_Sentiment&quot;].replace({&quot;NEGATIVE&quot;: 0, &quot;POSITIVE&quot;: 1})</code></pre>
 </div>
 </div></div>
