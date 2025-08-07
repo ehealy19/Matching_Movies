@@ -205,12 +205,10 @@ The primary statistical analysis performed was propensity score matching (PSM). 
 
 Unlike simply including covariates as controls in a regression equation, this technique aims to reduce selection bias by matching treated and control units based on their likelihood of receiving the treatment, given the covariates. This creates a more comparable dataset, which quasi-miimcks the conditions of a randomized experiment.
 
-1. Sklearn StandardScaler
-2. checked the variance inflation factor to check multicollinearity of variables (those above the threshold of 10 were excluded)
-international excluded
-other language excluded
-musical genre excluded
-accepted mpaa rating excluded
+The process of propensity score matching began with normalizing the variables due to the very differing range of values across variables like the imdb rating (which is 0-10) and the budget (which can reach hundreds of millions). This was done with [Sklearn's StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) and performed on all numerical variables.
+
+Following this step, the variance inflation factor (VIF) was checked to investigate any multicollinearity issues amoung that the covariates that would bias the analysis. This yields some problematic variables, which resulted in excluding some variables that exceeded the VIF threshold of 10 points. The following variables were excluded: international country (domestic country kept), other language (English kept), musical genre (all other genre categories kept), and accepted MPAA rating (all other MPAA ratings kept).
+
 1. estimate the propensity scores using a logistic regression with the other characteristics as covariates and female_lead as the treatment
    1. this produces propensity scores (ps) for each Title which is the prob of movie having a female lead
 2. then match the movies across the groups (males versus female) based on closest propensity score
