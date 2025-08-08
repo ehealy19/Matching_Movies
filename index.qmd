@@ -44,8 +44,9 @@ import numpy as np
 
 My previous paper: [Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry](./assets/thesis.pdf) attempted to analyze the link between director quality and box-office success of a film. The paper created two novel measures of director quality; a summation of all box-office revenue earned by and the director's films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue and a robustness check was implemented changing the dependent variable to the IMDb rating earned. 
 
-![](./assets/thesis_table1.png)
-![](./assets/thesis_table2.png)
+![Directorial Effect on Domestic Gross with Director Controls](./assets/thesis_table1.png){#tbl-1}
+
+![Directorial Effect on IMDb Rating with Director Controls](./assets/thesis_table2.png){#tbl-2}
 
 The paper found an increase in director financial quality yielded between a 0.0289% and 0.0307% increas in domestic gross and no impact on IMDb rating. Conversely, director quality in terms of critical acclaim yielded no significant impact on domestic gross, but betweeen 0.01803 and 0.0270 point increase in IMDb rating. The paper also discovered a statistically significant decrease in domestic gross for demale directors as compared to male directors.
 
@@ -59,25 +60,15 @@ Thus, this paper will investigate the impact of gender bias in the film industry
 
 Need to argue that there is sufficient common support between the treatment and control groups in a dataset in order to use propensity scores.
 
-Data collection and preparation is discussed in @sec-data.
-
-Methodology and propensity scoring is discussed in @sec-meth
-
-Results and anlysis are disucssed in @sec-results
-
-Conluding remarks, limitations, and future work are discussed in @sec-conclusion
+Data collection and preparation is discussed in @sec-data. Methodology and propensity scoring is discussed in @sec-meth. Results and anlysis are disucssed in @sec-results. Conluding remarks, limitations, and future work are discussed in @sec-conclusion.
 
 ## Data {#sec-data}
 
-The data for this research was collected from separate sources: [Open Movie Database (OMDb)](https://www.omdbapi.com/) and [The Movie Database (TMDb)](https://www.themoviedb.org/). Both are sources for movie and television metadata, differing only in their sourcing and specific variables provided. OMDb partly sources from Amazon's Internet Movie Database (IMDb) and then relies on crowdsourcing for missing data, while TMDb is independently created and relies solely on crowd-sourcing from its community of film-buffs to provide data entry for films. Both of these sources offer an API that allowed for the collection of movie metadata, which was then merged using an inner join on the film Title and resulted in the following variables: Title, Year, Runtime, Budget, Released, Genre (Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, Film Noir, History, Horror, Music, Musical, Mystery, Romance, Sci-Fi, Sport, Thriller, War, Western), MPAA Rating (G, GP, M, M/PG, NC-17, Not-Rated, PG, PG-13, R, TV-MA, Unrated, Accepted), Production Companies, Director, Writer, Country, Language, Description, Tagline, Overview, Actors, Box Office, Revenue, IMDb Rating, Metascore, IMDb Votes, TMDb rating, Vote Count, Awards, and Poster URL.
+The data for this research was collected from separate sources: [Open Movie Database (OMDb)](https://www.omdbapi.com/) and [The Movie Database (TMDb)](https://www.themoviedb.org/). Both are sources for movie and television metadata, differing only in their sourcing and specific variables provided. OMDb partly sources from Amazon's Internet Movie Database (IMDb) and then relies on crowdsourcing for missing data, while TMDb is independently created and relies solely on crowd-sourcing from its community of film-buffs to provide data entry for films. Both of these sources offer an API that allowed for the collection of movie metadata, which was then merged using an inner join on the film Title and resulted in the following variables: `Title`, `Year`, `Runtime`, `Budget`, `Released`, `Genre` (Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, Film Noir, History, Horror, Music, Musical, Mystery, Romance, Sci-Fi, Sport, Thriller, War, Western), `MPAA Rating` (G, GP, M, M/PG, NC-17, Not-Rated, PG, PG-13, R, TV-MA, Unrated, Accepted), `Production Companies`, `Director`, `Writer`, `Country`, `Language`, `Description`, `Tagline`, `Overview`, `Actors`, `Box Office`, `Revenue`, `IMDb Rating`, `Metascore`, `IMDb Votes`, `TMDb rating`, `Vote Count`, `Awards`, and `Poster URL`.
 
-With this combined dataset, some further preparation was required to move forward with the analysis. Firstly, some variables were dropped as they were deemed unimportant while others were very similar across the datasets for example only the description variable was kept and the overview variable was dropped. All missing and zero values in numerical variables were removed and each of the variables was converted to the correct data type. The release date was split into three variables for the month, day, and year. For the categorical variables two different techniques were utilized. For the genere and MPAA rating a one-hot encoding was applied. However for the language and country variables, only the first observation of each was kept and then they were categorized simply as either english or other language and domestic (for US) and international for all other countries. 
+With this combined dataset, some further preparation was required to move forward with the analysis. Firstly, some variables were dropped as they were deemed unimportant while others were very similar across the datasets for example only the description variable was kept and the overview variable was dropped. All missing and zero values in numerical variables were removed and each of the variables was converted to the correct data type. The release date was split into three variables for the month, day, and year. For the categorical variables two different techniques were utilized. For the genre and MPAA rating a one-hot encoding was applied. However for the language and country variables, only the first observation of each was kept and then they were categorized simply as either english or other language and domestic (for US) and international for all other countries. 
 
 The final dataset included a total of 2,816 films with 61 columns of variables. 
-
-![](./notebooks/notebook_output/imdb_rating.png)
-
-: IMDb Rating Distribution {#tbl-1}
 
 | Variable | Minimum | Maximum | Mean | Standard Deviation |
 |-----------------|----------------------|-------------|
@@ -87,16 +78,17 @@ The final dataset included a total of 2,816 films with 61 columns of variables.
 | IMDb Rating | 1.9 | 9.3 | 6.6 | 0.9 |
 | IMDb Votes | 1,672 | 3,059,994 | 222,006 | 284,492 |
 
-![](./notebooks/notebook_output/imdb_rating.png)
+: Summary Statistics of Numerical Variables {#tbl-3}
 
-![](./notebooks/notebook_output/imdb_overtime.png)
-![](./notebooks/notebook_output/boxoffice_overtime.png)
+![IMDb Rating Distribution](./notebooks/notebook_output/imdb_rating.png){#fig-1}
 
-![](./notebooks/notebook_output/genre_counts.png)
-![](./notebooks/notebook_output/rated_counts.png)
+![IMDb Ratings over the Years](./notebooks/notebook_output/imdb_overtime.png){#fig-2}
 
-![](./notebooks/notebook_output/mpaa_pie.png)
+![Box Office Revenue over the Years](./notebooks/notebook_output/boxoffice_overtime.png){#fig-3}
 
+![Distribution of Film Genres](./notebooks/notebook_output/genre_counts.png){#fig-4}
+
+![Percentage of Film MPAAs Ratings](./notebooks/notebook_output/mpaa_pie.png){#fig-5}
 
 ## Methodology {#sec-meth}
 
@@ -106,9 +98,9 @@ The final dataset included a total of 2,816 films with 61 columns of variables.
 
 In order to incorporate the level of expertise of the team creating the film, this analysis worked to categorize top level of directors, writers, and production companies. All of these were attempting to better match movies based on the level of effort put into the creation in terms of money, knowledge, experience, and previous success. To achieve this, three lists were collected that detailed the top directors, writers, and production companies:
 
-[IMDb list of top directors](https://www.imdb.com/list/ls052380992/)\
-[IMDb list of top Script writers](https://www.imdb.com/list/ls064457317/)\
-[The Numbers Top Production Companies](https://www.the-numbers.com/movies/production-companies/#production_companies_overview=od1)
+@imdb_top_directors\
+@imdb_top_writers\
+@the_numbers_production_companies
 
 The directors and writers were judged on a combination of their perceived skill and their lifetime achievement in terms of awards and accolades. The production companies were compiled simply based on the total domestic box office revenue amassed across all films they have produced.
 
@@ -116,7 +108,7 @@ The director, writer, and production company variable was then referenced agains
 
 #### Sentiment Analysis of tagline and description
 
-In order to extract meaningful value from the film description and tagline, sentiment analysis was performed on the text. This sentiment analyis was performed by an off-the-shelf pre-trained model publically available [Hugging Face](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english). This model was trained on English text specifically for binary text classifaction and boosted a high accuracy score. The end result is a two variables with a binary value of 1 for positive sentiment or 0 for negative sentiment of both the film description and film tagline. 
+In order to extract meaningful value from the film description and tagline, sentiment analysis was performed on the text. This sentiment analyis was performed by an off-the-shelf pre-trained model publically available Hugging Face @distilbert_sst2_hf . This model was trained on English text specifically for binary text classifaction and boosted a high accuracy score. The end result is a two variables with a binary value of 1 for positive sentiment or 0 for negative sentiment of both the film description and film tagline. 
 
 |        Title         |        Tagline        | Tagline Sentiment |
 |---------------------- |---------------------|------------------|------------|
@@ -126,25 +118,34 @@ In order to extract meaningful value from the film description and tagline, sent
 | Meet the Robinsons | If you think your family's different, wait 'til you meet the family of the future. | 1 |
 | The Royal Tenenbaums | Family isn't a word ... It's a sentence. | 0 |
 
-: Example of the Tagline Sentiment Values. {#tbl-1}
+: Example of the Tagline Sentiment Values {#tbl-4}
+
+\n
+\n
 
 | Sentiment | Count |
 |---------------------- |---------------------|
 | Positive | 1476 |
 | Negative | 1340 |
 
-: Count of positive and negative sentiment. {#tbl-1}
+: Count of Positive and Negative Sentiment {#tbl-5}
 
 #### Creation of the starpower variable
 
 One of the most important building blocks of a film is the cast of actors and actresses and well-known names can be a huge draw to the theatres to movie-goers. This feature seemingly has an impact on the outcome of the film and its financial success. Thus, finding a way to classify the 'starpowerness' of the cast was paramount to this analysis. The dataset, unfortunately, only provides the three main cast members, which discounts films that rely on an ensemble cast or have a large enough budget to cast many big-names. That being said, this research attempted to define a metric that quantified this 'starpower' aspects of the three cast members, in the hopes that the success and name-recognition can be at least partly captured.
 
-The metric was created by the collecting lists of A-list and B-list actors and actresses. In film-terms these categorization reflect how 'bankable' the stars are or how many financial draw they bring to a film theoretically. These lists are all collected from IMDb and included a wide-range of household names. With these lists, the cast variable was split into actor1, actor2, actor3 based simply on the order in which they were listed. Then, each of the cast variables were referenced against all three of the lists. The film title received:
+The metric was created by the collecting lists of A-list and B-list actors and actresses. 
+
+@imdb_a_list_actors\
+@imdb_a_list_actresses\
+@imdb_b_list
+
+In film-terms these categorization reflect how 'bankable' the stars are or how many financial draw they bring to a film theoretically. These lists are all collected from IMDb and included a wide-range of household names. With these lists, the cast variable was split into `actor1`, `actor2`, `actor3` based simply on the order in which they were listed. Then, each of the cast variables were referenced against all three of the lists. The film title received:
 
 - **2 points** if a cast member was part of the A-list\
 - **1 point** if cast member was part of the B-list
 
-These points were added in the `starpower` variable and then divided by three to get a finalized score of the points across the three cast members. @tbl-5 shows an example of the scoring.
+These points were added in the `starpower` variable and then divided by three to get a finalized score of the points across the three cast members. @tbl-6 shows an example of the scoring.
 
 |        actor1         |        actor2        |      actor3      | starpower  |
 |---------------------- |---------------------|------------------|------------|
@@ -159,20 +160,15 @@ These points were added in the `starpower` variable and then divided by three to
 | Jason Bateman         | Charlie Day         | Jason Sudeikis   | 1.000000   |
 | Jack Black            | Ana de la Reguera   | Héctor Jiménez   | 0.333333   |
 
-: Starpower metric scores for actors in 10 movies. {#tbl-5}
-
-[IMDb A-list Actors](https://www.imdb.com/list/ls056262001/)
-[IMDb A-list Actresses](https://www.imdb.com/list/ls056262192/)
-[IMDb B-list](https://www.imdb.com/list/ls024783564/)
-
+: Starpower Metric Scores for the Cast of 10 Films {#tbl-6}
 
 #### Creation of the variable that indicates female in leading role
 
-This analysis relied on the ability to distinguish between female and male leading actresses and actors, however, this is not something directly encoded into the metadata of a film, thus this variable had to be manufactured. In order to achieve this, a list of all current female actresses was collected from [Wikipedia](https://en.wikipedia.org/wiki/List_of_American_film_actresses). This list included 2,816 names of female actresses, alphabetized. To note, there was attempts to utilize a list of all female names and an off-the-shelf model to guess whether the cast member listed identified a male of female, however, both of these methods produced increased inaccuracy, thus the list of female actresses method was proceeded with.
+This analysis relied on the ability to distinguish between female and male leading actresses and actors, however, this is not something directly encoded into the metadata of a film, thus this variable had to be manufactured. In order to achieve this, a list of all current female actresses was collected from Wikipedia @wiki_film_actresses. This list included 2,816 names of female actresses, alphabetized. To note, there was attempts to utilize a list of all female names and an off-the-shelf model to guess whether the cast member listed identified a male of female, however, both of these methods produced increased inaccuracy, thus the list of female actresses method was proceeded with.
 
-The next step was to determine only the presumed lead cast member by extracting the first person listed in the 'Actors' variable of the dataset. This name was then compared against the list from of female actresses and received a value of 1 if the cast member was included on the list. 
+The next step was to determine only the presumed lead cast member by extracting the first person listed in the `actors` variable of the dataset. This name was then compared against the list from of female actresses and received a value of 1 if the cast member was included on the list. 
 
-Therefore, the end result was a variable titled 'female_lead' if the first cast member listed in the IMDb metadata was a member of the current working female actress list and a 0 if the cast member was not a member of the list and, thus, presumably a male actor. @tbl-1 displays an example of the accuracy results of this variable.
+Therefore, the end result was a variable titled `female_lead` if the first cast member listed in the IMDb metadata was a member of the current working female actress list and a 0 if the cast member was not a member of the list and, thus, presumably a male actor. @tbl-7 displays an example of the accuracy results of this variable.
 
 
 | Title           | First Actor           | Female Lead |
@@ -188,16 +184,16 @@ Therefore, the end result was a variable titled 'female_lead' if the first cast 
 | Proud Mary      | Taraji P. Henson     | 1           |
 | Valmont         | Colin Firth          | 0           |
 
-: Example of the 'female_lead' variable {#tbl-1}
+: Example of the `female_lead` Variable {#tbl-7}
 
-As displayed in @tbl-2 the films were split between 488 films with female leading actresses and 2328 films with male leading actors.  
+As displayed in @tbl-8 the films were split between 488 films with female leading actresses and 2328 films with male leading actors.  
 
 | Name                | Year |
 |---------------------|------|
 | Female Leads    | 488 |
 | Male Leads      | 2328 |
 
-: Male versus Female Director {#tbl-2}
+: Male Versus Female Director Counts {#tbl-8}
 
 ### Propensity score matching
 
@@ -205,11 +201,11 @@ The primary statistical analysis performed was propensity score matching (PSM). 
 
 Unlike simply including covariates as controls in a regression equation, this technique aims to reduce selection bias by matching treated and control units based on their likelihood of receiving the treatment, given the covariates. This creates a more comparable dataset, which quasi-miimcks the conditions of a randomized experiment.
 
-The process of propensity score matching began with normalizing the variables due to the very differing range of values across variables like the imdb rating (which is 0-10) and the budget (which can reach hundreds of millions). This was done with [Sklearn's StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) and performed on all numerical variables.
+The process of propensity score matching began with normalizing the variables due to the very differing range of values across variables like the imdb rating (which is 0-10) and the budget (which can reach hundreds of millions). This was done with Sklearn's StandardScaler @scikit_learn_standardscaler. and performed on all numerical variables.
 
 Following this step, the variance inflation factor (VIF) was checked to investigate any multicollinearity issues amoung that the covariates that would bias the analysis. This yields some problematic variables, which resulted in excluding some variables that exceeded the VIF threshold of 10 points. The following variables were excluded: international country (domestic country kept), other language (English kept), musical genre (all other genre categories kept), and accepted MPAA rating (all other MPAA ratings kept).
 
-Next, a logistic regression is estimated. The variables metascore, IMDb votes, TMDb rating, TMDb votes, Oscars Won, Oscars Nominated, Award Wins, and Award Nominations are omitted because they are ex-post variables because they represent effects of the outcomes as oppose to causes of it, thus causing data leakage and bias. Therefore, only ex-ante variables are considered. The resulting equation is as follows, representing a female leading role as the treatment and the film characteristics as covariates:
+Next, a logistic regression is estimated. The variables `metascore`, `IMDb votes`, `TMDb rating`, `TMDb votes`, `Oscars Won`, `Oscars Nominated`, `Award Wins`, and `Award Nominations` are omitted because they are ex-post variables because they represent effects of the outcomes as oppose to causes of it, thus causing data leakage and bias. Therefore, only ex-ante variables are considered. The resulting equation is as follows, representing a female leading role as the treatment and the film characteristics as covariates:
 
 \begin{align}
 \text{logit}(\mathbb{P}(\text{Female\_Lead} = 1)) &= \beta_0 
@@ -239,13 +235,13 @@ The result of this equation is propensity scores (ps) for each film title (datas
 | Freaky Friday | 0.212226 | The Boat the Rocked | 0.211319 |
 | Kill Bill: Vol. 2| 0.066924 | 2 Fast 2 Furious | 0.066959 |
 
-: Table {#tbl-2}
+: Example of Propensity Score Matching Between Male and Female Led Films {#tbl-9}
 
 The final step is to calculate and compare the box office performance of matched female versus male lead films. These results are discussed in @sec-results.
 
 ### Robustness Checks
 
-As a robustness check, the IMDb rating, which is a score from 0-10 calculated from a weighted average of user rating on the Internet Movie Database, is utilized as a secondary outcome variable. The same methodology of propensity score matching is used, however, the analysis now investigates whether a female lead role causes a change in the critical success of the film. These results are discussed in the following section, @sec-results.
+As a robustness check, the `IMDb rating`, which is a score from 0-10 calculated from a weighted average of user rating on the Internet Movie Database, is utilized as a secondary outcome variable. The same methodology of propensity score matching is used, however, the analysis now investigates whether a female lead role causes a change in the critical success of the film.
 
 ## Results {#sec-results}
 
@@ -254,7 +250,7 @@ As a robustness check, the IMDb rating, which is a score from 0-10 calculated fr
 | Female             | 62,708,871.36 | 6.329 |
 | Male               | 61,076,707.45 | 6.601 |
 
-: Table {#tbl-2}
+: Mean of Box Office and IMDb Rating for Male Versus Female Led Films {#tbl-10}
 
 ### Box Office Results
 
