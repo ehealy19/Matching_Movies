@@ -3318,7 +3318,7 @@ font-family: inherit;
 
        <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="7b2df2b7" class="cell" data-execution_count="1">
+<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="f065176a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3326,7 +3326,7 @@ font-family: inherit;
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Visual of the </span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="ba25c1f6" class="cell markdown">
+<div id="e007ccc9" class="cell markdown">
 <section id="causality" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="causality"><span class="header-section-number">1.1</span> Causality</h3>
 <p>My previous paper: <a href="./assets/thesis.pdf">Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry</a> attempted to analyze the link between director quality and box-office success of a film. The paper created two novel measures of director quality; a summation of all box-office revenue earned by and the director’s films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue and a robustness check was implemented changing the dependent variable to the IMDb rating earned.</p>
@@ -3710,24 +3710,24 @@ Table 6: Male versus Female Director
 <p>The process of propensity score matching began with normalizing the variables due to the very differing range of values across variables like the imdb rating (which is 0-10) and the budget (which can reach hundreds of millions). This was done with <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html">Sklearn’s StandardScaler</a> and performed on all numerical variables.</p>
 <p>Following this step, the variance inflation factor (VIF) was checked to investigate any multicollinearity issues amoung that the covariates that would bias the analysis. This yields some problematic variables, which resulted in excluding some variables that exceeded the VIF threshold of 10 points. The following variables were excluded: international country (domestic country kept), other language (English kept), musical genre (all other genre categories kept), and accepted MPAA rating (all other MPAA ratings kept).</p>
 <p>Next, a logistic regression is estimated. The variables metascore, IMDb votes, TMDb rating, TMDb votes, Oscars Won, Oscars Nominated, Award Wins, and Award Nominations are omitted because they are ex-post variables because they represent effects of the outcomes as oppose to causes of it, thus causing data leakage and bias. Therefore, only ex-ante variables are considered. The resulting equation is as follows, representing a female leading role as the treatment and the film characteristics as covariates:</p>
-<p><span class="math display">\[
-\text{logit}(\mathbb{P}(\text{Female\_Lead} = 1)) = \beta_0
+<p><span class="math display">\[\begin{align}
+\text{logit}(\mathbb{P}(\text{Female\_Lead} = 1)) &amp;= \beta_0
 + \beta_1 \cdot \text{Year}
 + \beta_2 \cdot \text{Runtime}
 + \beta_3 \cdot \text{Budget}
 + \beta_4 \cdot \text{Month}
-+ \beta_5 \cdot \text{Day} \\
-+ \sum_{g} \beta_g \cdot \text{Genre}_g
-+ \sum_{r} \beta_r \cdot \text{Rating}_r \\
-+ \beta_6 \cdot \text{Top\_Production\_Company}
++ \beta_5 \cdot \text{Day} \nonumber \\
+&amp;\quad + \sum_{g} \beta_g \cdot \text{Genre}_g
++ \sum_{r} \beta_r \cdot \text{Rating}_r \nonumber \\
+&amp;\quad + \beta_6 \cdot \text{Top\_Production\_Company}
 + \beta_7 \cdot \text{Top\_Director}
-+ \beta_8 \cdot \text{Top\_Writer} \\
-+ \beta_9 \cdot \text{Domestic}
-+ \beta_{10} \cdot \text{English\_Language} \\
-+ \beta_{11} \cdot \text{Descr\_Sentiment}
++ \beta_8 \cdot \text{Top\_Writer} \nonumber \\
+&amp;\quad + \beta_9 \cdot \text{Domestic}
++ \beta_{10} \cdot \text{English\_Language} \nonumber \\
+&amp;\quad + \beta_{11} \cdot \text{Descr\_Sentiment}
 + \beta_{12} \cdot \text{Tagline\_Sentiment}
 + \beta_{13} \cdot \text{Starpower}
-\]</span></p>
+\end{align}\]</span></p>
 <p>The result of this equation is propensity scores (ps) for each film title (dataset row), which represents the calculated probability of the film having a female leading actress. A score close to 0 indicates a higher likelihood of the film having a male lead, while a score closer to 1 indicates a higher likelihood of a film having a female lead. These scores are then used to match, utilizing 1:1 nearest neighbor matching, the movies across the two groups of leading actors/actresses based on the closest propensity score. This results in a matched dataset with each row being a matched pair of films that is similar in all aspects expect for the leading role.</p>
 <div id="tbl-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -3761,7 +3761,7 @@ Table 7: Table
 </tr>
 <tr class="even">
 <td>Kill Bill: Vol. 2</td>
-<td>0.212226</td>
+<td>0.066924</td>
 <td>2 Fast 2 Furious</td>
 </tr>
 </tbody>
@@ -3769,23 +3769,15 @@ Table 7: Table
 </div>
 </figure>
 </div>
-<p>The final step is to calculate and compare the average box office performance of matched female versus male lead films. These results are discussed in <a href="#sec-results" class="quarto-xref">Section 4</a>.</p>
+<p>The final step is to calculate and compare the box office performance of matched female versus male lead films. These results are discussed in <a href="#sec-results" class="quarto-xref">Section 4</a>.</p>
 </section>
 <section id="robustness-checks" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="robustness-checks"><span class="header-section-number">3.3</span> Robustness Checks</h3>
-<p>Implemented the IMDb score as the outcome variable as a robustness check<br>
-Does a female in the lead role impact the critical success of the film?</p>
+<p>As a robustness check, the IMDb rating, which is a score from 0-10 calculated from a weighted average of user rating on the Internet Movie Database, is utilized as a secondary outcome variable. The same methodology of propensity score matching is used, however, the analysis now investigates whether a female lead role causes a change in the critical success of the film. These results are discussed in the following section, <a href="#sec-results" class="quarto-xref">Section 4</a>.</p>
 </section>
 </section>
 <section id="sec-results" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="sec-results"><span class="header-section-number">4</span> Results</h2>
-<section id="box-office-results" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="box-office-results"><span class="header-section-number">4.1</span> Box Office Results</h3>
-<p>Female-lead had higher box-office average</p>
-</section>
-<section id="imdb-rating-results" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="imdb-rating-results"><span class="header-section-number">4.2</span> IMDb Rating Results</h3>
-<p>Female-lead had lower IMDb scores</p>
 <div id="tbl-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -3816,6 +3808,13 @@ Table 8: Table
 </div>
 </figure>
 </div>
+<section id="box-office-results" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="box-office-results"><span class="header-section-number">4.1</span> Box Office Results</h3>
+<p>Female-lead had higher box-office average</p>
+</section>
+<section id="imdb-rating-results" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="imdb-rating-results"><span class="header-section-number">4.2</span> IMDb Rating Results</h3>
+<p>Female-lead had lower IMDb scores</p>
 </section>
 </section>
 <section id="sec-conclusion" class="level2" data-number="5">
@@ -4260,7 +4259,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","loop":false,"selector":".lightbox"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

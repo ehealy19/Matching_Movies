@@ -211,24 +211,24 @@ Following this step, the variance inflation factor (VIF) was checked to investig
 
 Next, a logistic regression is estimated. The variables metascore, IMDb votes, TMDb rating, TMDb votes, Oscars Won, Oscars Nominated, Award Wins, and Award Nominations are omitted because they are ex-post variables because they represent effects of the outcomes as oppose to causes of it, thus causing data leakage and bias. Therefore, only ex-ante variables are considered. The resulting equation is as follows, representing a female leading role as the treatment and the film characteristics as covariates:
 
-$$
-\text{logit}(\mathbb{P}(\text{Female\_Lead} = 1)) = \beta_0 
+\begin{align}
+\text{logit}(\mathbb{P}(\text{Female\_Lead} = 1)) &= \beta_0 
 + \beta_1 \cdot \text{Year}
 + \beta_2 \cdot \text{Runtime}
 + \beta_3 \cdot \text{Budget}
 + \beta_4 \cdot \text{Month}
-+ \beta_5 \cdot \text{Day} \\
-+ \sum_{g} \beta_g \cdot \text{Genre}_g
-+ \sum_{r} \beta_r \cdot \text{Rating}_r \\
-+ \beta_6 \cdot \text{Top\_Production\_Company}
++ \beta_5 \cdot \text{Day} \nonumber \\
+&\quad + \sum_{g} \beta_g \cdot \text{Genre}_g
++ \sum_{r} \beta_r \cdot \text{Rating}_r \nonumber \\
+&\quad + \beta_6 \cdot \text{Top\_Production\_Company}
 + \beta_7 \cdot \text{Top\_Director}
-+ \beta_8 \cdot \text{Top\_Writer} \\
-+ \beta_9 \cdot \text{Domestic}
-+ \beta_{10} \cdot \text{English\_Language} \\
-+ \beta_{11} \cdot \text{Descr\_Sentiment}
++ \beta_8 \cdot \text{Top\_Writer} \nonumber \\
+&\quad + \beta_9 \cdot \text{Domestic}
++ \beta_{10} \cdot \text{English\_Language} \nonumber \\
+&\quad + \beta_{11} \cdot \text{Descr\_Sentiment}
 + \beta_{12} \cdot \text{Tagline\_Sentiment}
 + \beta_{13} \cdot \text{Starpower}
-$$
+\end{align}
 
 The result of this equation is propensity scores (ps) for each film title (dataset row), which represents the calculated probability of the film having a female leading actress. A score close to 0 indicates a higher likelihood of the film having a male lead, while a score closer to 1 indicates a higher likelihood of a film having a female lead. These scores are then used to match, utilizing 1:1 nearest neighbor matching, the movies across the two groups of leading actors/actresses based on the closest propensity score. This results in a matched dataset with each row being a matched pair of films that is similar in all aspects expect for the leading role.
 
@@ -241,15 +241,20 @@ The result of this equation is propensity scores (ps) for each film title (datas
 
 : Table {#tbl-2}
 
-
-The final step is to calculate and compare the average box office performance of matched female versus male lead films. These results are discussed in @sec-results.
+The final step is to calculate and compare the box office performance of matched female versus male lead films. These results are discussed in @sec-results.
 
 ### Robustness Checks
 
-Implemented the IMDb score as the outcome variable as a robustness check \
-Does a female in the lead role impact the critical success of the film?
+As a robustness check, the IMDb rating, which is a score from 0-10 calculated from a weighted average of user rating on the Internet Movie Database, is utilized as a secondary outcome variable. The same methodology of propensity score matching is used, however, the analysis now investigates whether a female lead role causes a change in the critical success of the film. These results are discussed in the following section, @sec-results.
 
 ## Results {#sec-results}
+
+| Gender of Lead Role     | Box Office | IMDb Rating |
+|---------------------|------|------|
+| Female             | 62,708,871.36 | 6.329 |
+| Male               | 61,076,707.45 | 6.601 |
+
+: Table {#tbl-2}
 
 ### Box Office Results
 
@@ -259,12 +264,6 @@ Female-lead had higher box-office average
 
 Female-lead had lower IMDb scores
 
-| Gender of Lead Role     | Box Office | IMDb Rating |
-|---------------------|------|------|
-| Female             | 62,708,871.36 | 6.329 |
-| Male               | 61,076,707.45 | 6.601 |
-
-: Table {#tbl-2}
 
 ## Conclusion {#sec-conclusion}
 
