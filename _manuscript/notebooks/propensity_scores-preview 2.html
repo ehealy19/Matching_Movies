@@ -3875,31 +3875,543 @@ starpower                  0.1540      0.058      2.671      0.008       0.041  
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assign match_id to the &#39;match&#39; column at position i</span></span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    movies_df.loc[i, <span class="st">&#39;match&#39;</span>] <span class="op">=</span> match_id</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [46]:</pre></div><div id="15984fe7" class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#movies_df[1265:1275]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [58]:</pre></div><div id="812ed98e" class="cell" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Looking at matched movies</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>movie <span class="op">=</span> movies_df.iloc[<span class="dv">621</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>match_index <span class="op">=</span> <span class="bu">int</span>(movie[<span class="st">&#39;match&#39;</span>])</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>matched_movie <span class="op">=</span> movies_df.iloc[match_index]</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Original movie:&quot;</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(movie[[<span class="st">&#39;Title&#39;</span>, <span class="st">&#39;Female_Lead&#39;</span>, <span class="st">&#39;ps&#39;</span>]])</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Matched movie:&quot;</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(matched_movie[[<span class="st">&#39;Title&#39;</span>, <span class="st">&#39;Female_Lead&#39;</span>, <span class="st">&#39;ps&#39;</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Original movie:
-Title          2 Fast 2 Furious
-Female_Lead                   0
-ps                     0.066959
-Name: 621, dtype: object
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="15984fe7" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>movies_df[<span class="dv">1135</span>:<span class="dv">1135</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
 
-Matched movie:
-Title          Kill Bill: Vol. 2
-Female_Lead                    1
-ps                      0.066924
-Name: 966, dtype: object</code></pre>
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Title</th>
+<th data-quarto-table-cell-role="th">Year</th>
+<th data-quarto-table-cell-role="th">Runtime</th>
+<th data-quarto-table-cell-role="th">IMDB_Rating</th>
+<th data-quarto-table-cell-role="th">Metascore</th>
+<th data-quarto-table-cell-role="th">IMDB_Votes</th>
+<th data-quarto-table-cell-role="th">Box Office</th>
+<th data-quarto-table-cell-role="th">Budget</th>
+<th data-quarto-table-cell-role="th">Revenue</th>
+<th data-quarto-table-cell-role="th">TMDB_Rating</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Oscars_Won</th>
+<th data-quarto-table-cell-role="th">Oscars_Nominated</th>
+<th data-quarto-table-cell-role="th">Wins</th>
+<th data-quarto-table-cell-role="th">Nominations</th>
+<th data-quarto-table-cell-role="th">Descr_Sentiment</th>
+<th data-quarto-table-cell-role="th">Tagline_Sentiment</th>
+<th data-quarto-table-cell-role="th">Female_Lead</th>
+<th data-quarto-table-cell-role="th">starpower</th>
+<th data-quarto-table-cell-role="th">ps</th>
+<th data-quarto-table-cell-role="th">match</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1115</td>
+<td>Adaptation.</td>
+<td>-0.122438</td>
+<td>0.082904</td>
+<td>7.7</td>
+<td>1.407284</td>
+<td>-0.055560</td>
+<td>22498520.0</td>
+<td>19000000</td>
+<td>32800000</td>
+<td>0.855449</td>
+<td>...</td>
+<td>0.741411</td>
+<td>-0.345799</td>
+<td>2.157063</td>
+<td>1.661351</td>
+<td>-1.049520</td>
+<td>0.812034</td>
+<td>0</td>
+<td>2.899759</td>
+<td>0.251286</td>
+<td>1068.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1116</td>
+<td>The Legend of Tarzan</td>
+<td>0.800016</td>
+<td>-0.159827</td>
+<td>6.2</td>
+<td>-0.818302</td>
+<td>-0.099186</td>
+<td>126643061.0</td>
+<td>180000000</td>
+<td>356743061</td>
+<td>-1.153704</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.352639</td>
+<td>-0.461178</td>
+<td>0.952816</td>
+<td>0.812034</td>
+<td>0</td>
+<td>-0.528576</td>
+<td>0.057693</td>
+<td>1641.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1117</td>
+<td>Invasion of the Body Snatchers</td>
+<td>-1.896388</td>
+<td>0.082904</td>
+<td>7.4</td>
+<td>0.950754</td>
+<td>-0.513310</td>
+<td>24946533.0</td>
+<td>3500000</td>
+<td>24946533</td>
+<td>0.664496</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.314028</td>
+<td>-0.306411</td>
+<td>-1.049520</td>
+<td>0.812034</td>
+<td>0</td>
+<td>0.042814</td>
+<td>0.203016</td>
+<td>1845.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1118</td>
+<td>The Last House on the Left</td>
+<td>0.303310</td>
+<td>-0.014188</td>
+<td>6.5</td>
+<td>-0.932434</td>
+<td>-0.413303</td>
+<td>32752215.0</td>
+<td>15000000</td>
+<td>32721635</td>
+<td>-0.342848</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.391250</td>
+<td>-0.372740</td>
+<td>-1.049520</td>
+<td>-1.231476</td>
+<td>0</td>
+<td>-1.099965</td>
+<td>0.286349</td>
+<td>2298.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1119</td>
+<td>Pet Sematary</td>
+<td>-1.115850</td>
+<td>-0.499651</td>
+<td>6.5</td>
+<td>-1.160699</td>
+<td>-0.360945</td>
+<td>57469467.0</td>
+<td>21000000</td>
+<td>113118226</td>
+<td>-1.372331</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.391250</td>
+<td>-0.416959</td>
+<td>-1.049520</td>
+<td>-1.231476</td>
+<td>0</td>
+<td>-1.099965</td>
+<td>0.180574</td>
+<td>1574.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1120</td>
+<td>The Thing</td>
+<td>-1.612556</td>
+<td>-0.208373</td>
+<td>8.2</td>
+<td>-0.076440</td>
+<td>0.972960</td>
+<td>20063820.0</td>
+<td>15000000</td>
+<td>19629760</td>
+<td>1.847572</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.429860</td>
+<td>-0.439069</td>
+<td>-1.049520</td>
+<td>0.812034</td>
+<td>0</td>
+<td>-0.528576</td>
+<td>0.189262</td>
+<td>1753.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1121</td>
+<td>A Walk to Remember</td>
+<td>-0.193396</td>
+<td>-0.596743</td>
+<td>7.3</td>
+<td>-1.331898</td>
+<td>0.020195</td>
+<td>41281092.0</td>
+<td>11800000</td>
+<td>47494916</td>
+<td>1.417237</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.275417</td>
+<td>-0.505398</td>
+<td>0.952816</td>
+<td>-1.231476</td>
+<td>1</td>
+<td>-0.528576</td>
+<td>0.414925</td>
+<td>2129.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1122</td>
+<td>Norbit</td>
+<td>0.161394</td>
+<td>-0.548197</td>
+<td>4.2</td>
+<td>-1.788429</td>
+<td>-0.488967</td>
+<td>95673607.0</td>
+<td>10000000</td>
+<td>159814490</td>
+<td>-1.462273</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>0.603295</td>
+<td>-0.120974</td>
+<td>-0.350630</td>
+<td>0.952816</td>
+<td>-1.231476</td>
+<td>0</td>
+<td>0.042814</td>
+<td>0.460889</td>
+<td>2097.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1123</td>
+<td>Ronin</td>
+<td>-0.477228</td>
+<td>0.422728</td>
+<td>7.2</td>
+<td>0.494223</td>
+<td>-0.066754</td>
+<td>41616262.0</td>
+<td>55000000</td>
+<td>70692101</td>
+<td>0.318568</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.391250</td>
+<td>-0.461178</td>
+<td>-1.049520</td>
+<td>-1.231476</td>
+<td>0</td>
+<td>0.042814</td>
+<td>0.037646</td>
+<td>934.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1124</td>
+<td>The Sting</td>
+<td>-2.251178</td>
+<td>0.762552</td>
+<td>8.3</td>
+<td>1.407284</td>
+<td>0.237016</td>
+<td>156000000.0</td>
+<td>5500000</td>
+<td>159616327</td>
+<td>1.752096</td>
+<td>...</td>
+<td>6.752391</td>
+<td>-0.345799</td>
+<td>0.265134</td>
+<td>-0.416959</td>
+<td>0.952816</td>
+<td>0.812034</td>
+<td>0</td>
+<td>0.042814</td>
+<td>0.096281</td>
+<td>2405.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1125</td>
+<td>Godzilla vs. Kong</td>
+<td>1.154806</td>
+<td>-0.014188</td>
+<td>6.3</td>
+<td>0.037693</td>
+<td>0.126730</td>
+<td>100916094.0</td>
+<td>200000000</td>
+<td>470116094</td>
+<td>1.152948</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.314028</td>
+<td>-0.107424</td>
+<td>0.952816</td>
+<td>-1.231476</td>
+<td>0</td>
+<td>0.042814</td>
+<td>0.114447</td>
+<td>1953.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1126</td>
+<td>Jungle Cruise</td>
+<td>1.154806</td>
+<td>0.665460</td>
+<td>6.6</td>
+<td>-0.475904</td>
+<td>0.000019</td>
+<td>116987516.0</td>
+<td>200000000</td>
+<td>220889446</td>
+<td>0.833310</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.198196</td>
+<td>-0.306411</td>
+<td>0.952816</td>
+<td>0.812034</td>
+<td>0</td>
+<td>0.614203</td>
+<td>0.127576</td>
+<td>1729.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1127</td>
+<td>Ocean&#39;s Twelve</td>
+<td>-0.051480</td>
+<td>0.568367</td>
+<td>6.5</td>
+<td>-0.019373</td>
+<td>0.727644</td>
+<td>125544280.0</td>
+<td>110000000</td>
+<td>362744280</td>
+<td>-0.233534</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.275417</td>
+<td>-0.328520</td>
+<td>-1.049520</td>
+<td>0.812034</td>
+<td>0</td>
+<td>2.328370</td>
+<td>0.153413</td>
+<td>1922.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1128</td>
+<td>Salt</td>
+<td>0.374268</td>
+<td>-0.645290</td>
+<td>6.5</td>
+<td>0.380091</td>
+<td>0.409287</td>
+<td>118311368.0</td>
+<td>110000000</td>
+<td>293329073</td>
+<td>-0.443859</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>0.603295</td>
+<td>-0.275417</td>
+<td>-0.195862</td>
+<td>0.952816</td>
+<td>-1.231476</td>
+<td>1</td>
+<td>1.185592</td>
+<td>0.195889</td>
+<td>2199.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1129</td>
+<td>The King&#39;s Speech</td>
+<td>0.374268</td>
+<td>0.228543</td>
+<td>8.0</td>
+<td>1.692616</td>
+<td>1.763755</td>
+<td>138797449.0</td>
+<td>15000000</td>
+<td>414211549</td>
+<td>1.384028</td>
+<td>...</td>
+<td>3.746901</td>
+<td>-0.345799</td>
+<td>3.778716</td>
+<td>4.004977</td>
+<td>0.952816</td>
+<td>0.812034</td>
+<td>0</td>
+<td>2.328370</td>
+<td>0.179033</td>
+<td>1780.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1130</td>
+<td>The Big Chill</td>
+<td>-1.541598</td>
+<td>-0.402558</td>
+<td>7.1</td>
+<td>0.151826</td>
+<td>-0.626117</td>
+<td>56399659.0</td>
+<td>8000000</td>
+<td>56342711</td>
+<td>0.174662</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>2.501483</td>
+<td>-0.314028</td>
+<td>-0.372740</td>
+<td>0.952816</td>
+<td>-1.231476</td>
+<td>0</td>
+<td>-1.099965</td>
+<td>0.165339</td>
+<td>1172.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1131</td>
+<td>Lion</td>
+<td>0.870974</td>
+<td>0.228543</td>
+<td>8.0</td>
+<td>0.608356</td>
+<td>0.131329</td>
+<td>51738905.0</td>
+<td>12000000</td>
+<td>140312928</td>
+<td>1.812980</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>5.348766</td>
+<td>1.848176</td>
+<td>1.882448</td>
+<td>-1.049520</td>
+<td>0.812034</td>
+<td>0</td>
+<td>0.614203</td>
+<td>0.229241</td>
+<td>2212.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1132</td>
+<td>Burlesque</td>
+<td>0.374268</td>
+<td>0.277090</td>
+<td>6.4</td>
+<td>-0.647103</td>
+<td>-0.441499</td>
+<td>39440655.0</td>
+<td>55000000</td>
+<td>89500000</td>
+<td>0.653427</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.198196</td>
+<td>-0.085314</td>
+<td>0.952816</td>
+<td>-1.231476</td>
+<td>1</td>
+<td>-1.099965</td>
+<td>0.276206</td>
+<td>2537.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1133</td>
+<td>The Counselor</td>
+<td>0.587142</td>
+<td>0.179997</td>
+<td>5.4</td>
+<td>-0.590036</td>
+<td>-0.401069</td>
+<td>16973715.0</td>
+<td>25000000</td>
+<td>71009334</td>
+<td>-2.011607</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.236806</td>
+<td>-0.483288</td>
+<td>-1.049520</td>
+<td>-1.231476</td>
+<td>0</td>
+<td>1.185592</td>
+<td>0.034754</td>
+<td>934.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1134</td>
+<td>Good Time</td>
+<td>0.870974</td>
+<td>-0.548197</td>
+<td>7.3</td>
+<td>1.236085</td>
+<td>-0.261645</td>
+<td>2026499.0</td>
+<td>2000000</td>
+<td>3283369</td>
+<td>0.658962</td>
+<td>...</td>
+<td>-0.260419</td>
+<td>-0.345799</td>
+<td>-0.198196</td>
+<td>0.489538</td>
+<td>-1.049520</td>
+<td>0.812034</td>
+<td>0</td>
+<td>-1.099965</td>
+<td>0.132049</td>
+<td>1104.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>20 rows × 64 columns</p>
+</div>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [25]:</pre></div><div id="812ed98e" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>movies_df.iloc[<span class="dv">1780</span>]  <span class="co"># Display the row with index 2597</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># See an example where Hunger Games: Mockingjay Part 2 is matched with 2 Fast 2 Furious</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>Title                The Exorcist
+Year                    -2.251178
+Runtime                  0.422728
+IMDB_Rating                   8.1
+Metascore                1.407284
+                         ...     
+Tagline_Sentiment       -1.231476
+Female_Lead                     1
+starpower               -1.099965
+ps                       0.178928
+match                       858.0
+Name: 1780, Length: 64, dtype: object</code></pre>
 </div>
 </div></div>
 <div id="d9c30b2e" class="cell markdown">
@@ -3907,7 +4419,7 @@ Name: 966, dtype: object</code></pre>
 <h2 class="anchored" data-anchor-id="looking-at-box-office-as-the-outcome-variable">Looking at Box Office as the Outcome Variable</h2>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="975b9a56" class="cell">
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="975b9a56" class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.rename(columns<span class="op">=</span>{<span class="st">&#39;Box Office&#39;</span>: <span class="st">&#39;Box_Office&#39;</span>})</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>movies_df <span class="op">=</span> movies_df.reset_index().rename(columns<span class="op">=</span>{<span class="st">&#39;index&#39;</span>: <span class="st">&#39;movie_idx&#39;</span>})</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3974,7 +4486,7 @@ Mean Box Office for Male Lead: 61076707.44877049</code></pre>
 <h2 class="anchored" data-anchor-id="looking-at-imdb-rating-as-the-outcome-variable">Looking at IMDb Rating as the Outcome Variable</h2>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="f44506b7" class="cell">
+<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="f44506b7" class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mean_fem <span class="op">=</span> matched_df[<span class="st">&#39;IMDB_Rating.female&#39;</span>].mean()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>mean_male <span class="op">=</span> matched_df[<span class="st">&#39;IMDB_Rating.male&#39;</span>].mean()</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>

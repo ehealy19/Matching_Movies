@@ -209,11 +209,40 @@ The process of propensity score matching began with normalizing the variables du
 
 Following this step, the variance inflation factor (VIF) was checked to investigate any multicollinearity issues amoung that the covariates that would bias the analysis. This yields some problematic variables, which resulted in excluding some variables that exceeded the VIF threshold of 10 points. The following variables were excluded: international country (domestic country kept), other language (English kept), musical genre (all other genre categories kept), and accepted MPAA rating (all other MPAA ratings kept).
 
-1. estimate the propensity scores using a logistic regression with the other characteristics as covariates and female_lead as the treatment
-   1. this produces propensity scores (ps) for each Title which is the prob of movie having a female lead
-2. then match the movies across the groups (males versus female) based on closest propensity score
-3. create the matched dataset (each row is matched pair)
-4. compare the average box office of matched female vs male lead movies
+Next, a logistic regression is estimated. The variables metascore, IMDb votes, TMDb rating, TMDb votes, Oscars Won, Oscars Nominated, Award Wins, and Award Nominations are omitted because they are ex-post variables because they represent effects of the outcomes as oppose to causes of it, thus causing data leakage and bias. Therefore, only ex-ante variables are considered. The resulting equation is as follows, representing a female leading role as the treatment and the film characteristics as covariates:
+
+$$
+\text{logit}(\mathbb{P}(\text{Female\_Lead} = 1)) = \beta_0 
++ \beta_1 \cdot \text{Year}
++ \beta_2 \cdot \text{Runtime}
++ \beta_3 \cdot \text{Budget}
++ \beta_4 \cdot \text{Month}
++ \beta_5 \cdot \text{Day} \\
++ \sum_{g} \beta_g \cdot \text{Genre}_g
++ \sum_{r} \beta_r \cdot \text{Rating}_r \\
++ \beta_6 \cdot \text{Top\_Production\_Company}
++ \beta_7 \cdot \text{Top\_Director}
++ \beta_8 \cdot \text{Top\_Writer} \\
++ \beta_9 \cdot \text{Domestic}
++ \beta_{10} \cdot \text{English\_Language} \\
++ \beta_{11} \cdot \text{Descr\_Sentiment}
++ \beta_{12} \cdot \text{Tagline\_Sentiment}
++ \beta_{13} \cdot \text{Starpower}
+$$
+
+The result of this equation is propensity scores (ps) for each film title (dataset row), which represents the calculated probability of the film having a female leading actress. A score close to 0 indicates a higher likelihood of the film having a male lead, while a score closer to 1 indicates a higher likelihood of a film having a female lead. These scores are then used to match, utilizing 1:1 nearest neighbor matching, the movies across the two groups of leading actors/actresses based on the closest propensity score. This results in a matched dataset with each row being a matched pair of films that is similar in all aspects expect for the leading role.
+
+| Female Led Movie | PS Female | Male Led Movie | PS Male |
+|---------------------|------|------|
+| Miss Congeniality | 0.082866 | Back to the Future Part III | 0.082857 |
+| GI Jane | 0.031775 | Gladiator | 0.030275 |
+| Freaky Friday | 0.212226 | The Boat the Rocked | 0.211319 |
+| Kill Bill: Vol. 2| 0.066924 | 2 Fast 2 Furious | 0.066959 |
+
+: Table {#tbl-2}
+
+
+The final step is to calculate and compare the average box office performance of matched female versus male lead films. These results are discussed in @sec-results.
 
 ### Robustness Checks
 
@@ -234,6 +263,8 @@ Female-lead had lower IMDb scores
 |---------------------|------|------|
 | Female             | 62,708,871.36 | 6.329 |
 | Male               | 61,076,707.45 | 6.601 |
+
+: Table {#tbl-2}
 
 ## Conclusion {#sec-conclusion}
 
