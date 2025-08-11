@@ -3327,7 +3327,7 @@ font-family: inherit;
 
        <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="a3584dd7" class="cell" data-execution_count="1">
+<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="9c31b38e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3335,7 +3335,7 @@ font-family: inherit;
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Visual of the </span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="ce1ca2c9" class="cell markdown">
+<div id="18e59196" class="cell markdown">
 <p>The film industry has been a dominant force in the United States entertainment industry since cinema became a popular pasttime in the 1930s and 1940s (https://www.scienceandmediamuseum.org.uk/objects-and-stories/very-short-history-of-cinema). Today, it remains an extremely lucrative business to the tune of approximately 77 billion dollars anually (https://www.statista.com/topics/5431/film-production-worldwide/#topicOverview). This enduring profitability has attracted filmmakers, production companies, economists, and film enthusiats alike, all seeking to understand what drives film’s success. Some highly anticipated films backed with a compelling storyline, a star-studded cast, and a substantial production budget go on to dominate the box office and sweep critical awards, while others flop on opening weekend and struggle to recoup their investment. So, what makes a movie successful? Is there some magic formula or are there specific pre-production factors that drive revenue? This question remains unanswered but in the century since the dawn of film, research-backed theories have begun to emerge.</p>
 <p>As a first attempt at proving a film theory, my previous paper: <a href="./assets/thesis.pdf">Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry</a> attempted to analyze the link between director quality and box-office success of a film. The paper created two novel measures of director quality; a summation of all box-office revenue earned by and the director’s films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue and a robustness check was implemented changing the dependent variable to the IMDb rating earned.</p>
 <div id="tbl-1" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -3480,8 +3480,8 @@ Figure 5: Percentage of Film MPAAs Ratings
 <p>The directors and writers were judged on a combination of their perceived skill and their lifetime achievement in terms of awards and accolades. The production companies were compiled simply based on the total domestic box office revenue amassed across all films they have produced.</p>
 <p>The director, writer, and production company variable was then referenced against these lists receiving a 1 if the entity was mentioned in the list and a 0 otherwise, resulting in three one-hot encoded variables: <code>Top_Production</code>, <code>Top_Director</code>, and <code>Top_Writer</code>. For the sake of simplicity if more than one entity was listed for any of these variables, only the first entity was taken into account.</p>
 </section>
-<section id="sentiment-analysis-of-tagline-and-description" class="level4" data-number="3.1.2">
-<h4 data-number="3.1.2" class="anchored" data-anchor-id="sentiment-analysis-of-tagline-and-description"><span class="header-section-number">3.1.2</span> Sentiment Analysis of tagline and description</h4>
+<section id="tagline-and-description-sentiment-analysis" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="tagline-and-description-sentiment-analysis"><span class="header-section-number">3.1.2</span> Tagline and Description Sentiment Analysis</h4>
 <p>In order to extract meaningful value from the film description and tagline, sentiment analysis was performed on the text. This sentiment analyis was performed by an off-the-shelf pre-trained model publically available Hugging Face <span class="citation" data-cites="distilbert_sst2_hf">Face (<a href="#ref-distilbert_sst2_hf" role="doc-biblioref">n.d.</a>)</span> . This model was trained on English text specifically for binary text classifaction and boosted a high accuracy score. The end result is a two variables with a binary value of 1 for positive sentiment or 0 for negative sentiment of both the film description and film tagline.</p>
 <div id="tbl-4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -3568,8 +3568,8 @@ Table 5: Count of Positive and Negative Sentiment
 </figure>
 </div>
 </section>
-<section id="creation-of-the-starpower-variable" class="level4" data-number="3.1.3">
-<h4 data-number="3.1.3" class="anchored" data-anchor-id="creation-of-the-starpower-variable"><span class="header-section-number">3.1.3</span> Creation of the starpower variable</h4>
+<section id="starpower-variable" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3" class="anchored" data-anchor-id="starpower-variable"><span class="header-section-number">3.1.3</span> Starpower Variable</h4>
 <p>One of the most important building blocks of a film is the cast of actors and actresses and well-known names can be a huge draw to the theatres to movie-goers. This feature seemingly has an impact on the outcome of the film and its financial success. Thus, finding a way to classify the ‘starpowerness’ of the cast was paramount to this analysis. The dataset, unfortunately, only provides the three main cast members, which discounts films that rely on an ensemble cast or have a large enough budget to cast many big-names. That being said, this research attempted to define a metric that quantified this ‘starpower’ aspects of the three cast members, in the hopes that the success and name-recognition can be at least partly captured.</p>
 <p>The metric was created by the collecting lists of A-list and B-list actors and actresses.</p>
 <p><span class="citation" data-cites="imdb_a_list_actors"><span>“IMDb a-List Actors”</span> (<a href="#ref-imdb_a_list_actors" role="doc-biblioref">n.d.</a>)</span><br>
@@ -3670,8 +3670,8 @@ Table 6: Starpower Metric Scores for the Cast of 10 Films
 </figure>
 </div>
 </section>
-<section id="creation-of-the-variable-that-indicates-female-in-leading-role" class="level4" data-number="3.1.4">
-<h4 data-number="3.1.4" class="anchored" data-anchor-id="creation-of-the-variable-that-indicates-female-in-leading-role"><span class="header-section-number">3.1.4</span> Creation of the variable that indicates female in leading role</h4>
+<section id="feamle-leading-role-variable" class="level4" data-number="3.1.4">
+<h4 data-number="3.1.4" class="anchored" data-anchor-id="feamle-leading-role-variable"><span class="header-section-number">3.1.4</span> Feamle Leading Role Variable</h4>
 <p>This analysis relied on the ability to distinguish between female and male leading actresses and actors, however, this is not something directly encoded into the metadata of a film, thus this variable had to be manufactured. In order to achieve this, a list of all current female actresses was collected from Wikipedia <span class="citation" data-cites="wiki_film_actresses"><span>“List of American Film Actresses”</span> (<a href="#ref-wiki_film_actresses" role="doc-biblioref">n.d.</a>)</span>. This list included 2,816 names of female actresses, alphabetized. To note, there was attempts to utilize a list of all female names and an off-the-shelf model to guess whether the cast member listed identified a male of female, however, both of these methods produced increased inaccuracy, thus the list of female actresses method was proceeded with.</p>
 <p>The next step was to determine only the presumed lead cast member by extracting the first person listed in the <code>actors</code> variable of the dataset. This name was then compared against the list from of female actresses and received a value of 1 if the cast member was included on the list.</p>
 <p>Therefore, the end result was a variable titled <code>female_lead</code> if the first cast member listed in the IMDb metadata was a member of the current working female actress list and a 0 if the cast member was not a member of the list and, thus, presumably a male actor. <a href="#tbl-7" class="quarto-xref">Table 7</a> displays an example of the accuracy results of this variable.</p>
@@ -3776,7 +3776,7 @@ Table 8: Male Versus Female Director Counts
 </section>
 </section>
 <section id="propensity-score-matching" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="propensity-score-matching"><span class="header-section-number">3.2</span> Propensity score matching</h3>
+<h3 data-number="3.2" class="anchored" data-anchor-id="propensity-score-matching"><span class="header-section-number">3.2</span> Propensity Score Matching</h3>
 <p>The primary statistical analysis performed was propensity score matching (PSM). This statistical method allows for comparison of films that are similar across all observed covariates, differing only in whether the lead is a male or female actor or actress. In this context, the presence of a female lead is handled as a treatment, and the effect of that treatement on the outcome variable is estimated.</p>
 <p>Unlike simply including covariates as controls in a regression equation, this technique aims to reduce selection bias by matching treated and control units based on their likelihood of receiving the treatment, given the covariates. This creates a more comparable dataset, which quasi-miimcks the conditions of a randomized experiment.</p>
 <p>The process of propensity score matching began with normalizing the variables due to the very differing range of values across variables like the imdb rating (which is 0-10) and the budget (which can reach hundreds of millions). This was done with Sklearn’s StandardScaler <span class="citation" data-cites="scikit_learn_standardscaler">scikit-learn developers (<a href="#ref-scikit_learn_standardscaler" role="doc-biblioref">2025</a>)</span>. and performed on all numerical variables.</p>
@@ -3880,17 +3880,22 @@ Table 10: Mean of Box Office and IMDb Rating for Male Versus Female Led Films
 </div>
 </figure>
 </div>
-<section id="box-office-results" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="box-office-results"><span class="header-section-number">4.1</span> Box Office Results</h3>
-<p>Female-lead had higher box-office average</p>
+<section id="box-office" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="box-office"><span class="header-section-number">4.1</span> Box-Office</h3>
+<p>As shown in <a href="#tbl-10" class="quarto-xref">Table 10</a>, the initial hypothesis of this research that films featuring a woman in the leading role would generate lower box office revenues was not supported by the analysis. In fact, the opposite was found that female films earned an average of 62,708,871, while male films earned an average of 61,076,707 in box office revenues. This means that female-led films earned 1,632,163.91 more at the box office on average. While the magnitude of the differnece is modest compared to the average box office revenue, the matched sample analysis does suggest that having a female lead was associated with slightly higher box office performance.</p>
 </section>
-<section id="imdb-rating-results" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="imdb-rating-results"><span class="header-section-number">4.2</span> IMDb Rating Results</h3>
-<p>Female-lead had lower IMDb scores</p>
+<section id="imdb-rating" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="imdb-rating"><span class="header-section-number">4.2</span> IMDb Rating</h3>
+<p>The robustness check, which substitued IMDb rating as the outcome variable (also in <a href="#tbl-10" class="quarto-xref">Table 10</a>), revealed a different pattern. Female-led films had an average IMDb rating of 6.329, while male-led films had an average of 6.601, a difference of -0.272. This indicated that, on average, female-led films received a 0.272 lower audience rating than male-led films despite their slightly better box office results.</p>
+<p>Taken together, these findings offer opposing views of how gender matters in the film industry. The box office analysis suggests a positive causal relationship between a female in the title role and revenue performance, while the IMDb rating analysis suggests a negative causal relationship between female leads and audience ratings.</p>
 </section>
 </section>
 <section id="sec-conclusion" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="sec-conclusion"><span class="header-section-number">5</span> Conclusion</h2>
+<p>When investigating the results of box office and IMDb rating, the overall picture is</p>
+<p>Indication that the general public has fully accepted female-led films and even enjoys them more, while critics are less accepting</p>
+<p>or that women are cast in roles that lack depth and thus don’t receive critical success</p>
+<p>The differing results underscore the complexity of the relationship between gender representation in leading roles and measures of film success. This higlights the importance of considering multiple outcome variables when assessing potential treatment effects, especially when dealing with a topic as nuanced as film and entertainment.</p>
 <section id="limitations" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="limitations"><span class="header-section-number">5.1</span> Limitations:</h3>
 <ol type="1">
@@ -4357,7 +4362,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","loop":false,"selector":".lightbox","closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

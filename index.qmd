@@ -108,7 +108,7 @@ The directors and writers were judged on a combination of their perceived skill 
 
 The director, writer, and production company variable was then referenced against these lists receiving a 1 if the entity was mentioned in the list and a 0 otherwise, resulting in three one-hot encoded variables: `Top_Production`, `Top_Director`, and `Top_Writer`. For the sake of simplicity if more than one entity was listed for any of these variables, only the first entity was taken into account.
 
-#### Sentiment Analysis of tagline and description
+#### Tagline and Description Sentiment Analysis
 
 In order to extract meaningful value from the film description and tagline, sentiment analysis was performed on the text. This sentiment analyis was performed by an off-the-shelf pre-trained model publically available Hugging Face @distilbert_sst2_hf . This model was trained on English text specifically for binary text classifaction and boosted a high accuracy score. The end result is a two variables with a binary value of 1 for positive sentiment or 0 for negative sentiment of both the film description and film tagline. 
 
@@ -132,7 +132,7 @@ In order to extract meaningful value from the film description and tagline, sent
 
 : Count of Positive and Negative Sentiment {#tbl-5}
 
-#### Creation of the starpower variable
+#### Starpower Variable
 
 One of the most important building blocks of a film is the cast of actors and actresses and well-known names can be a huge draw to the theatres to movie-goers. This feature seemingly has an impact on the outcome of the film and its financial success. Thus, finding a way to classify the 'starpowerness' of the cast was paramount to this analysis. The dataset, unfortunately, only provides the three main cast members, which discounts films that rely on an ensemble cast or have a large enough budget to cast many big-names. That being said, this research attempted to define a metric that quantified this 'starpower' aspects of the three cast members, in the hopes that the success and name-recognition can be at least partly captured.
 
@@ -164,7 +164,7 @@ These points were added in the `starpower` variable and then divided by three to
 
 : Starpower Metric Scores for the Cast of 10 Films {#tbl-6}
 
-#### Creation of the variable that indicates female in leading role
+#### Feamle Leading Role Variable
 
 This analysis relied on the ability to distinguish between female and male leading actresses and actors, however, this is not something directly encoded into the metadata of a film, thus this variable had to be manufactured. In order to achieve this, a list of all current female actresses was collected from Wikipedia @wiki_film_actresses. This list included 2,816 names of female actresses, alphabetized. To note, there was attempts to utilize a list of all female names and an off-the-shelf model to guess whether the cast member listed identified a male of female, however, both of these methods produced increased inaccuracy, thus the list of female actresses method was proceeded with.
 
@@ -197,7 +197,7 @@ As displayed in @tbl-8 the films were split between 488 films with female leadin
 
 : Male Versus Female Director Counts {#tbl-8}
 
-### Propensity score matching
+### Propensity Score Matching
 
 The primary statistical analysis performed was propensity score matching (PSM). This statistical method allows for comparison of films that are similar across all observed covariates, differing only in whether the lead is a male or female actor or actress. In this context, the presence of a female lead is handled as a treatment, and the effect of that treatement on the outcome variable is estimated. 
 
@@ -254,16 +254,24 @@ As a robustness check, the `IMDb rating`, which is a score from 0-10 calculated 
 
 : Mean of Box Office and IMDb Rating for Male Versus Female Led Films {#tbl-10}
 
-### Box Office Results
+### Box-Office
+As shown in @tbl-10, the initial hypothesis of this research that films featuring a woman in the leading role would generate lower box office revenues was not supported by the analysis. In fact, the opposite was found that female films earned an average of 62,708,871, while male films earned an average of 61,076,707 in box office revenues. This means that female-led films earned 1,632,163.91 more at the box office on average. While the magnitude of the differnece is modest compared to the average box office revenue, the matched sample analysis does suggest that having a female lead was associated with slightly higher box office performance.
 
-Female-lead had higher box-office average
+### IMDb Rating
+The robustness check, which substitued IMDb rating as the outcome variable (also in @tbl-10), revealed a different pattern. Female-led films had an average IMDb rating of 6.329, while male-led films had an average of 6.601, a difference of -0.272. This indicated that, on average, female-led films received a 0.272 lower audience rating than male-led films despite their slightly better box office results.
 
-### IMDb Rating Results
-
-Female-lead had lower IMDb scores
-
+Taken together, these findings offer opposing views of how gender matters in the film industry. The box office analysis suggests a positive causal relationship between a female in the title role and revenue performance, while the IMDb rating analysis suggests a negative causal relationship between female leads and audience ratings. 
 
 ## Conclusion {#sec-conclusion}
+
+When investigating the results of box office and IMDb rating, the overall picture is 
+
+
+Indication that the general public has fully accepted female-led films and even enjoys them more, while critics are less accepting
+
+or that women are cast in roles that lack depth and thus don't receive critical success
+
+The differing results underscore the complexity of the relationship between gender representation in leading roles and measures of film success. This higlights the importance of considering multiple outcome variables when assessing potential treatment effects, especially when dealing with a topic as nuanced as film and entertainment.
 
 ### Limitations:
 1. More data
