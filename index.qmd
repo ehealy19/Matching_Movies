@@ -40,25 +40,21 @@ import numpy as np
 #| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.
 ```
 
-### Causality
+The film industry has been a dominant force in the United States entertainment industry since cinema became a popular pasttime in the 1930s and 1940s (https://www.scienceandmediamuseum.org.uk/objects-and-stories/very-short-history-of-cinema). Today, it remains an extremely lucrative business to the tune of approximately 77 billion dollars anually (https://www.statista.com/topics/5431/film-production-worldwide/#topicOverview). This enduring profitability has attracted filmmakers, production companies, economists, and film enthusiats alike, all seeking to understand what drives film's success. Some highly anticipated films backed with a compelling storyline, a star-studded cast, and a substantial production budget go on to dominate the box office and sweep critical awards, while others flop on opening weekend and struggle to recoup their investment. So, what makes a movie successful? Is there some magic formula or are there specific pre-production factors that drive revenue? This question remains unanswered but in the century since the dawn of film, research-backed theories have begun to emerge. 
 
-My previous paper: [Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry](./assets/thesis.pdf) attempted to analyze the link between director quality and box-office success of a film. The paper created two novel measures of director quality; a summation of all box-office revenue earned by and the director's films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue and a robustness check was implemented changing the dependent variable to the IMDb rating earned. 
+As a first attempt at proving a film theory, my previous paper: [Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry](./assets/thesis.pdf) attempted to analyze the link between director quality and box-office success of a film. The paper created two novel measures of director quality; a summation of all box-office revenue earned by and the director's films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue and a robustness check was implemented changing the dependent variable to the IMDb rating earned. 
 
 ![Directorial Effect on Domestic Gross with Director Controls](./assets/thesis_table1.png){#tbl-1}
 
 ![Directorial Effect on IMDb Rating with Director Controls](./assets/thesis_table2.png){#tbl-2}
 
-The paper found an increase in director financial quality yielded between a 0.0289% and 0.0307% increas in domestic gross and no impact on IMDb rating. Conversely, director quality in terms of critical acclaim yielded no significant impact on domestic gross, but betweeen 0.01803 and 0.0270 point increase in IMDb rating. The paper also discovered a statistically significant decrease in domestic gross for demale directors as compared to male directors.
+The paper found an increase in director financial quality yielded between a 0.0289% and 0.0307% increase in domestic gross and no impact on IMDb rating. Conversely, director quality in terms of critical acclaim yielded no significant impact on domestic gross, but betweeen 0.01803 and 0.0270 point increase in IMDb rating. The paper also discovered a statistically significant decrease in domestic gross for demale directors as compared to male directors.
 
-Overall, the results were thought-provoking, however, the methodology used was lacking in the causality department. This paper, if anything, worked towards establishing a weak association due to it statical analysis going only so far as a simple ordinary-least-squares regression and controlling for confounding variables. While, the variables were considered and included in the regression equation, they were all treated equally as controls, thus a more complex analysis is warranted. 
+Overall, the results were thought-provoking, however, the methodology used was lacking in the causality department. The research, if anything, worked towards establishing a weak association due to it statical analysis going only so far as a simple ordinary-least-squares regression and controlling for confounding variables. While, the variables were considered and included in the regression equation, they were all treated equally as controls, thus a more complex analysis is warranted. 
 
-Furthermore, I wanted to investigate the conclusion of gender bias further and shifted this analysis to examine actors instead of directors.
-
-Moving forward, the work to get to causality includes introducing causality instead of just controlling for all covariates.
+Moving forward, the work to get to causality includes introducing causality instead of just controlling for all covariates. Furthermore, I wanted to investigate the conclusion of gender bias further and shifted this analysis to examine actors instead of directors.
 
 Thus, this paper will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will attempt to establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue by employing propensity score matching.
-
-Need to argue that there is sufficient common support between the treatment and control groups in a dataset in order to use propensity scores.
 
 Data collection and preparation is discussed in @sec-data. Methodology and propensity scoring is discussed in @sec-meth. Results and anlysis are disucssed in @sec-results. Conluding remarks, limitations, and future work are discussed in @sec-conclusion.
 
@@ -80,11 +76,17 @@ The final dataset included a total of 2,816 films with 61 columns of variables.
 
 : Summary Statistics of Numerical Variables {#tbl-3}
 
+The IMDb Rating, which is a score given by the Internet Movie Database, takes ratings given by IMDb users and aggregates them to generate a single rating from 0 to 10 for each film, with 10 indicating a perfect film and 0 indicating the worst possible film. In this dataset, the lowest rating given was a 1.9, while the highest rating was a 9.3, and the average was around a 6.6 rating. As shown in @fig-2, there is a clear decline in the average IMDb Rating over the years beginning around 1970 and flattening out over the last 20 or so years. 
+
 ![IMDb Rating Distribution](./notebooks/notebook_output/imdb_rating.png){#fig-1}
 
 ![IMDb Ratings over the Years](./notebooks/notebook_output/imdb_overtime.png){#fig-2}
 
+The Box Office value is the total revenue earned by the film from ticket sales for the film's release in theatres only. This metric is often utilized in entertainment economic literature as a proxy for the success of the film. This number boosts a mean way into the millions of around 73.5 million. As seen in @fig-3, unlike the IMDb rating has seen a general increasing trend over the years since around 1970, expect for the years around 2020 when theatres were closed due to Covid-19.
+
 ![Box Office Revenue over the Years](./notebooks/notebook_output/boxoffice_overtime.png){#fig-3}
+
+When looking at the categorizations of the films, we see that most fall into the genres of drama, comedy, action, and adventure @fig-4 and have an MPAA rating of R, PG-13, or G @fig-5.
 
 ![Distribution of Film Genres](./notebooks/notebook_output/genre_counts.png){#fig-4}
 
