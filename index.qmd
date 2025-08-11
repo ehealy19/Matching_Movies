@@ -260,27 +260,19 @@ As shown in @tbl-10, the initial hypothesis of this research that films featurin
 ### IMDb Rating
 The robustness check, which substitued IMDb rating as the outcome variable (also in @tbl-10), revealed a different pattern. Female-led films had an average IMDb rating of 6.329, while male-led films had an average of 6.601, a difference of -0.272. This indicated that, on average, female-led films received a 0.272 lower audience rating than male-led films despite their slightly better box office results.
 
-Taken together, these findings offer opposing views of how gender matters in the film industry. The box office analysis suggests a positive causal relationship between a female in the title role and revenue performance, while the IMDb rating analysis suggests a negative causal relationship between female leads and audience ratings. 
+## Discussion {#sec-discuss}
+
+There are a couple of plausible explanations for the disparity of these results. As one explanation this could be an indication that the general public of individuals who partake in film going casually have fully accepted female-led films and even enjoys them more. However, film critics and indviduals who view films more seriously are less accepting of women as the title character and playing large roles in films. Another explanation is that women are cast in roles that seemingly lack depth and thus are less likely to receive critical success, meaning filmmakers are combining women leading roles with less serious script material, but still casting them in blockbuster films that draw an audience. Furthermore, this could indicate an audience leaning toward certain female actresses or female actresses in general, pushing box office numbers higher.  
+
+The analysis, while offering insightful results, still faced some limitations. Firstly, there is always room for more data and a larger more encompassing data. With a little of 2,000 films, the dataset barely scratches the surface of the total filmography possible and more data would allow for more accurate propensity score matching. Secondly, the 'starpower' metric is quite subjective in that the lists of a-listers and b-listers were based on opinions about the actors and actresses, instead of some numeric metric. Thirdly, there is some inacurracy present with the creation of the female lead variable. While the list of actresses utilized was quite large, it was not fully encompassing, thus, some actresses were not classified correctly. Furthermore, this variable was created solely by splitting the cast list and taking the first name, which is not necessarily the lead cast member in all cases and disregards films that have more than one leading actor or actress or have an ensemble cast.
+
+These limitations offer much room for future work. To start, a more detailed and objective metric of the 'starpower' variable could be useful as this is a huge propenent of the making of a film. This could be performed with network analysis of the cast to determine the centrality of the actors as a measure of their importance in the industry. In addition, classifying the tagline and description based on content instead of sentiment could add more depth to the propsensity scoring. Similarly, a more comprehensive look at the film genres could create better matching. This could be done by leveraging an LLM to score the film from 0-1 for each genre indicating how much the film falls into that category, instead of weighting each genre listed equally. Finally, implementing a different gender-based treatment variable could be a telling robustness check. For example, defining the treatment as films that pass the Bechdel test, could create a more accurate look at how gender roles truly impact the outcome of the film. 
 
 ## Conclusion {#sec-conclusion}
 
-When investigating the results of box office and IMDb rating, the overall picture is 
+Taken together, the findings offer opposing views of how gender matters in the film industry. The box office analysis suggests a positive causal relationship between a female in the title role and revenue performance, while the IMDb rating analysis suggests a negative causal relationship between female leads and audience ratings. 
 
-
-Indication that the general public has fully accepted female-led films and even enjoys them more, while critics are less accepting
-
-or that women are cast in roles that lack depth and thus don't receive critical success
-
-The differing results underscore the complexity of the relationship between gender representation in leading roles and measures of film success. This higlights the importance of considering multiple outcome variables when assessing potential treatment effects, especially when dealing with a topic as nuanced as film and entertainment.
-
-### Limitations:
-1. More data
-2. Network Analysis
-3. Robustness Checks with Bechdel test
-4. Inacurracy from matching female leads & first actor not always the lead
-5. Unbalanced Dataset (is this an issue?)
-Further Work:
-1. classify the tagline and description
+Whatever the underlying reasoning, the differing results underscore the complexity of the relationship between gender representation in leading roles and measures of film success. This higlights the importance of considering multiple outcome variables when assessing potential treatment effects, especially when dealing with a topic as nuanced as film and entertainment.
 
 ## References {.unnumbered}
 
