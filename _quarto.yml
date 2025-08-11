@@ -1,8 +1,10 @@
 project:
   type: manuscript
+  output-dir: _manuscript
 
 execute:
   freeze: auto
+  preview: false
 
 format:
   html:
@@ -10,11 +12,18 @@ format:
     embed-resources: true
     comments:
       hypothesis: true
+    preview: true
+  agu-pdf:
+    preview: true
   docx: default
   jats: default
-  agu-pdf: default
 
 resources:
   - notebooks
   - assets
 
+chapters:
+  - notebooks/data_clean.ipynb
+  - notebooks/data_collect.ipynb
+  - notebooks/propensity_scores.ipynb
+  - notebooks/manufactured_vars.ipynb
