@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.5.54" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+<meta name="author" content="Lizzie Healy" />
+<meta name="dcterms.date" content="2025-08-11" />
+<meta name="keywords" content="Films, Gender Equality, Economics" />
+
+<title>Leading Ladies and Lost Revenue: A Causal Analysis of Female Representation and Box-Office Returns</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<!-- htmldependencies:E3FAD763 -->
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <div id="quarto-toc-target"></div>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default toc-left">
+  <div class="quarto-title-banner">
+    <div class="quarto-title column-body">
+      <h1 class="title">Leading Ladies and Lost Revenue: A Causal Analysis of Female Representation and Box-Office Returns</h1>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+            <div class="quarto-title-meta-author">
+          <div class="quarto-title-meta-heading">Author</div>
+          <div class="quarto-title-meta-heading">Affiliation</div>
+          
+                <div class="quarto-title-meta-contents">
+            <p class="author">Lizzie Healy <a href="mailto:emh201@georgetown.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+                <div class="quarto-title-meta-contents">
+                    <p class="affiliation">
+                        Georgetown University
+                      </p>
+                  </div>
+                    </div>
+        
+        <div class="quarto-title-meta">
+
+                      
+                <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">August 11, 2025</p>
+            </div>
+          </div>
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      </div>
+    </div>
+
+    <div>
+      <div class="abstract">
+        <div class="block-title">Abstract</div>
+        <p>This work will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue. This will be accomplished utilizing propensity weighting, which will match movies based on the perceived similarity of their characteristics. These predictor variables will include the year, month of release, genre, runtime, director and writers, star power level of the cast, MPAA rating, country of release, language, film description, the production budget, the country of release, production companies, and tagline. To deal with the variables that are non-numeric the following steps will be taken. Firstly, a manufactured metric will be created to capture the preceived ‘starpower’ of the actors/actresses. Secondly, a sentiment analysis will be performed on the film description and tagline. The primary outcome variable will be the box-office number measured in US dollars, measured as the gross value worldwide. The IMDb score will be employed as an additional outcome measure to be used as a robustness check. The initial hypothesis is that films that opt to feature a female in the leading role will experience a decrease value in the box-office revenue.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="keywords">
+        <div class="block-title">Keywords</div>
+        <p>Films, Gender Equality, Economics</p>
+      </div>
+    </div>
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header>
+
+  
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#sec-data" id="toc-sec-data"><span class="header-section-number">2</span> Data</a></li>
+  <li><a href="#sec-meth" id="toc-sec-meth"><span class="header-section-number">3</span> Methodology</a>
+  <ul>
+  <li><a href="#manufactured-variables" id="toc-manufactured-variables"><span class="header-section-number">3.1</span> Manufactured Variables</a></li>
+  <li><a href="#propensity-score-matching" id="toc-propensity-score-matching"><span class="header-section-number">3.2</span> Propensity Score Matching</a></li>
+  <li><a href="#robustness-checks" id="toc-robustness-checks"><span class="header-section-number">3.3</span> Robustness Checks</a></li>
+  </ul></li>
+  <li><a href="#sec-results" id="toc-sec-results"><span class="header-section-number">4</span> Results</a>
+  <ul>
+  <li><a href="#box-office" id="toc-box-office"><span class="header-section-number">4.1</span> Box Office</a></li>
+  <li><a href="#imdb-rating" id="toc-imdb-rating"><span class="header-section-number">4.2</span> IMDb Rating</a></li>
+  </ul></li>
+  <li><a href="#sec-discuss" id="toc-sec-discuss"><span class="header-section-number">5</span> Discussion</a></li>
+  <li><a href="#sec-conclusion" id="toc-sec-conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
+  <li><a href="#references" id="toc-references">References</a></li>
+  </ul>
+</nav>
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1"><span class="header-section-number">1</span> Introduction</h2>
+<p>The film industry has been a dominant force in United States entertainment since cinema became a popular pastime in the 1930s and 1940s <span class="citation" data-cites="science_cinema_history">(<a href="#ref-science_cinema_history" role="doc-biblioref">National Science and Media Museum 2020</a>)</span>. Today, it remains an extremely lucrative business, to the tune of approximately $77 billion annually <span class="citation" data-cites="statista_film">(<a href="#ref-statista_film" role="doc-biblioref">Statista n.d.</a>)</span>. This enduring profitability has attracted filmmakers, production companies, economists, and film enthusiasts alike, all seeking to understand what drives the success of a film. Some highly anticipated films, backed by a compelling storyline, a star-studded cast, and a substantial production budget, go on to dominate the box office and sweep critical awards, while others flop on opening weekend and struggle to recoup their investment. So, what makes a movie successful? Is there some magic formula, or are there specific pre-production factors that drive revenue? These questions remain unanswered, but in the century since the dawn of film, research-backed theories have begun to emerge.</p>
+<p>As a first attempt at providing one such theory, my previous paper, <a href="./assets/thesis.pdf">Behind the Box Office: Directorial Influence on Film Revenue in the United States Entertainment Industry</a> attempted to analyze the link between director quality and the box-office success of a film. The paper created two novel measures of director quality: a summation of all box-office revenue earned by the director’s films and the accumulated number of critical awards from the fifteen years leading up to the film in question. The main dependent variable was domestic box-office revenue, and a robustness check was implemented, changing the dependent variable to the IMDb rating earned.</p>
+<div id="tbl-1" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 1: Directorial Effect on Domestic Gross with Director Controls
+</figcaption>
+<div aria-describedby="tbl-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./assets/thesis_table1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Table 1: Directorial Effect on Domestic Gross with Director Controls"><img src="./assets/thesis_table1.png" class="img-fluid" /></a>
+</div>
+</figure>
+</div>
+<div id="tbl-2" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 2: Directorial Effect on IMDb Rating with Director Controls
+</figcaption>
+<div aria-describedby="tbl-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./assets/thesis_table2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Table 2: Directorial Effect on IMDb Rating with Director Controls"><img src="./assets/thesis_table2.png" class="img-fluid" /></a>
+</div>
+</figure>
+</div>
+<p>The paper found that an increase in director financial quality yielded between a 0.0289% and 0.0307% increase in domestic gross and no impact on IMDb rating. Conversely, director quality in terms of critical acclaim yielded no significant impact on domestic gross, but between 0.01803 and 0.0270 point increase in IMDb rating. The paper also discovered a statistically significant decrease in domestic gross for female directors as compared to male directors outlined in <a href="#tbl-1" class="quarto-xref">Table 1</a> and <a href="#tbl-2" class="quarto-xref">Table 2</a>.</p>
+<p>Overall, the results were thought-provoking; however, the methodology used was lacking in the causality department. The research, if anything, worked towards establishing a weak association due to its statistical analysis going only so far as a simple ordinary-least-squares regression and controlling for confounding variables. While the variables were considered and included in the regression equation, they were all treated equally as controls; thus, a more complex analysis is warranted.</p>
+<p>Moving forward, the work to get to causality includes introducing causal methods for handling covariates instead of just controlling for them. Furthermore, I wanted to investigate the conclusion of gender bias further and shifted this analysis to examine actors instead of directors.</p>
+<p>Thus, this paper will investigate the impact of gender bias in the film industry pertaining to economic outcomes. Specifically, it will attempt to establish a causal link between a film casting a female actress in the leading role and the resulting box-office revenue by employing propensity score matching.</p>
+<p>Data collection and preparation are discussed in <a href="#sec-data" class="quarto-xref">Section 2</a>. Methodology, manufactured variables, and propensity scoring are discussed in <a href="#sec-meth" class="quarto-xref">Section 3</a>. Results and analysis are presented in <a href="#sec-results" class="quarto-xref">Section 4</a>. Results are discussed in <a href="#sec-discuss" class="quarto-xref">Section 5</a>. Concluding remarks, limitations, and future work are discussed in <a href="#sec-conclusion" class="quarto-xref">Section 6</a>.</p>
+</section>
+<section id="sec-data" class="level2" data-number="2">
+<h2 data-number="2"><span class="header-section-number">2</span> Data</h2>
+<p>The data for this research was collected from two separate sources: <a href="https://www.omdbapi.com/">Open Movie Database (OMDb)</a> and <a href="https://www.themoviedb.org/">The Movie Database (TMDb)</a>. Both are sources for movie and television metadata, differing only in their sourcing and specific variables provided. OMDb partly sources from Amazon’s Internet Movie Database (IMDb) and then relies on crowdsourcing for missing data, while TMDb is independently created and relies solely on crowdsourcing from its community of film buffs to provide data entry for films. Both of these sources offer an API that allowed for the collection of movie metadata, which was then merged using an inner join on the film Title and resulted in the following variables: <code>Title</code>, <code>Year</code>, <code>Runtime</code>, <code>Budget</code>, <code>Released</code>, <code>Genre</code> (Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, Film Noir, History, Horror, Music, Musical, Mystery, Romance, Sci-Fi, Sport, Thriller, War, Western), <code>MPAA Rating</code> (G, GP, M, M/PG, NC-17, Not-Rated, PG, PG-13, R, TV-MA, Unrated, Accepted), <code>Production Companies</code>, <code>Director</code>, <code>Writer</code>, <code>Country</code>, <code>Language</code>, <code>Description</code>, <code>Tagline</code>, <code>Overview</code>, <code>Actors</code>, <code>Box Office</code>, <code>Revenue</code>, <code>IMDb Rating</code>, <code>Metascore</code>, <code>IMDb Votes</code>, <code>TMDb rating</code>, <code>Vote Count</code>, <code>Awards</code>, and <code>Poster URL</code>.</p>
+<p>With this combined dataset, some further preparation was required to move forward with the analysis. Firstly, some variables were dropped as they were deemed unimportant, while others were very similar across the datasets; for example, only the ‘Description’ was kept, and the ‘Overview’ variable was dropped. All missing and zero values in numerical variables were removed, and each of the variables was converted to the correct data type. The ‘Released’ date was split into three variables for the month, day, and year. For the categorical variables, two different techniques were utilized. For ‘Genre’ and ‘MPAA rating’, a one-hot encoding was applied. However, for the ‘Language’ and ‘Country’ only the first observation of each was kept, which was then categorized simply as either English or other language, and domestic (for the US) and international for all other countries.</p>
+<p>The final dataset included a total of 2,816 films with 61 columns of variables.</p>
+<div id="tbl-3" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 3: Summary Statistics of Numerical Variables
+</figcaption>
+<div aria-describedby="tbl-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Minimum</th>
+<th>Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Box Office</td>
+<td>3,622</td>
+<td>858,373,000</td>
+</tr>
+<tr class="even">
+<td>Budget</td>
+<td>7,000</td>
+<td>460,000,000</td>
+</tr>
+<tr class="odd">
+<td>Runtime</td>
+<td>63</td>
+<td>238</td>
+</tr>
+<tr class="even">
+<td>IMDb Rating</td>
+<td>1.9</td>
+<td>9.3</td>
+</tr>
+<tr class="odd">
+<td>IMDb Votes</td>
+<td>1,672</td>
+<td>3,059,994</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The IMDb Rating, which is a score given by the Internet Movie Database, takes ratings given by IMDb users and aggregates them to generate a single rating from 0 to 10 for each film, with 10 indicating a perfect film and 0 indicating the worst possible film. In this dataset, the lowest rating given was a 1.9, while the highest rating was a 9.3, and the average was around a 6.6 rating. As shown in <a href="#fig-2" class="quarto-xref">Figure 2</a>, there is a clear decline in the average IMDb Rating over the years, beginning around 1970 and flattening out over the last 20 or so years.</p>
+<div id="fig-1" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./notebooks/notebook_output/imdb_rating.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure 1: IMDb Rating Distribution"><img src="./notebooks/notebook_output/imdb_rating.png" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: IMDb Rating Distribution
+</figcaption>
+</figure>
+</div>
+<div id="fig-2" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./notebooks/notebook_output/imdb_overtime.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure 2: IMDb Ratings over the Years"><img src="./notebooks/notebook_output/imdb_overtime.png" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2: IMDb Ratings over the Years
+</figcaption>
+</figure>
+</div>
+<p>The Box Office value is the total revenue earned by the film from ticket sales for the film’s release in theatres only. This metric is often utilized in entertainment economics literature as a proxy for the success of the film. This number boosts a mean of around 73.5 million. As shown in <a href="#fig-3" class="quarto-xref">Figure 3</a>, unlike the IMDb rating, the box office has seen a general increasing trend over the years since 1970, except for 2020 when theatres were closed due to COVID-19.</p>
+<div id="fig-3" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./notebooks/notebook_output/boxoffice_overtime.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure 3: Box-Office Revenue over the Years"><img src="./notebooks/notebook_output/boxoffice_overtime.png" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 3: Box-Office Revenue over the Years
+</figcaption>
+</figure>
+</div>
+<p>When looking at the categorizations of the films, we see that most fall into the genres of drama, comedy, action, and adventure and have an MPAA rating of R, PG-13, or G (<a href="#fig-4" class="quarto-xref">Figure 4</a> and <a href="#fig-5" class="quarto-xref">Figure 5</a>).</p>
+<div id="fig-4" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./notebooks/notebook_output/genre_counts.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure 4: Distribution of Film Genres"><img src="./notebooks/notebook_output/genre_counts.png" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 4: Distribution of Film Genres
+</figcaption>
+</figure>
+</div>
+<div id="fig-5" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="./notebooks/notebook_output/mpaa_pie.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure 5: Percentage of Film MPAAs Ratings"><img src="./notebooks/notebook_output/mpaa_pie.png" class="img-fluid" /></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 5: Percentage of Film MPAAs Ratings
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-meth" class="level2" data-number="3">
+<h2 data-number="3"><span class="header-section-number">3</span> Methodology</h2>
+<section id="manufactured-variables" class="level3" data-number="3.1">
+<h3 data-number="3.1"><span class="header-section-number">3.1</span> Manufactured Variables</h3>
+<section id="top-directors-writers-production-companies" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1"><span class="header-section-number">3.1.1</span> Top Directors, Writers, Production Companies</h4>
+<p>In order to incorporate the level of expertise of the team creating the film, this analysis worked to categorize the level of directors, writers, and production companies. All of these were attempting to better match movies based on the level of effort put into its creation in terms of money, knowledge, experience, and previous success. To achieve this, three lists were collected that detailed the top directors, writers, and production companies:</p>
+<p><span class="citation" data-cites="imdb_top_directors"><span>“IMDb List: Top 25 Greatest Directors of All Time”</span> (<a href="#ref-imdb_top_directors" role="doc-biblioref">n.d.</a>)</span><br />
+<span class="citation" data-cites="imdb_top_writers"><span>“IMDb List: Top 20 Greatest Screenwriters of All Time”</span> (<a href="#ref-imdb_top_writers" role="doc-biblioref">n.d.</a>)</span><br />
+<span class="citation" data-cites="the_numbers_production_companies"><span>“Production Companies Overview”</span> (<a href="#ref-the_numbers_production_companies" role="doc-biblioref">n.d.</a>)</span></p>
+<p>The directors and writers were judged on a combination of their perceived skill and their lifetime achievement in terms of awards and accolades. The production companies were compiled simply based on the total domestic box-office revenue amassed across all films they have produced.</p>
+<p>The director, writer, and production company variables were then referenced against these lists, receiving a 1 if the entity was mentioned in the list and a 0 otherwise, resulting in three one-hot encoded variables: <code>Top_Production</code>, <code>Top_Director</code>, and <code>Top_Writer</code>. For the sake of simplicity, if more than one entity was listed for any of these variables, only the first entity was taken into account.</p>
+</section>
+<section id="tagline-and-description-sentiment-analysis" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2"><span class="header-section-number">3.1.2</span> Tagline and Description Sentiment Analysis</h4>
+<p>In order to extract meaningful value from the film description and tagline, sentiment analysis was performed on the text. This sentiment analysis was performed by an off-the-shelf pre-trained model publicly available on Hugging Face <span class="citation" data-cites="distilbert_sst2_hf">Face (<a href="#ref-distilbert_sst2_hf" role="doc-biblioref">n.d.</a>)</span> . This model was trained on English text specifically for binary text classification and achieved a high accuracy score. The result is two variables with a binary value of 1 for positive sentiment or 0 for negative sentiment of both the film description and film tagline.</p>
+<div id="tbl-4" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 4: Example of the Tagline Sentiment Values
+</figcaption>
+<div aria-describedby="tbl-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 28%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Title</th>
+<th>Tagline</th>
+<th>Tagline Sentiment</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Surf’s Up</td>
+<td>A Major Ocean Picture.</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>The BFG</td>
+<td>The world is more giant than you can imagine.</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Twin Peaks: Fire Walk with Me</td>
+<td>In a town like Twin Peaks, no one is innocent.</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Meet the Robinsons</td>
+<td>If you think your family’s different, wait ’til you meet the family of the future.</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>The Royal Tenenbaums</td>
+<td>Family isn’t a word … It’s a sentence.</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-5" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 5: Count of Positive and Negative Sentiment
+</figcaption>
+<div aria-describedby="tbl-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Sentiment</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Positive</td>
+<td>1476</td>
+</tr>
+<tr class="even">
+<td>Negative</td>
+<td>1340</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="starpower-variable" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3"><span class="header-section-number">3.1.3</span> Starpower Variable</h4>
+<p>One of the most important building blocks of a film is the cast of actors and actresses, and well-known names can be a huge draw to the theatres for movie-goers. This feature seemingly has an impact on the outcome of the film and its financial success. Thus, finding a way to classify the ‘starpowerness’ of the cast was paramount to this analysis. The dataset, unfortunately, only provides the three main cast members, which discounts films that rely on an ensemble cast or have a large enough budget to cast many big names. That being said, this research attempted to define a metric that quantified this ‘starpower’ aspect of the three cast members, in the hopes that the success and name-recognition can be at least partly captured.</p>
+<p>The metric was created by collecting lists of A-list and B-list actors and actresses.</p>
+<p><span class="citation" data-cites="imdb_a_list_actors"><span>“IMDb a-List Actors”</span> (<a href="#ref-imdb_a_list_actors" role="doc-biblioref">n.d.</a>)</span><br />
+<span class="citation" data-cites="imdb_a_list_actresses"><span>“IMDb a-List Actresses”</span> (<a href="#ref-imdb_a_list_actresses" role="doc-biblioref">n.d.</a>)</span><br />
+<span class="citation" data-cites="imdb_b_list"><span>“IMDb b-List Actors and Actresses”</span> (<a href="#ref-imdb_b_list" role="doc-biblioref">n.d.</a>)</span></p>
+<p>In film terms, these categorizations reflect how ‘bankable’ the stars are or how much financial draw they bring to a film, theoretically. These lists are all collected from IMDb and include a wide range of household names. With these lists, the cast variable was split into <code>actor1</code>, <code>actor2</code>, and <code>actor3</code> based simply on the order in which they were listed. Then, each of the cast variables was referenced against all three of the lists. The film title received:</p>
+<ul>
+<li><strong>2 points</strong> if a cast member was part of the A-list<br />
+</li>
+<li><strong>1 point</strong> if a cast member was part of the B-list</li>
+</ul>
+<p>These points were added in the <code>starpower</code> variable and then divided by three to get a finalized score of the points across the three cast members. <a href="#tbl-6" class="quarto-xref">Table 6</a> shows an example of the scoring.</p>
+<div id="tbl-6" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 6: Starpower Metric Scores for the Cast of 10 Films
+</figcaption>
+<div aria-describedby="tbl-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 28%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>actor1</th>
+<th>actor2</th>
+<th>actor3</th>
+<th>starpower</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mark Wahlberg</td>
+<td>Tyrese Gibson</td>
+<td>André 3000</td>
+<td>0.666667</td>
+</tr>
+<tr class="even">
+<td>Jamie Bell</td>
+<td>Andy Serkis</td>
+<td>Daniel Craig</td>
+<td>1.333333</td>
+</tr>
+<tr class="odd">
+<td>Ryan Reynolds</td>
+<td>Blake Lively</td>
+<td>Peter Sarsgaard</td>
+<td>0.333333</td>
+</tr>
+<tr class="even">
+<td>Marc Singer</td>
+<td>Tanya Roberts</td>
+<td>Rip Torn</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td>Tom Hiddleston</td>
+<td>Samuel L. Jackson</td>
+<td>Brie Larson</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td>Jeremy Renner</td>
+<td>Ed Helms</td>
+<td>Jake Johnson</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td>Frankie Muniz</td>
+<td>Amanda Bynes</td>
+<td>Paul Giamatti</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td>Ben Barnes</td>
+<td>Skandar Keynes</td>
+<td>Georgie Henley</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td>Jason Bateman</td>
+<td>Charlie Day</td>
+<td>Jason Sudeikis</td>
+<td>1.000000</td>
+</tr>
+<tr class="even">
+<td>Jack Black</td>
+<td>Ana de la Reguera</td>
+<td>Héctor Jiménez</td>
+<td>0.333333</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="feamle-leading-role-variable" class="level4" data-number="3.1.4">
+<h4 data-number="3.1.4"><span class="header-section-number">3.1.4</span> Feamle Leading Role Variable</h4>
+<p>This analysis relied on the ability to distinguish between female and male leading actresses and actors; however, this is not something directly encoded into the metadata of a film, thus this variable had to be manufactured. In order to achieve this, a list of all current female actresses was collected from Wikipedia <span class="citation" data-cites="wiki_film_actresses"><span>“List of American Film Actresses”</span> (<a href="#ref-wiki_film_actresses" role="doc-biblioref">n.d.</a>)</span>. This list included 2,816 names of female actresses, alphabetized. To note, there were attempts to utilize a list of all female names and an off-the-shelf model to guess whether the cast member listed identified as male or female, however, both of these methods produced more inaccuracy, thus the list of female actresses method was proceeded with.</p>
+<p>The next step was to determine only the presumed lead cast member by extracting the first person listed in the <code>actors</code> variable of the dataset. This name was then compared against the list of female actresses and received a value of 1 if the cast member was included on the list.</p>
+<p>Therefore, the result was a variable titled <code>female_lead</code> if the first cast member listed in the IMDb metadata was a member of the current working female actress list and a 0 if the cast member was not a member of the list and, thus, presumably a male actor. <a href="#tbl-7" class="quarto-xref">Table 7</a> displays an example of the accuracy results of this variable.</p>
+<div id="tbl-7" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 7: Example of the <code>female_lead</code> Variable
+</figcaption>
+<div aria-describedby="tbl-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Title</th>
+<th>First Actor</th>
+<th>Female Lead</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Family</td>
+<td>Robert De Niro</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>The Shack</td>
+<td>Sam Worthington</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>The Dead Zone</td>
+<td>Christopher Walken</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>The Ref</td>
+<td>Denis Leary</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Flyboys</td>
+<td>James Franco</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>ATL</td>
+<td>Tip ‘T.I.’ Harris</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Like a Boss</td>
+<td>Tiffany Haddish</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Enemy Mine</td>
+<td>Dennis Quaid</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Proud Mary</td>
+<td>Taraji P. Henson</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Valmont</td>
+<td>Colin Firth</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>As displayed in <a href="#tbl-8" class="quarto-xref">Table 8</a> the films were split between 488 films with female leading actresses and 2328 films with male leading actors.</p>
+<div id="tbl-8" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 8: Male Versus Female Director Counts
+</figcaption>
+<div aria-describedby="tbl-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Female Leads</td>
+<td>488</td>
+</tr>
+<tr class="even">
+<td>Male Leads</td>
+<td>2328</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="propensity-score-matching" class="level3" data-number="3.2">
+<h3 data-number="3.2"><span class="header-section-number">3.2</span> Propensity Score Matching</h3>
+<p>With these manufactured variables created, the primary statistical analysis performed was propensity score matching (PSM). This statistical method allows for comparison of films that are similar across all observed covariates, differing only in whether the lead is a male or female actor or actress. In this context, the presence of a female lead is handled as a treatment, and the effect of that treatment on the outcome variable is estimated.</p>
+<p>Unlike simply including covariates as controls in a regression equation, this technique aims to reduce selection bias by matching treated and control units based on their likelihood of receiving the treatment, given the covariates. This creates a more comparable dataset, which quasi-mimics the conditions of a randomized experiment.</p>
+<p>The process of propensity score matching began with normalizing the variables due to the very differing range of values across variables like the IMDb rating (which is 0-10) and the budget (which can reach hundreds of millions). This was done with Sklearn’s StandardScaler <span class="citation" data-cites="scikit_learn_standardscaler">scikit-learn developers (<a href="#ref-scikit_learn_standardscaler" role="doc-biblioref">2025</a>)</span> and performed on all numerical variables.</p>
+<p>Following this step, the variance inflation factor (VIF) was checked to investigate any multicollinearity issues among the covariates that would bias the analysis. This yielded some problematic variables, which resulted in excluding those that exceeded the VIF threshold of 10 points. The following variables were excluded: international country (domestic country kept), other language (English kept), musical genre (all other genre categories kept), and accepted MPAA rating (all other MPAA ratings kept).</p>
+<p>Next, a logistic regression was estimated. The variables <code>metascore</code>, <code>IMDb votes</code>, <code>TMDb rating</code>, <code>TMDb votes</code>, <code>Oscars Won</code>, <code>Oscars Nominated</code>, <code>Award Wins</code>, and <code>Award Nominations</code> were omitted because they are ex-post variables, meaning they represent effects of the outcomes as opposed to causes of it, thus creating data leakage and bias. Therefore, only ex-ante variables are considered. The resulting equation is as follows, representing a female leading role as the treatment and the film characteristics as covariates:</p>
+<p><span class="math display">\[\begin{align}
+\text{logit}(\mathbb{P}(\text{Female\_Lead} = 1)) &amp;= \beta_0
++ \beta_1 \cdot \text{Year}
++ \beta_2 \cdot \text{Runtime}
++ \beta_3 \cdot \text{Budget}
++ \beta_4 \cdot \text{Month}
++ \beta_5 \cdot \text{Day} \nonumber \\
+&amp;\quad + \sum_{g} \beta_g \cdot \text{Genre}_g
++ \sum_{r} \beta_r \cdot \text{Rating}_r \nonumber \\
+&amp;\quad + \beta_6 \cdot \text{Top\_Production\_Company}
++ \beta_7 \cdot \text{Top\_Director}
++ \beta_8 \cdot \text{Top\_Writer} \nonumber \\
+&amp;\quad + \beta_9 \cdot \text{Domestic}
++ \beta_{10} \cdot \text{English\_Language} \nonumber \\
+&amp;\quad + \beta_{11} \cdot \text{Descr\_Sentiment}
++ \beta_{12} \cdot \text{Tagline\_Sentiment}
++ \beta_{13} \cdot \text{Starpower}
+\end{align}\]</span></p>
+<p>The result of this equation is propensity scores (ps) for each film title (dataset row), which represent the calculated probability of the film having a female leading actress. A score close to 0 indicates a higher likelihood of the film having a male lead, while a score closer to 1 indicates a higher likelihood of a film having a female lead. These scores are then used to match, utilizing 1:1 nearest neighbor matching, the movies across the two groups of leading actors/actresses based on the closest propensity score. This results in a matched dataset with each row being a matched pair of films that are similar in all aspects except for the leading role.</p>
+<div id="tbl-9" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 9: Example of Propensity Score Matching Between Male and Female Led Films
+</figcaption>
+<div aria-describedby="tbl-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Female Led Movie</th>
+<th>PS Female</th>
+<th>Male Led Movie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Miss Congeniality</td>
+<td>0.082866</td>
+<td>Back to the Future Part III</td>
+</tr>
+<tr class="even">
+<td>GI Jane</td>
+<td>0.031775</td>
+<td>Gladiator</td>
+</tr>
+<tr class="odd">
+<td>Freaky Friday</td>
+<td>0.212226</td>
+<td>The Boat the Rocked</td>
+</tr>
+<tr class="even">
+<td>Kill Bill: Vol. 2</td>
+<td>0.066924</td>
+<td>2 Fast 2 Furious</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The final step was to calculate and compare the box-office performance of matched female versus male lead films. These results are discussed in <a href="#sec-results" class="quarto-xref">Section 4</a>.</p>
+</section>
+<section id="robustness-checks" class="level3" data-number="3.3">
+<h3 data-number="3.3"><span class="header-section-number">3.3</span> Robustness Checks</h3>
+<p>As a robustness check, the <code>IMDb rating</code>, which is a score from 0-10, calculated from a weighted average of user ratings on the Internet Movie Database, is utilized as a secondary outcome variable. The same methodology of propensity score matching is used; however, the analysis now investigates whether a female lead role causes a change in the critical success of the film.</p>
+</section>
+</section>
+<section id="sec-results" class="level2" data-number="4">
+<h2 data-number="4"><span class="header-section-number">4</span> Results</h2>
+<div id="tbl-10" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 10: Mean of Box Office and IMDb Rating for Male Versus Female Led Films
+</figcaption>
+<div aria-describedby="tbl-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Gender of Lead Role</th>
+<th>Box Office</th>
+<th>IMDb Rating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Female</td>
+<td>62,708,871.36</td>
+<td>6.329</td>
+</tr>
+<tr class="even">
+<td>Male</td>
+<td>61,076,707.45</td>
+<td>6.601</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="box-office" class="level3" data-number="4.1">
+<h3 data-number="4.1"><span class="header-section-number">4.1</span> Box Office</h3>
+<p>As shown in <a href="#tbl-10" class="quarto-xref">Table 10</a>, the initial hypothesis of this research that films featuring a woman in the leading role would generate lower box-office revenues was not supported by the analysis. In fact, the opposite was found: that female films earned an average of $62,708,871, while male films earned an average of $61,076,707 in box-office revenues. This means that female-led films earned 1,632,163.91 more at the box office on average. While the magnitude of the difference is modest compared to the average box-office revenue, the matched sample analysis does suggest that having a female lead was associated with slightly higher box-office performance.</p>
+</section>
+<section id="imdb-rating" class="level3" data-number="4.2">
+<h3 data-number="4.2"><span class="header-section-number">4.2</span> IMDb Rating</h3>
+<p>The robustness check, which substituted IMDb rating as the outcome variable (also in <a href="#tbl-10" class="quarto-xref">Table 10</a>), revealed a different pattern. Female-led films had an average IMDb rating of 6.329, while male-led films had an average of 6.601, a difference of -0.272. This indicated that, on average, female-led films received a 0.272 lower audience rating than male-led films despite their slightly better box-office results.</p>
+</section>
+</section>
+<section id="sec-discuss" class="level2" data-number="5">
+<h2 data-number="5"><span class="header-section-number">5</span> Discussion</h2>
+<p>There are a couple of plausible explanations for the disparity of these results. As one explanation, this could be an indication that the general public of individuals who partake in film going casually have fully accepted female-led films and even enjoy them more. However, film critics and individuals who view films more seriously are less accepting of women playing large roles in films. Another explanation is that women are cast in roles that seemingly lack depth and thus are less likely to receive critical success, meaning filmmakers are combining women leading roles with less serious script material, but still casting them in blockbuster films that draw an audience. Furthermore, this could indicate an audience leaning toward certain female actresses or female actresses in general, pushing box-office numbers higher.</p>
+<p>The analysis, while offering insightful results, still faced some limitations. Firstly, there is always room for more data and a larger, more encompassing dataset. With a little over 2,000 films, the dataset barely scratches the surface of the total filmography possible, and more data would allow for more accurate propensity score matching. Secondly, the ‘starpower’ metric is quite subjective in that the lists of A-listers and B-listers were based on opinions about the actors and actresses, instead of some numeric metric. Thirdly, there is a small level of inaccuracy with the creation of the female lead variable. While the list of actresses utilized was quite large, it was not fully encompassing; thus, some actresses were not classified correctly. Furthermore, this variable was created solely by splitting the cast list and taking the first name, which is not necessarily the lead cast member in all cases, and disregards films that have more than one leading actor or actress or have an ensemble cast.</p>
+<p>These limitations offer much room for future work. To start, a more detailed and objective metric of the ‘starpower’ variable could be useful, as this is a huge determinant of the making of a film. This could be performed with network analysis of the cast to determine the centrality of the actors as a measure of their importance in the industry. In addition, classifying the tagline and description based on content instead of sentiment could add more depth to the propensity scoring. Similarly, a more comprehensive look at the film genres could create better matches. This could be done by leveraging an LLM to score the film from 0-1 for each genre, indicating how much the film falls into that category, instead of weighting each genre listed equally. Finally, implementing a different gender-based treatment variable could be a telling robustness check. For example, defining the treatment as films that pass the Bechdel test could create a more accurate look at how gender roles truly impact the outcome of the film.</p>
+</section>
+<section id="sec-conclusion" class="level2" data-number="6">
+<h2 data-number="6"><span class="header-section-number">6</span> Conclusion</h2>
+<p>Taken together, the findings offer opposing views of how gender matters in the film industry. The box office analysis suggests a positive causal relationship between a female in the title role and revenue performance, while the IMDb rating analysis suggests a negative causal relationship between female leads and audience ratings.</p>
+<p>Whatever the underlying reasoning, the differing results underscore the complexity of the relationship between gender representation in leading roles and measures of film success. This highlights the importance of considering multiple outcome variables when assessing potential treatment effects, especially when dealing with a topic as nuanced as film and entertainment.</p>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-distilbert_sst2_hf" class="csl-entry" role="listitem">
+Face, Hugging. n.d. <span>“Distilbert-Base-Uncased-Finetuned-Sst-2-English.”</span> <a href="https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english" class="uri">https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english</a>.
+</div>
+<div id="ref-imdb_a_list_actors" class="csl-entry" role="listitem">
+<span>“IMDb a-List Actors.”</span> n.d. <a href="https://www.imdb.com/list/ls056262001/" class="uri">https://www.imdb.com/list/ls056262001/</a>.
+</div>
+<div id="ref-imdb_a_list_actresses" class="csl-entry" role="listitem">
+<span>“IMDb a-List Actresses.”</span> n.d. <a href="https://www.imdb.com/list/ls056262192/" class="uri">https://www.imdb.com/list/ls056262192/</a>.
+</div>
+<div id="ref-imdb_b_list" class="csl-entry" role="listitem">
+<span>“IMDb b-List Actors and Actresses.”</span> n.d. <a href="https://www.imdb.com/list/ls024783564/" class="uri">https://www.imdb.com/list/ls024783564/</a>.
+</div>
+<div id="ref-imdb_top_writers" class="csl-entry" role="listitem">
+<span>“IMDb List: Top 20 Greatest Screenwriters of All Time.”</span> n.d. <a href="https://www.imdb.com/list/ls064457317/" class="uri">https://www.imdb.com/list/ls064457317/</a>.
+</div>
+<div id="ref-imdb_top_directors" class="csl-entry" role="listitem">
+<span>“IMDb List: Top 25 Greatest Directors of All Time.”</span> n.d. <a href="https://www.imdb.com/list/ls052380992/" class="uri">https://www.imdb.com/list/ls052380992/</a>.
+</div>
+<div id="ref-wiki_film_actresses" class="csl-entry" role="listitem">
+<span>“List of American Film Actresses.”</span> n.d. <a href="https://en.wikipedia.org/wiki/List_of_American_film_actresses" class="uri">https://en.wikipedia.org/wiki/List_of_American_film_actresses</a>.
+</div>
+<div id="ref-science_cinema_history" class="csl-entry" role="listitem">
+National Science and Media Museum. 2020. <span>“A Very Short History of Cinema.”</span> <a href="https://www.scienceandmediamuseum.org.uk/objects-and-stories/very-short-history-of-cinema" class="uri">https://www.scienceandmediamuseum.org.uk/objects-and-stories/very-short-history-of-cinema</a>.
+</div>
+<div id="ref-the_numbers_production_companies" class="csl-entry" role="listitem">
+<span>“Production Companies Overview.”</span> n.d. <a href="https://www.the-numbers.com/movies/production-companies/#production_companies_overview=od1" class="uri">https://www.the-numbers.com/movies/production-companies/#production_companies_overview=od1</a>.
+</div>
+<div id="ref-scikit_learn_standardscaler" class="csl-entry" role="listitem">
+scikit-learn developers. 2025. <span>“StandardScaler — Scikit-Learn 1.7.1 Documentation.”</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html" class="uri">https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html</a>.
+</div>
+<div id="ref-statista_film" class="csl-entry" role="listitem">
+Statista. n.d. <span>“Film Production Worldwide - Statista Topic Overview.”</span> <a href="https://www.statista.com/topics/5431/film-production-worldwide/" class="uri">https://www.statista.com/topics/5431/film-production-worldwide/</a>.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id = "quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","loop":false,"descPosition":"bottom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+</body>
+
+</html>

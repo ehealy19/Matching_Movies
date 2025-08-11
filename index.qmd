@@ -27,6 +27,9 @@ citation:
 number-sections: true
 jupyter: python3
 kernel: dsan5650
+format:
+  html:
+    embed-resources: true
 ---
 
 ## Introduction

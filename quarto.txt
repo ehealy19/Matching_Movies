@@ -1,0 +1,23 @@
+project:
+  type: manuscript
+
+execute:
+  freeze: auto
+  preview: false
+
+format:
+  html:
+    toc: true
+    self-contained: true
+    embed-resources: true
+    include-notebooks: false
+    comments:
+      hypothesis: true
+    preview: false
+  agu-pdf:
+    preview: true
+  docx: default
+  jats: default
+
+resources:
+  - assets
